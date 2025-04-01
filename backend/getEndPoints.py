@@ -1,0 +1,194 @@
+from fastapi import FastAPI, HTTPException, Depends
+from fastapi import status
+from fastapi import Security
+from fastapi.security import OAuth2PasswordBearer
+
+from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine
+from sqlalchemy.orm import sessionmaker
+from sqlalchemy import Column, Integer, String
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.future import select
+from typing import List
+from pydantic import BaseModel
+import bcrypt
+from passlib.context import CryptContext
+import jwt
+from datetime import datetime, timedelta
+from typing import Optional
+
+
+
+
+# Modelo Pydantic para serialização dos dados
+
+##User
+
+class UserResponse(BaseModel):
+    id: int
+    username: str
+    email: str
+
+
+    class Config:
+        from_attributes = True  
+
+class UserCreate(BaseModel):
+    username: str
+    email: str
+    password: str
+
+    class Config:
+        from_attributes = True  
+
+class UserLogin(BaseModel):
+    username: str
+    password: str
+
+##Ticket
+
+class TicketResponse(BaseModel):
+    id: int
+    title: str
+    description: str
+
+    class Config:
+        from_attributes = True  
+
+
+class TicketCreate(BaseModel):
+    title: str
+    description: str
+
+    class Config:
+        from_attributes = True  
+
+
+
+# Database setup
+DATABASE_URL = "mysql+aiomysql://root:Adivinha12345!@localhost:3306/trellodb"
+
+engine = create_async_engine(DATABASE_URL, echo=True)
+SessionLocal = sessionmaker(engine, class_=AsyncSession, expire_on_commit=False)
+
+Base = declarative_base()
+
+# Define SQLAlchemy 
+class User(Base):
+    __tablename__ = "users"
+    id = Column(Integer, primary_key=True, index=True)
+    username = Column(String(255))
+    password_hash = Column(String(255))
+    email = Column(String(255))
+
+
+class Ticket(Base):
+    __tablename__ = "tickets"
+    id = Column(Integer, primary_key=True, index=True)
+    title = Column(String(255))
+    description = Column(String(255))
+
+# FastAPI app setup
+app = FastAPI()
+
+async def get_db():
+    async with SessionLocal() as session:
+        yield session
+
+##Get Endpoints
+
+@app.get("/")
+async def root():
+    return {"message": "Welcome to Trello Clone API! Switch endpoints(users, tickets) to get the information you need!"}
+
+
+@app.get("/users", response_model=List[UserResponse])
+async def get_users(db: AsyncSession = Depends(get_db)):
+    result = await db.execute(select(User))
+    users = result.scalars().all()  # Retrieves all users
+    return users
+
+@app.get("/tickets", response_model=List[TicketResponse])
+async def get_tickets(db: AsyncSession = Depends(get_db)): 
+    result = await db.execute(select(Ticket))
+    tickets = result.scalars().all()  # Retrives all tickets
+    return tickets
+
+##Post Endpoints
+
+@app.post("/tickets", response_model=TicketResponse)
+async def create_ticket(ticket: TicketCreate, db: AsyncSession = Depends(get_db)):
+    new_ticket = Ticket(title=ticket.title, description=ticket.description)
+    db.add(new_ticket)
+    await db.commit()
+    await db.refresh(new_ticket)
+    return new_ticket
+
+
+@app.post("/users", response_model=UserResponse)
+async def create_user(user: UserCreate, db: AsyncSession = Depends(get_db)):
+    hashed_password = bcrypt.hashpw(user.password.encode("utf-8"), bcrypt.gensalt()).decode("utf-8")
+    new_user = User(email=user.email, username=user.username, password_hash=hashed_password)
+    db.add(new_user)
+    await db.commit()
+    await db.refresh(new_user)
+    return new_user
+
+
+## LogIn EndPoint
+
+SECRET_KEY = "your_secret_key" # Secret key to encode and decode the JWT token
+ALGORITHM = "HS256"  # The algorithm used to sign the JWT
+
+pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+
+
+def create_access_token(data: dict, expires_delta: Optional[timedelta] = None): # Create  JWT token
+    to_encode = data.copy()
+    if expires_delta:
+        expire = datetime.utcnow() + expires_delta
+    else:
+        expire = datetime.utcnow() + timedelta(minutes=15)  # default expiration time is 15 minutes
+    to_encode.update({"exp": expire})
+    
+    encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
+    return encoded_jwt
+
+
+@app.post("/login")
+async def login(user: UserLogin, db: AsyncSession = Depends(get_db)):
+    result = await db.execute(select(User).filter(User.username == user.username))
+    db_user = result.scalars().first()
+
+    if db_user is None or not bcrypt.checkpw(user.password.encode("utf-8"), db_user.password_hash.encode("utf-8")):
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Invalid username or password",
+        )
+    
+    # Create the access token
+    access_token = create_access_token(data={"sub": db_user.username})
+    
+    return {"access_token": access_token, "token_type": "bearer"}
+
+
+# Decode and verify the JWT token
+def verify_token(token: str):
+    try:
+        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
+        return payload
+    except jwt.PyJWTError:
+        return None
+    
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="login")
+
+# Dependency to get the current user from the JWT token
+async def get_current_user(token: str = Depends(oauth2_scheme)):
+    payload = verify_token(token)
+    if payload is None:
+        raise HTTPException(status_code=401, detail="Invalid authentication credentials")
+    return payload
+
+# Protected endpoint
+@app.get("/users/me")
+async def get_current_user_info(current_user: dict = Depends(get_current_user)):
+    return {"username": current_user["sub"]}
