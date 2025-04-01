@@ -1,8 +1,7 @@
 from fastapi import FastAPI, HTTPException, Depends
 from fastapi import status
 from fastapi import Security
-from fastapi.security import OAuth2PasswordBearer
-
+from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy import Column, Integer, String
@@ -15,9 +14,15 @@ from passlib.context import CryptContext
 import jwt
 from datetime import datetime, timedelta
 from typing import Optional
+from dotenv import load_dotenv
+import os
+import logging
 
-
-
+logging.basicConfig(
+    level=logging.INFO,  # You can use DEBUG, INFO, WARNING, ERROR, CRITICAL depending on your needs
+    format='%(asctime)s - %(levelname)s - %(message)s',
+    handlers=[logging.FileHandler('app_errors.log'), logging.StreamHandler()]
+)
 
 # Modelo Pydantic para serialização dos dados
 
@@ -65,7 +70,13 @@ class TicketCreate(BaseModel):
 
 
 # Database setup
-DATABASE_URL = "mysql+aiomysql://root:Adivinha12345!@localhost:3306/trellodb"
+load_dotenv()  # Load environment variables from .env file
+
+DATABASE_URL = os.getenv("DATABASE_URL")  # get my database URL from the env file
+
+if not DATABASE_URL:
+    raise ValueError("DATABASE_URL is not set in the environment variables")
+
 
 engine = create_async_engine(DATABASE_URL, echo=True)
 SessionLocal = sessionmaker(engine, class_=AsyncSession, expire_on_commit=False)
@@ -89,6 +100,14 @@ class Ticket(Base):
 
 # FastAPI app setup
 app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Change this to frontend's origin in production
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 async def get_db():
     async with SessionLocal() as session:
@@ -123,10 +142,13 @@ async def create_ticket(ticket: TicketCreate, db: AsyncSession = Depends(get_db)
     await db.refresh(new_ticket)
     return new_ticket
 
+## LogIn/Create User EndPoint
+
+pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto") # Object created for hashing and verifistion of passwords
 
 @app.post("/users", response_model=UserResponse)
 async def create_user(user: UserCreate, db: AsyncSession = Depends(get_db)):
-    hashed_password = bcrypt.hashpw(user.password.encode("utf-8"), bcrypt.gensalt()).decode("utf-8")
+    hashed_password = pwd_context.hash(user.password)
     new_user = User(email=user.email, username=user.username, password_hash=hashed_password)
     db.add(new_user)
     await db.commit()
@@ -134,12 +156,11 @@ async def create_user(user: UserCreate, db: AsyncSession = Depends(get_db)):
     return new_user
 
 
-## LogIn EndPoint
+SECRET_KEY = os.getenv("SECRET_KEY")  # get my database URL from the env file
+if not SECRET_KEY:
+    raise ValueError("SECRET_KEY is not set in the environment variables")
 
-SECRET_KEY = "your_secret_key" # Secret key to encode and decode the JWT token
 ALGORITHM = "HS256"  # The algorithm used to sign the JWT
-
-pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 
 def create_access_token(data: dict, expires_delta: Optional[timedelta] = None): # Create  JWT token
@@ -147,7 +168,7 @@ def create_access_token(data: dict, expires_delta: Optional[timedelta] = None): 
     if expires_delta:
         expire = datetime.utcnow() + expires_delta
     else:
-        expire = datetime.utcnow() + timedelta(minutes=15)  # default expiration time is 15 minutes
+        expire = datetime.utcnow() + timedelta(minutes=25)  # default expiration time is 15 minutes
     to_encode.update({"exp": expire})
     
     encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
@@ -156,39 +177,18 @@ def create_access_token(data: dict, expires_delta: Optional[timedelta] = None): 
 
 @app.post("/login")
 async def login(user: UserLogin, db: AsyncSession = Depends(get_db)):
-    result = await db.execute(select(User).filter(User.username == user.username))
+    
+    result = await db.execute(select(User).where(User.username == user.username))
     db_user = result.scalars().first()
 
-    if db_user is None or not bcrypt.checkpw(user.password.encode("utf-8"), db_user.password_hash.encode("utf-8")):
+    if db_user is None or not pwd_context.verify(user.password, db_user.password_hash):
+        logging.error(f"Either username or password doesnt match with that its in the database: {user.username}")
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Invalid username or password",
         )
     
-    # Create the access token
     access_token = create_access_token(data={"sub": db_user.username})
     
     return {"access_token": access_token, "token_type": "bearer"}
 
-
-# Decode and verify the JWT token
-def verify_token(token: str):
-    try:
-        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
-        return payload
-    except jwt.PyJWTError:
-        return None
-    
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="login")
-
-# Dependency to get the current user from the JWT token
-async def get_current_user(token: str = Depends(oauth2_scheme)):
-    payload = verify_token(token)
-    if payload is None:
-        raise HTTPException(status_code=401, detail="Invalid authentication credentials")
-    return payload
-
-# Protected endpoint
-@app.get("/users/me")
-async def get_current_user_info(current_user: dict = Depends(get_current_user)):
-    return {"username": current_user["sub"]}

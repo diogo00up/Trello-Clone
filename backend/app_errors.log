@@ -1,0 +1,11 @@
+2025-04-01 19:58:42,224 - INFO - SELECT DATABASE()
+2025-04-01 19:58:42,224 - INFO - [raw sql] ()
+2025-04-01 19:58:42,225 - INFO - SELECT @@sql_mode
+2025-04-01 19:58:42,226 - INFO - [raw sql] ()
+2025-04-01 19:58:42,226 - INFO - SELECT @@lower_case_table_names
+2025-04-01 19:58:42,226 - INFO - [raw sql] ()
+2025-04-01 19:58:42,227 - INFO - BEGIN (implicit)
+2025-04-01 19:58:42,229 - INFO - SELECT tickets.id, tickets.title, tickets.description 
+FROM tickets
+2025-04-01 19:58:42,230 - INFO - [generated in 0.00077s] ()
+2025-04-01 19:58:42,231 - INFO - ROLLBACK
