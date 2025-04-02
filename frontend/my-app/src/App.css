@@ -1,1 +1,129 @@
+input {
+  width: 365px;  
+  height: 20px;  
+  padding: 8px;  
+  font-size: 16px;
+  border-radius: 5px; 
+  border: 1px solid #ccc; 
+}
 
+body {
+  font-family: 'Dancing Script', cursive;
+  font-size: 40px;
+}
+
+header {
+  font-size: 36px; 
+}
+
+button{
+  border-radius: 10px; 
+  width: 150px;
+  font-family: 'Dancing Script', cursive;
+  font-size: 20px;
+  background-color:aquamarine ;
+
+}
+
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+  margin-bottom: 50px;
+  margin-top: 50px;
+}
+
+.Applogo {
+  height: 40vmin;
+  pointer-events: none;
+  margin-bottom: 25px;
+  margin-top: 50px;
+}
+
+
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+
+.SignUpPageHeader{
+  background-color: #282c34;
+  min-height: 100vh;
+  color: white;
+  font-size: large;
+ 
+}
+
+.SignUpPageFotter{
+  background-color: #282c34;
+  height: auto;
+  color: rgb(255, 255, 255);
+  font-size: large;
+ 
+}
+
+.formContainers{
+  padding-top: 20px;
+  padding-bottom: 20px;
+  background-color: rgb(106, 144, 144);
+  justify-content: center;
+  display: flex;
+  gap: 50px; 
+
+}
+
+.createAccount{
+  padding-left:  20px;
+  margin-right: 200px;
+  text-align: left;
+  background-color: #223356;
+  display: flex;
+  flex-direction: column;
+  gap: 10px; 
+  width: 400px;
+  border-radius: 5px; 
+  padding-bottom: 10px;
+  
+}
+
+.Login{
+  padding-left:  20px;
+  text-align: left;
+  background-color: #592021;
+  display: flex;
+  flex-direction: column;
+  gap: 10px; 
+  width: 400px;
+  border-radius: 5px; 
+  padding-bottom: 10px;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
