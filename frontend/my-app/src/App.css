@@ -45,6 +45,8 @@ button{
 
 
 
+
+
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
@@ -71,12 +73,47 @@ button{
  
 }
 
-.SignUpPageFotter{
+.footer{
+
   background-color: #282c34;
-  height: auto;
   color: rgb(255, 255, 255);
-  font-size: large;
+  font-size: 25px;
+  display: flex;
+  flex-direction: column; /* Stack elements vertically *
+  justify-content: center;  /* Centers content horizontally */
+  align-items: center;      /* Centers content vertically */
+  padding: 50px;          
  
+}
+
+.footerMainContent2,
+.footerMainContent{
+  
+  display: flex;
+  gap: 40px;
+  padding: 7px;
+}
+
+
+
+.LogoInfo{
+  position: absolute;
+  left : 120px;
+  top: 90px;
+  font-size: 20px;
+}
+
+
+
+.footerLogo{
+  position: absolute;
+  top: 60px;  /* Adjust vertical position */
+  left: 30px; /* Adjust horizontal position */
+}
+
+.footerLogoImage{
+  width: 80px; 
+  height: auto;       
 }
 
 .formContainers{

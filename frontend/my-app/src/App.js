@@ -1,5 +1,18 @@
 import logo from './logo.svg';
 import './App.css';
+import React, { useEffect } from 'react';
+
+const MyComponent = () => {
+  useEffect(() => {
+    document.title = 'Your Title Here';
+  }, []);
+
+  return (
+    <div>
+      <h1>Welcome to My App</h1>
+    </div>
+  );
+};
 
 function App() {
   return (
@@ -22,9 +35,38 @@ function App() {
   );
 }
 
+function FooterCustom(){
+  return (
+    <div className='footer'>
+      <div className='footerLogo'>
+        <img src={logo} className="footerLogoImage" alt="logo" />
+      </div>
+
+      <div className = 'LogoInfo'>
+        <a>© 2025 Trello PT</a>
+      </div>
+  
+      <div className='footerMainContent'>
+        <a>Privacy options</a>
+        <a>Terms & conditions</a>
+        <a>Privacy & cookies notice</a>
+        <a>Accessibility</a>
+        <a>Contact us</a>
+      </div>
+
+      <div className='footerMainContent2'>
+        <a>Sky Group</a>
+        <a>Language</a>
+      </div>
+
+    </div>
+
+  );
+}
+
 function LogIn(){
   return(
-    <div className = 'App'>
+    <div className = 'App'> 
       <header className ='SignUpPageHeader'>
         <img src={logo} className="Applogo" alt="logo" />  
         <div className ='formContainers'>
@@ -62,15 +104,8 @@ function LogIn(){
 
       </header>
 
-      <footer className ='SignUpPageFotter'>
-        <p>Footer content goes here</p>
-      </footer>
-
-      
-
-
+      <FooterCustom />
     </div>
-
   );
 }
 
