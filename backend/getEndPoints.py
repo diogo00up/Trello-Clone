@@ -46,8 +46,8 @@ class UserCreate(BaseModel):
         from_attributes = True  
 
 class UserLogin(BaseModel):
-    username: str
-    password: str
+    logInUsername: str  # Now matches frontend
+    logInPassword: str  # Now matches frontend
 
 ##Ticket
 
@@ -142,7 +142,7 @@ async def create_ticket(ticket: TicketCreate, db: AsyncSession = Depends(get_db)
     await db.refresh(new_ticket)
     return new_ticket
 
-## LogIn/Create User EndPoint
+## LogIn and Create User EndPoint
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto") # Object created for hashing and verifistion of passwords
 
@@ -178,10 +178,10 @@ def create_access_token(data: dict, expires_delta: Optional[timedelta] = None): 
 @app.post("/login")
 async def login(user: UserLogin, db: AsyncSession = Depends(get_db)):
     
-    result = await db.execute(select(User).where(User.username == user.username))
+    result = await db.execute(select(User).where(User.username == user.logInUsername))
     db_user = result.scalars().first()
 
-    if db_user is None or not pwd_context.verify(user.password, db_user.password_hash):
+    if db_user is None or not pwd_context.verify(user.logInPassword, db_user.password_hash):
         logging.error(f"Either username or password doesnt match with that its in the database: {user.username}")
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
