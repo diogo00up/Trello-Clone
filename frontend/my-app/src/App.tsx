@@ -1,19 +1,6 @@
+import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-import React, { useEffect } from 'react';
-
-const MyComponent = () => {
-  useEffect(() => {
-    document.title = 'Your Title Here';
-  }, []);
-
-  return (
-    <div>
-      <h1>Welcome to My App</h1>
-    </div>
-  );
-};
-
 function App() {
   return (
     <div className="App">
@@ -103,10 +90,12 @@ function LogIn(){
         </div>
 
       </header>
-
       <FooterCustom />
     </div>
   );
 }
 
 export default LogIn;
+
+
+
