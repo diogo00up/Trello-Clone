@@ -190,3 +190,78 @@ FROM users
 WHERE users.username = %s
 2025-04-05 16:00:21,463 - INFO - [cached since 93.57s ago] ('ola',)
 2025-04-05 16:00:21,465 - INFO - ROLLBACK
+2025-04-05 16:11:36,255 - INFO - SELECT DATABASE()
+2025-04-05 16:11:36,257 - INFO - [raw sql] ()
+2025-04-05 16:11:36,260 - INFO - SELECT @@sql_mode
+2025-04-05 16:11:36,260 - INFO - [raw sql] ()
+2025-04-05 16:11:36,261 - INFO - SELECT @@lower_case_table_names
+2025-04-05 16:11:36,262 - INFO - [raw sql] ()
+2025-04-05 16:11:36,263 - INFO - BEGIN (implicit)
+2025-04-05 16:11:36,267 - INFO - SELECT tickets.id, tickets.title, tickets.description 
+FROM tickets
+2025-04-05 16:11:36,268 - INFO - [generated in 0.00105s] ()
+2025-04-05 16:11:36,271 - INFO - ROLLBACK
+2025-04-05 16:15:54,118 - INFO - BEGIN (implicit)
+2025-04-05 16:15:54,119 - INFO - SELECT tickets.id, tickets.title, tickets.description 
+FROM tickets
+2025-04-05 16:15:54,120 - INFO - [cached since 257.9s ago] ()
+2025-04-05 16:15:54,121 - INFO - ROLLBACK
+2025-04-05 16:32:36,663 - INFO - BEGIN (implicit)
+2025-04-05 16:32:36,664 - INFO - SELECT tickets.id, tickets.title, tickets.description 
+FROM tickets
+2025-04-05 16:32:36,666 - INFO - [cached since 1260s ago] ()
+2025-04-05 16:32:36,668 - INFO - ROLLBACK
+2025-04-05 16:32:51,527 - INFO - BEGIN (implicit)
+2025-04-05 16:32:51,528 - INFO - SELECT users.id, users.username, users.password_hash, users.email 
+FROM users 
+WHERE users.username = %s
+2025-04-05 16:32:51,529 - INFO - [generated in 0.00083s] ('ola',)
+2025-04-05 16:32:51,531 - WARNING - (trapped) error reading bcrypt version
+Traceback (most recent call last):
+  File "C:\Users\diogo\AppData\Local\Programs\Python\Python313\Lib\site-packages\passlib\handlers\bcrypt.py", line 620, in _load_backend_mixin
+    version = _bcrypt.__about__.__version__
+              ^^^^^^^^^^^^^^^^^
+AttributeError: module 'bcrypt' has no attribute '__about__'
+2025-04-05 16:32:51,770 - INFO - ROLLBACK
+2025-04-05 16:32:54,665 - INFO - BEGIN (implicit)
+2025-04-05 16:32:54,665 - INFO - SELECT users.id, users.username, users.password_hash, users.email 
+FROM users 
+WHERE users.username = %s
+2025-04-05 16:32:54,666 - INFO - [cached since 3.137s ago] ('ola',)
+2025-04-05 16:32:54,668 - INFO - ROLLBACK
+2025-04-05 16:34:38,874 - INFO - SELECT DATABASE()
+2025-04-05 16:34:38,875 - INFO - [raw sql] ()
+2025-04-05 16:34:38,877 - INFO - SELECT @@sql_mode
+2025-04-05 16:34:38,878 - INFO - [raw sql] ()
+2025-04-05 16:34:38,879 - INFO - SELECT @@lower_case_table_names
+2025-04-05 16:34:38,880 - INFO - [raw sql] ()
+2025-04-05 16:34:38,881 - INFO - BEGIN (implicit)
+2025-04-05 16:34:38,884 - INFO - SELECT users.id, users.username, users.password_hash, users.email 
+FROM users 
+WHERE users.username = %s
+2025-04-05 16:34:38,884 - INFO - [generated in 0.00096s] ('ola',)
+2025-04-05 16:34:38,887 - WARNING - (trapped) error reading bcrypt version
+Traceback (most recent call last):
+  File "C:\Users\diogo\AppData\Local\Programs\Python\Python313\Lib\site-packages\passlib\handlers\bcrypt.py", line 620, in _load_backend_mixin
+    version = _bcrypt.__about__.__version__
+              ^^^^^^^^^^^^^^^^^
+AttributeError: module 'bcrypt' has no attribute '__about__'
+2025-04-05 16:34:39,139 - INFO - ROLLBACK
+2025-04-05 16:34:42,556 - INFO - BEGIN (implicit)
+2025-04-05 16:34:42,557 - INFO - SELECT users.id, users.username, users.password_hash, users.email 
+FROM users 
+WHERE users.username = %s
+2025-04-05 16:34:42,557 - INFO - [cached since 3.674s ago] ('ola',)
+2025-04-05 16:34:42,560 - INFO - ROLLBACK
+2025-04-05 16:38:36,171 - INFO - SELECT DATABASE()
+2025-04-05 16:38:36,171 - INFO - [raw sql] ()
+2025-04-05 16:38:36,172 - INFO - SELECT @@sql_mode
+2025-04-05 16:38:36,172 - INFO - [raw sql] ()
+2025-04-05 16:38:36,173 - INFO - SELECT @@lower_case_table_names
+2025-04-05 16:38:36,173 - INFO - [raw sql] ()
+2025-04-05 16:38:36,174 - INFO - BEGIN (implicit)
+2025-04-05 16:38:36,176 - INFO - SELECT users.id, users.username, users.password_hash, users.email 
+FROM users 
+WHERE users.username = %s
+2025-04-05 16:38:36,177 - INFO - [generated in 0.00065s] ('ola',)
+2025-04-05 16:38:36,180 - INFO - ROLLBACK

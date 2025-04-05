@@ -200,7 +200,7 @@ async def login(user: UserLogin, db: AsyncSession = Depends(get_db)):
 
 # Verify Token 
 
-async def get_current_user(token: str = Depends(oauth2_scheme), db: AsyncSession = Depends(get_db)):
+async def get_current_user(token: str = Depends(oauth2_scheme), db: AsyncSession = Depends(get_db)): #token verificatiob function that retrives which user belongs to
     credentials_exception = HTTPException(
         status_code=status.HTTP_401_UNAUTHORIZED,
         detail="Could not validate credentials",
@@ -225,5 +225,20 @@ async def get_current_user(token: str = Depends(oauth2_scheme), db: AsyncSession
 @app.post("/createTicket")
 async def dashboard(ticket: TicketCreate, current_user: User = Depends(get_current_user)):
     return {"message": f"Welcome {current_user.username}!", "ticket": ticket}
+
+
+@app.post("/loadTickets")
+async def dashboard(current_user: User = Depends(get_current_user), db: AsyncSession = Depends(get_db)):
+    user_id = current_user.id
+    result = await db.execute(select(Ticket))
+    db_tickets = result.scalars().all()
+    if not db_tickets:
+         raise HTTPException(
+        status_code=status.HTTP_401_UNAUTHORIZED,
+        detail="Error retrieving tickets from database",
+    )
+    return {"message": f"Sending to user with id: {current_user.id}!", "tickets": db_tickets}
+
+
 
 

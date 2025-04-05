@@ -4,6 +4,29 @@ import axios from 'axios';
 import './mainpage.css';
 import add_plus from './add_plus.svg';
 
+function Ticket(){
+  const [title, setTitle] = useState<string>('click to change your title');
+  const [text, setText] = useState<string>('click to change your text');
+
+  return (
+    <div className="ticketbox">
+      
+      <div className = "ticketTitle">
+        <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} />
+      </div>
+
+      <div className='tickerText'>
+        <textarea value={text} onChange={(e) => setText(e.target.value)}/>
+      </div>
+          
+    </div>  
+  );
+}
+
+
+
+
+
 
 function MainTable(){
   
@@ -37,11 +60,34 @@ function MainTable(){
 
   };
 
+
+
+  const handleTicketLoad = async () => {
+    console.log("chamei a funcao")
+
+  };
+
+
+
+
+
   return (
+    <div>
+
     <div className="add-ticket" onClick={handleButtonClick}>
       <img src={add_plus} className="add_plus" alt="add" />
       <span className="add-text">Click to add new ticket</span>
     </div>
+
+
+    <div className="add-ticket" onClick={handleTicketLoad}>
+      <img src={add_plus} className="add_plus" alt="add" />
+      <span className="add-text">Click to load the tickets</span>
+    </div>
+
+
+    </div>
+    
   );
 }
   
