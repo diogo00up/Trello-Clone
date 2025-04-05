@@ -1,28 +1,20 @@
 import React from 'react';
+import { Routes, Route } from 'react-router-dom';
 import logo from './logo.svg';
 import './App.css';
 import { useState } from 'react';
 import axios from 'axios';
-
+import MainTable from './mainpage'; 
+import { useNavigate } from 'react-router-dom';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Routes>
+        <Route path="/" element={<LogIn />} />
+        <Route path="/main" element={<MainTable />} />
+      </Routes>     
+    </>
   );
 }
 
@@ -58,6 +50,7 @@ function FooterCustom(){
 function LogIn(){
 
   // State variables to store input values
+  const navigate = useNavigate(); // Add this line at the top
   const [username, setUsername] = useState<string>('');
   const [email, setEmail] = useState<string>('');
   const [password1, setPassword1] = useState<string>('');
@@ -102,6 +95,8 @@ function LogIn(){
       logInPassword,
 
     });
+    
+
 
     console.log('logIn successful:', response.data);
     sessionStorage.setItem('access_token', response.data.access_token);
@@ -110,6 +105,10 @@ function LogIn(){
     setEmail('');
     setPassword1('');
     setPassword2('');
+
+    // 🔥 Redirect to main page
+
+    navigate('/main');
 
     } catch (error) {
       console.error('LogIn Error:', error);
@@ -162,7 +161,8 @@ function LogIn(){
   );
 }
 
-export default LogIn;
+export default App;
+
 
 
 

@@ -9,7 +9,6 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.future import select
 from typing import List
 from pydantic import BaseModel
-import bcrypt
 from passlib.context import CryptContext
 import jwt
 from datetime import datetime, timedelta
@@ -17,6 +16,11 @@ from typing import Optional
 from dotenv import load_dotenv
 import os
 import logging
+from fastapi.security import OAuth2PasswordBearer
+from jose import JWTError, jwt  # Make sure python-jose is installed
+from fastapi import Request
+
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="login")  # This is the login endpoint
 
 logging.basicConfig(
     level=logging.INFO,  # You can use DEBUG, INFO, WARNING, ERROR, CRITICAL depending on your needs
@@ -66,6 +70,8 @@ class TicketCreate(BaseModel):
 
     class Config:
         from_attributes = True  
+
+
 
 
 
@@ -191,4 +197,33 @@ async def login(user: UserLogin, db: AsyncSession = Depends(get_db)):
     access_token = create_access_token(data={"sub": db_user.username})
     
     return {"access_token": access_token, "token_type": "bearer"}
+
+# Verify Token 
+
+async def get_current_user(token: str = Depends(oauth2_scheme), db: AsyncSession = Depends(get_db)):
+    credentials_exception = HTTPException(
+        status_code=status.HTTP_401_UNAUTHORIZED,
+        detail="Could not validate credentials",
+        headers={"WWW-Authenticate": "Bearer"},
+    )
+
+    try:
+        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
+        username: str = payload.get("sub")
+        if username is None:
+            raise credentials_exception
+    except JWTError:
+        raise credentials_exception
+
+    # Fetch user from database
+    result = await db.execute(select(User).where(User.username == username))
+    user = result.scalars().first()
+    if user is None:
+        raise credentials_exception
+    return user
+
+@app.post("/createTicket")
+async def dashboard(ticket: TicketCreate, current_user: User = Depends(get_current_user)):
+    return {"message": f"Welcome {current_user.username}!", "ticket": ticket}
+
 

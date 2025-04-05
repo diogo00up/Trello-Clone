@@ -1,0 +1,17 @@
+.add-ticket {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+  }
+  
+  .add_plus {
+    width: 24px;
+    height: 24px;
+    margin-right: 8px;
+  }
+  
+  .add-text {
+    font-size: 14px;
+    color: #333;
+  }
+  

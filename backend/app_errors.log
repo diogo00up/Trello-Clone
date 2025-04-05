@@ -103,3 +103,90 @@ WHERE users.username = %s
 FROM tickets
 2025-04-04 14:59:03,237 - INFO - [generated in 0.00089s] ()
 2025-04-04 14:59:03,240 - INFO - ROLLBACK
+2025-04-05 14:24:23,308 - INFO - SELECT DATABASE()
+2025-04-05 14:24:23,308 - INFO - [raw sql] ()
+2025-04-05 14:24:23,310 - INFO - SELECT @@sql_mode
+2025-04-05 14:24:23,310 - INFO - [raw sql] ()
+2025-04-05 14:24:23,311 - INFO - SELECT @@lower_case_table_names
+2025-04-05 14:24:23,311 - INFO - [raw sql] ()
+2025-04-05 14:24:23,313 - INFO - BEGIN (implicit)
+2025-04-05 14:24:23,316 - INFO - SELECT users.id, users.username, users.password_hash, users.email 
+FROM users
+2025-04-05 14:24:23,317 - INFO - [generated in 0.00105s] ()
+2025-04-05 14:24:23,323 - INFO - ROLLBACK
+2025-04-05 14:24:40,071 - INFO - BEGIN (implicit)
+2025-04-05 14:24:40,073 - INFO - SELECT users.id, users.username, users.password_hash, users.email 
+FROM users 
+WHERE users.username = %s
+2025-04-05 14:24:40,075 - INFO - [generated in 0.00147s] ('ola',)
+2025-04-05 14:24:40,077 - WARNING - (trapped) error reading bcrypt version
+Traceback (most recent call last):
+  File "C:\Users\diogo\AppData\Local\Programs\Python\Python313\Lib\site-packages\passlib\handlers\bcrypt.py", line 620, in _load_backend_mixin
+    version = _bcrypt.__about__.__version__
+              ^^^^^^^^^^^^^^^^^
+AttributeError: module 'bcrypt' has no attribute '__about__'
+2025-04-05 14:24:40,350 - INFO - ROLLBACK
+2025-04-05 14:24:50,308 - INFO - BEGIN (implicit)
+2025-04-05 14:24:50,309 - INFO - SELECT users.id, users.username, users.password_hash, users.email 
+FROM users 
+WHERE users.username = %s
+2025-04-05 14:24:50,310 - INFO - [cached since 10.24s ago] ('ola',)
+2025-04-05 14:24:50,534 - INFO - ROLLBACK
+2025-04-05 14:56:47,305 - INFO - SELECT DATABASE()
+2025-04-05 14:56:47,306 - INFO - [raw sql] ()
+2025-04-05 14:56:47,308 - INFO - SELECT @@sql_mode
+2025-04-05 14:56:47,309 - INFO - [raw sql] ()
+2025-04-05 14:56:47,310 - INFO - SELECT @@lower_case_table_names
+2025-04-05 14:56:47,311 - INFO - [raw sql] ()
+2025-04-05 14:56:47,313 - INFO - BEGIN (implicit)
+2025-04-05 14:56:47,316 - INFO - SELECT users.id, users.username, users.password_hash, users.email 
+FROM users
+2025-04-05 14:56:47,317 - INFO - [generated in 0.00087s] ()
+2025-04-05 14:56:47,319 - INFO - ROLLBACK
+2025-04-05 14:57:02,584 - INFO - BEGIN (implicit)
+2025-04-05 14:57:02,587 - INFO - SELECT users.id, users.username, users.password_hash, users.email 
+FROM users 
+WHERE users.username = %s
+2025-04-05 14:57:02,588 - INFO - [generated in 0.00163s] ('teste',)
+2025-04-05 14:57:02,590 - WARNING - (trapped) error reading bcrypt version
+Traceback (most recent call last):
+  File "C:\Users\diogo\AppData\Local\Programs\Python\Python313\Lib\site-packages\passlib\handlers\bcrypt.py", line 620, in _load_backend_mixin
+    version = _bcrypt.__about__.__version__
+              ^^^^^^^^^^^^^^^^^
+AttributeError: module 'bcrypt' has no attribute '__about__'
+2025-04-05 14:57:02,861 - INFO - ROLLBACK
+2025-04-05 15:01:53,069 - INFO - BEGIN (implicit)
+2025-04-05 15:01:53,070 - INFO - SELECT users.id, users.username, users.password_hash, users.email 
+FROM users 
+WHERE users.username = %s
+2025-04-05 15:01:53,071 - INFO - [cached since 290.5s ago] ('teste',)
+2025-04-05 15:01:53,073 - INFO - ROLLBACK
+2025-04-05 15:58:25,469 - INFO - SELECT DATABASE()
+2025-04-05 15:58:25,470 - INFO - [raw sql] ()
+2025-04-05 15:58:25,471 - INFO - SELECT @@sql_mode
+2025-04-05 15:58:25,471 - INFO - [raw sql] ()
+2025-04-05 15:58:25,472 - INFO - SELECT @@lower_case_table_names
+2025-04-05 15:58:25,472 - INFO - [raw sql] ()
+2025-04-05 15:58:25,473 - INFO - BEGIN (implicit)
+2025-04-05 15:58:25,476 - INFO - SELECT users.id, users.username, users.password_hash, users.email 
+FROM users
+2025-04-05 15:58:25,477 - INFO - [generated in 0.00074s] ()
+2025-04-05 15:58:25,481 - INFO - ROLLBACK
+2025-04-05 15:58:47,893 - INFO - BEGIN (implicit)
+2025-04-05 15:58:47,895 - INFO - SELECT users.id, users.username, users.password_hash, users.email 
+FROM users 
+WHERE users.username = %s
+2025-04-05 15:58:47,896 - INFO - [generated in 0.00100s] ('ola',)
+2025-04-05 15:58:47,898 - WARNING - (trapped) error reading bcrypt version
+Traceback (most recent call last):
+  File "C:\Users\diogo\AppData\Local\Programs\Python\Python313\Lib\site-packages\passlib\handlers\bcrypt.py", line 620, in _load_backend_mixin
+    version = _bcrypt.__about__.__version__
+              ^^^^^^^^^^^^^^^^^
+AttributeError: module 'bcrypt' has no attribute '__about__'
+2025-04-05 15:58:48,185 - INFO - ROLLBACK
+2025-04-05 16:00:21,461 - INFO - BEGIN (implicit)
+2025-04-05 16:00:21,462 - INFO - SELECT users.id, users.username, users.password_hash, users.email 
+FROM users 
+WHERE users.username = %s
+2025-04-05 16:00:21,463 - INFO - [cached since 93.57s ago] ('ola',)
+2025-04-05 16:00:21,465 - INFO - ROLLBACK

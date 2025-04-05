@@ -79,10 +79,11 @@ button{
   color: rgb(255, 255, 255);
   font-size: 25px;
   display: flex;
-  flex-direction: column; /* Stack elements vertically *
+  flex-direction: column;   /* Stack elements vertically *
   justify-content: center;  /* Centers content horizontally */
   align-items: center;      /* Centers content vertically */
-  padding: 50px;          
+  padding: 50px;  
+  
  
 }
 
