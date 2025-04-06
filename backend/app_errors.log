@@ -479,3 +479,218 @@ WHERE users.username = %s
 FROM tickets
 2025-04-06 01:04:55,365 - INFO - [generated in 0.00035s] ()
 2025-04-06 01:04:55,367 - INFO - ROLLBACK
+2025-04-06 13:31:27,060 - INFO - SELECT DATABASE()
+2025-04-06 13:31:27,060 - INFO - [raw sql] ()
+2025-04-06 13:31:27,063 - INFO - SELECT @@sql_mode
+2025-04-06 13:31:27,063 - INFO - [raw sql] ()
+2025-04-06 13:31:27,064 - INFO - SELECT @@lower_case_table_names
+2025-04-06 13:31:27,064 - INFO - [raw sql] ()
+2025-04-06 13:31:27,066 - INFO - BEGIN (implicit)
+2025-04-06 13:31:27,069 - INFO - SELECT tickets.id, tickets.title, tickets.description 
+FROM tickets
+2025-04-06 13:31:27,069 - INFO - [generated in 0.00059s] ()
+2025-04-06 13:31:27,092 - INFO - ROLLBACK
+2025-04-06 13:34:13,854 - INFO - BEGIN (implicit)
+2025-04-06 13:34:13,856 - INFO - SELECT users.id, users.username, users.password_hash, users.email 
+FROM users 
+WHERE users.username = %s
+2025-04-06 13:34:13,857 - INFO - [generated in 0.00049s] ('ola',)
+2025-04-06 13:34:13,860 - WARNING - (trapped) error reading bcrypt version
+Traceback (most recent call last):
+  File "C:\Users\diogo\AppData\Local\Programs\Python\Python313\Lib\site-packages\passlib\handlers\bcrypt.py", line 620, in _load_backend_mixin
+    version = _bcrypt.__about__.__version__
+              ^^^^^^^^^^^^^^^^^
+AttributeError: module 'bcrypt' has no attribute '__about__'
+2025-04-06 13:34:14,125 - INFO - ROLLBACK
+2025-04-06 13:34:33,265 - INFO - BEGIN (implicit)
+2025-04-06 13:34:33,265 - INFO - SELECT users.id, users.username, users.password_hash, users.email 
+FROM users 
+WHERE users.username = %s
+2025-04-06 13:34:33,266 - INFO - [cached since 19.41s ago] ('ola',)
+2025-04-06 13:34:33,267 - INFO - SELECT tickets.id, tickets.title, tickets.description 
+FROM tickets
+2025-04-06 13:34:33,268 - INFO - [cached since 186.2s ago] ()
+2025-04-06 13:34:33,270 - INFO - ROLLBACK
+2025-04-06 13:37:40,711 - INFO - BEGIN (implicit)
+2025-04-06 13:37:40,711 - INFO - SELECT users.id, users.username, users.password_hash, users.email 
+FROM users 
+WHERE users.username = %s
+2025-04-06 13:37:40,712 - INFO - [cached since 206.9s ago] ('ola',)
+2025-04-06 13:37:40,714 - INFO - SELECT tickets.id, tickets.title, tickets.description 
+FROM tickets
+2025-04-06 13:37:40,714 - INFO - [cached since 373.6s ago] ()
+2025-04-06 13:37:40,716 - INFO - ROLLBACK
+2025-04-06 13:38:01,669 - INFO - BEGIN (implicit)
+2025-04-06 13:38:01,670 - INFO - SELECT users.id, users.username, users.password_hash, users.email 
+FROM users 
+WHERE users.username = %s
+2025-04-06 13:38:01,670 - INFO - [cached since 227.8s ago] ('ola',)
+2025-04-06 13:38:01,672 - INFO - SELECT tickets.id, tickets.title, tickets.description 
+FROM tickets
+2025-04-06 13:38:01,673 - INFO - [cached since 394.6s ago] ()
+2025-04-06 13:38:01,674 - INFO - ROLLBACK
+2025-04-06 13:39:38,580 - INFO - BEGIN (implicit)
+2025-04-06 13:39:38,581 - INFO - SELECT users.id, users.username, users.password_hash, users.email 
+FROM users 
+WHERE users.username = %s
+2025-04-06 13:39:38,582 - INFO - [cached since 324.7s ago] ('ola',)
+2025-04-06 13:39:38,584 - INFO - SELECT tickets.id, tickets.title, tickets.description 
+FROM tickets
+2025-04-06 13:39:38,585 - INFO - [cached since 491.5s ago] ()
+2025-04-06 13:39:38,586 - INFO - ROLLBACK
+2025-04-06 13:40:26,307 - INFO - BEGIN (implicit)
+2025-04-06 13:40:26,308 - INFO - SELECT users.id, users.username, users.password_hash, users.email 
+FROM users 
+WHERE users.username = %s
+2025-04-06 13:40:26,308 - INFO - [cached since 372.5s ago] ('ola',)
+2025-04-06 13:40:26,310 - INFO - SELECT tickets.id, tickets.title, tickets.description 
+FROM tickets
+2025-04-06 13:40:26,310 - INFO - [cached since 539.2s ago] ()
+2025-04-06 13:40:26,312 - INFO - ROLLBACK
+2025-04-06 13:41:16,666 - INFO - BEGIN (implicit)
+2025-04-06 13:41:16,667 - INFO - SELECT users.id, users.username, users.password_hash, users.email 
+FROM users 
+WHERE users.username = %s
+2025-04-06 13:41:16,667 - INFO - [cached since 422.8s ago] ('ola',)
+2025-04-06 13:41:16,668 - INFO - SELECT tickets.id, tickets.title, tickets.description 
+FROM tickets
+2025-04-06 13:41:16,669 - INFO - [cached since 589.6s ago] ()
+2025-04-06 13:41:16,670 - INFO - ROLLBACK
+2025-04-06 13:41:23,322 - INFO - BEGIN (implicit)
+2025-04-06 13:41:23,323 - INFO - SELECT users.id, users.username, users.password_hash, users.email 
+FROM users 
+WHERE users.username = %s
+2025-04-06 13:41:23,324 - INFO - [cached since 429.5s ago] ('ola',)
+2025-04-06 13:41:23,326 - INFO - SELECT tickets.id, tickets.title, tickets.description 
+FROM tickets
+2025-04-06 13:41:23,326 - INFO - [cached since 596.3s ago] ()
+2025-04-06 13:41:23,328 - INFO - ROLLBACK
+2025-04-06 13:41:44,485 - INFO - BEGIN (implicit)
+2025-04-06 13:41:44,486 - INFO - SELECT users.id, users.username, users.password_hash, users.email 
+FROM users 
+WHERE users.username = %s
+2025-04-06 13:41:44,486 - INFO - [cached since 450.6s ago] ('ola',)
+2025-04-06 13:41:44,488 - INFO - SELECT tickets.id, tickets.title, tickets.description 
+FROM tickets
+2025-04-06 13:41:44,488 - INFO - [cached since 617.4s ago] ()
+2025-04-06 13:41:44,490 - INFO - ROLLBACK
+2025-04-06 13:41:50,817 - INFO - BEGIN (implicit)
+2025-04-06 13:41:50,818 - INFO - SELECT users.id, users.username, users.password_hash, users.email 
+FROM users 
+WHERE users.username = %s
+2025-04-06 13:41:50,819 - INFO - [cached since 457s ago] ('ola',)
+2025-04-06 13:41:50,820 - INFO - SELECT tickets.id, tickets.title, tickets.description 
+FROM tickets
+2025-04-06 13:41:50,821 - INFO - [cached since 623.8s ago] ()
+2025-04-06 13:41:50,822 - INFO - ROLLBACK
+2025-04-06 13:45:05,943 - INFO - BEGIN (implicit)
+2025-04-06 13:45:05,944 - INFO - SELECT users.id, users.username, users.password_hash, users.email 
+FROM users 
+WHERE users.username = %s
+2025-04-06 13:45:05,944 - INFO - [cached since 652.1s ago] ('ola',)
+2025-04-06 13:45:05,946 - INFO - SELECT tickets.id, tickets.title, tickets.description 
+FROM tickets
+2025-04-06 13:45:05,946 - INFO - [cached since 818.9s ago] ()
+2025-04-06 13:45:05,948 - INFO - ROLLBACK
+2025-04-06 13:47:52,932 - INFO - BEGIN (implicit)
+2025-04-06 13:47:52,933 - INFO - SELECT users.id, users.username, users.password_hash, users.email 
+FROM users 
+WHERE users.username = %s
+2025-04-06 13:47:52,933 - INFO - [cached since 819.1s ago] ('ola',)
+2025-04-06 13:47:52,936 - INFO - SELECT tickets.id, tickets.title, tickets.description 
+FROM tickets
+2025-04-06 13:47:52,936 - INFO - [cached since 985.9s ago] ()
+2025-04-06 13:47:52,938 - INFO - ROLLBACK
+2025-04-06 13:49:39,016 - INFO - BEGIN (implicit)
+2025-04-06 13:49:39,017 - INFO - SELECT users.id, users.username, users.password_hash, users.email 
+FROM users 
+WHERE users.username = %s
+2025-04-06 13:49:39,018 - INFO - [cached since 925.2s ago] ('ola',)
+2025-04-06 13:49:39,019 - INFO - SELECT tickets.id, tickets.title, tickets.description 
+FROM tickets
+2025-04-06 13:49:39,020 - INFO - [cached since 1092s ago] ()
+2025-04-06 13:49:39,021 - INFO - ROLLBACK
+2025-04-06 13:49:58,573 - INFO - BEGIN (implicit)
+2025-04-06 13:49:58,574 - INFO - SELECT users.id, users.username, users.password_hash, users.email 
+FROM users 
+WHERE users.username = %s
+2025-04-06 13:49:58,574 - INFO - [cached since 944.7s ago] ('ola',)
+2025-04-06 13:49:58,576 - INFO - SELECT tickets.id, tickets.title, tickets.description 
+FROM tickets
+2025-04-06 13:49:58,576 - INFO - [cached since 1112s ago] ()
+2025-04-06 13:49:58,577 - INFO - ROLLBACK
+2025-04-06 13:50:29,450 - INFO - BEGIN (implicit)
+2025-04-06 13:50:29,451 - INFO - SELECT users.id, users.username, users.password_hash, users.email 
+FROM users 
+WHERE users.username = %s
+2025-04-06 13:50:29,451 - INFO - [cached since 975.6s ago] ('ola',)
+2025-04-06 13:50:29,453 - INFO - SELECT tickets.id, tickets.title, tickets.description 
+FROM tickets
+2025-04-06 13:50:29,454 - INFO - [cached since 1142s ago] ()
+2025-04-06 13:50:29,455 - INFO - ROLLBACK
+2025-04-06 13:50:45,493 - INFO - BEGIN (implicit)
+2025-04-06 13:50:45,493 - INFO - SELECT users.id, users.username, users.password_hash, users.email 
+FROM users 
+WHERE users.username = %s
+2025-04-06 13:50:45,494 - INFO - [cached since 991.6s ago] ('ola',)
+2025-04-06 13:50:45,495 - INFO - SELECT tickets.id, tickets.title, tickets.description 
+FROM tickets
+2025-04-06 13:50:45,495 - INFO - [cached since 1158s ago] ()
+2025-04-06 13:50:45,496 - INFO - ROLLBACK
+2025-04-06 13:51:05,537 - INFO - BEGIN (implicit)
+2025-04-06 13:51:05,537 - INFO - SELECT users.id, users.username, users.password_hash, users.email 
+FROM users 
+WHERE users.username = %s
+2025-04-06 13:51:05,538 - INFO - [cached since 1012s ago] ('ola',)
+2025-04-06 13:51:05,539 - INFO - SELECT tickets.id, tickets.title, tickets.description 
+FROM tickets
+2025-04-06 13:51:05,539 - INFO - [cached since 1178s ago] ()
+2025-04-06 13:51:05,540 - INFO - ROLLBACK
+2025-04-06 13:51:33,208 - INFO - BEGIN (implicit)
+2025-04-06 13:51:33,209 - INFO - SELECT users.id, users.username, users.password_hash, users.email 
+FROM users 
+WHERE users.username = %s
+2025-04-06 13:51:33,209 - INFO - [cached since 1039s ago] ('ola',)
+2025-04-06 13:51:33,211 - INFO - SELECT tickets.id, tickets.title, tickets.description 
+FROM tickets
+2025-04-06 13:51:33,211 - INFO - [cached since 1206s ago] ()
+2025-04-06 13:51:33,212 - INFO - ROLLBACK
+2025-04-06 13:51:41,234 - INFO - BEGIN (implicit)
+2025-04-06 13:51:41,235 - INFO - SELECT users.id, users.username, users.password_hash, users.email 
+FROM users 
+WHERE users.username = %s
+2025-04-06 13:51:41,235 - INFO - [cached since 1047s ago] ('ola',)
+2025-04-06 13:51:41,237 - INFO - SELECT tickets.id, tickets.title, tickets.description 
+FROM tickets
+2025-04-06 13:51:41,237 - INFO - [cached since 1214s ago] ()
+2025-04-06 13:51:41,239 - INFO - ROLLBACK
+2025-04-06 14:02:01,609 - INFO - BEGIN (implicit)
+2025-04-06 14:02:01,610 - INFO - SELECT tickets.id, tickets.title, tickets.description 
+FROM tickets
+2025-04-06 14:02:01,610 - INFO - [cached since 1835s ago] ()
+2025-04-06 14:02:01,611 - INFO - ROLLBACK
+2025-04-06 14:02:02,220 - INFO - BEGIN (implicit)
+2025-04-06 14:02:02,220 - INFO - SELECT tickets.id, tickets.title, tickets.description 
+FROM tickets
+2025-04-06 14:02:02,221 - INFO - [cached since 1835s ago] ()
+2025-04-06 14:02:02,223 - INFO - ROLLBACK
+2025-04-06 14:02:23,591 - INFO - BEGIN (implicit)
+2025-04-06 14:02:23,592 - INFO - SELECT users.id, users.username, users.password_hash, users.email 
+FROM users 
+WHERE users.username = %s
+2025-04-06 14:02:23,592 - INFO - [cached since 1690s ago] ('teste',)
+2025-04-06 14:02:23,813 - INFO - ROLLBACK
+2025-04-06 14:02:26,797 - INFO - BEGIN (implicit)
+2025-04-06 14:02:26,797 - INFO - SELECT users.id, users.username, users.password_hash, users.email 
+FROM users 
+WHERE users.username = %s
+2025-04-06 14:02:26,798 - INFO - [cached since 1693s ago] ('teste',)
+2025-04-06 14:02:26,799 - INFO - SELECT tickets.id, tickets.title, tickets.description 
+FROM tickets
+2025-04-06 14:02:26,800 - INFO - [cached since 1860s ago] ()
+2025-04-06 14:02:26,801 - INFO - ROLLBACK
+2025-04-06 15:49:18,432 - INFO - BEGIN (implicit)
+2025-04-06 15:49:18,435 - INFO - SELECT tickets.id, tickets.title, tickets.description 
+FROM tickets
+2025-04-06 15:49:18,436 - INFO - [cached since 8271s ago] ()
+2025-04-06 15:49:18,440 - INFO - ROLLBACK
