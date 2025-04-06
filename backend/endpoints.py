@@ -1,0 +1,117 @@
+from schemas import UserResponse,TicketResponse,TicketUser,UserCreate,TicketCreate,UserLogin
+from models import  User, Ticket, UserTicket
+from database import get_db
+from auth import get_current_user, create_access_token
+from typing import List
+from passlib.context import CryptContext
+from fastapi import  APIRouter, HTTPException, Depends
+from fastapi import status
+from sqlalchemy.ext.asyncio import AsyncSession
+from sqlalchemy.future import select
+from fastapi import APIRouter
+import logging
+
+router = APIRouter()
+
+pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto") # Object created for hashing and verifistion of passwords
+
+@router.get("/users", response_model=List[UserResponse])
+async def get_users(db: AsyncSession = Depends(get_db)):
+    result = await db.execute(select(User))
+    users = result.scalars().all()  # Retrieves all users
+    return users
+
+@router.get("/tickets", response_model=List[TicketResponse])
+async def get_tickets(db: AsyncSession = Depends(get_db)): 
+    result = await db.execute(select(Ticket))
+    tickets = result.scalars().all()  # Retrives all tickets
+    return tickets
+
+@router.get("/user_ticket", response_model=List[TicketUser])
+async def get_tickets(db: AsyncSession = Depends(get_db)): 
+    result = await db.execute(select(UserTicket))
+    rows = result.scalars().all()  # Retrives all tickets
+    return rows
+
+@router.get("/joinedTables")
+async def get_joined_tables(db: AsyncSession = Depends(get_db)): 
+    stmt = (
+        select(User, Ticket)
+        .join(UserTicket, UserTicket.user_id == User.id)
+        .join(Ticket, Ticket.id == UserTicket.ticket_id).where(User.id==1)
+    )
+    result = await db.execute(stmt)
+    rows = result.all()  # returns list of tuples (User, Ticket)
+    return [
+        {
+            "user": {
+                "id": user.id,
+                "username": user.username,
+                "email": user.email,
+            },
+            "ticket": {
+                "id": ticket.id,
+                "title": ticket.title,
+                "description": ticket.description,
+            }
+        }
+        for user, ticket in rows
+    ]
+
+@router.post("/tickets", response_model=TicketResponse)
+async def create_ticket(ticket: TicketCreate, db: AsyncSession = Depends(get_db)):
+    new_ticket = Ticket(title=ticket.title, description=ticket.description)
+    db.add(new_ticket)
+    await db.commit()
+    await db.refresh(new_ticket)
+    return new_ticket
+
+
+
+@router.post("/users", response_model=UserResponse)
+async def create_user(user: UserCreate, db: AsyncSession = Depends(get_db)):
+    hashed_password = pwd_context.hash(user.password)
+    new_user = User(email=user.email, username=user.username, password_hash=hashed_password)
+    db.add(new_user)
+    await db.commit()
+    await db.refresh(new_user)
+    return new_user
+
+@router.post("/login")
+async def login(user: UserLogin, db: AsyncSession = Depends(get_db)):
+    
+    result = await db.execute(select(User).where(User.username == user.logInUsername))
+    db_user = result.scalars().first()
+
+    if db_user is None or not pwd_context.verify(user.logInPassword, db_user.password_hash):
+        logging.error(f"Either username or password doesnt match with that its in the database: {user.username}")
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Invalid username or password",
+        )
+    
+    access_token = create_access_token(data={"sub": db_user.username})
+    
+    return {"access_token": access_token, "token_type": "bearer"}
+
+@router.post("/createTicket")
+async def dashboard(ticket: TicketCreate, current_user: User = Depends(get_current_user)):
+    return {"message": f"Welcome {current_user.username}!", "ticket": ticket}
+
+
+@router.get("/loadTickets")
+async def dashboard(current_user: User = Depends(get_current_user), db: AsyncSession = Depends(get_db)):
+    user_id = current_user.id
+    stmt = (select(Ticket).join(UserTicket, UserTicket.ticket_id == Ticket.id).join(User, User.id == UserTicket.user_id).where(User.id == user_id))
+    result = await db.execute(stmt)
+    db_tickets = result.scalars().all() 
+    
+    if not db_tickets:
+         raise HTTPException(
+        status_code=status.HTTP_401_UNAUTHORIZED,
+        detail="Error retrieving tickets from database",
+    )
+    return {"message": f"Sending to user with id: {current_user.id}!", "tickets": db_tickets}
+
+
+

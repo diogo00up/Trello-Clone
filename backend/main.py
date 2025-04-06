@@ -1,26 +1,31 @@
-from fastapi import FastAPI
+import logging
 from fastapi.middleware.cors import CORSMiddleware
-from .api import users, tickets
-from .utils.logging import configure_logging
+from fastapi import FastAPI
+from endpoints import router as endpoints_router
 
+
+
+logging.basicConfig(
+    level=logging.INFO,  # You can use DEBUG, INFO, WARNING, ERROR, CRITICAL depending on your needs
+    format='%(asctime)s - %(levelname)s - %(message)s',
+    handlers=[logging.FileHandler('app_errors.log'), logging.StreamHandler()]
+)
+
+# FastAPI app setup
 app = FastAPI()
 
-# Configure logging
-configure_logging()
-
-# Set up CORS middleware
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=["*"],  # Change this to frontend's origin in production
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
-# Include routers
-app.include_router(users.router)
-app.include_router(tickets.router)
+
+app.include_router(endpoints_router)
 
 @app.get("/")
 async def root():
-    return {"message": "Welcome to Trello Clone API!"}
+    return {"message": "Welcome to Trello Clone API! Switch endpoints(users, tickets) to get the information you need!"}
+
