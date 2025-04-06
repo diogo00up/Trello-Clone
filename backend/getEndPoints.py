@@ -50,9 +50,9 @@ class UserCreate(BaseModel):
         from_attributes = True  
 
 class UserLogin(BaseModel):
-    logInUsername: str  # Now matches frontend
-    logInPassword: str  # Now matches frontend
-
+    logInUsername: str  
+    logInPassword: str  
+    
 ##Ticket
 
 class TicketResponse(BaseModel):
@@ -227,7 +227,7 @@ async def dashboard(ticket: TicketCreate, current_user: User = Depends(get_curre
     return {"message": f"Welcome {current_user.username}!", "ticket": ticket}
 
 
-@app.post("/loadTickets")
+@app.get("/loadTickets")
 async def dashboard(current_user: User = Depends(get_current_user), db: AsyncSession = Depends(get_db)):
     user_id = current_user.id
     result = await db.execute(select(Ticket))

@@ -1,11 +1,11 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import logo from './logo.svg';
-import './App.css';
 import { useState } from 'react';
 import axios from 'axios';
 import MainTable from './mainpage'; 
 import { useNavigate } from 'react-router-dom';
+import './App.css';
 
 function App() {
   return (
@@ -21,6 +21,7 @@ function App() {
 function FooterCustom(){
   return (
     <div className='footer'>
+
       <div className='footerLogo'>
         <img src={logo} className="footerLogoImage" alt="logo" />
       </div>
@@ -49,8 +50,7 @@ function FooterCustom(){
 
 function LogIn(){
 
-  // State variables to store input values
-  const navigate = useNavigate(); // Add this line at the top
+  const navigate = useNavigate(); 
   const [username, setUsername] = useState<string>('');
   const [email, setEmail] = useState<string>('');
   const [password1, setPassword1] = useState<string>('');
@@ -106,8 +106,6 @@ function LogIn(){
     setPassword1('');
     setPassword2('');
 
-    // 🔥 Redirect to main page
-
     navigate('/main');
 
     } catch (error) {
@@ -120,7 +118,9 @@ function LogIn(){
   return(
     <div className = 'App'> 
       <header className ='SignUpPageHeader'>
+        <h1 className='title'>Welcome to Trello!</h1>
         <img src={logo} className="Applogo" alt="logo" />  
+
         <div className ='formContainers'>
 
           <div className="createAccount">
@@ -152,7 +152,6 @@ function LogIn(){
             <button id="LogInButton" onClick={handleLogIn}> Log In</button>
           </div>
 
-          
         </div>
 
       </header>

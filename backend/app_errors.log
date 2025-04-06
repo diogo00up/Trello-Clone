@@ -265,3 +265,217 @@ FROM users
 WHERE users.username = %s
 2025-04-05 16:38:36,177 - INFO - [generated in 0.00065s] ('ola',)
 2025-04-05 16:38:36,180 - INFO - ROLLBACK
+2025-04-05 17:31:21,732 - INFO - SELECT DATABASE()
+2025-04-05 17:31:21,733 - INFO - [raw sql] ()
+2025-04-05 17:31:21,735 - INFO - SELECT @@sql_mode
+2025-04-05 17:31:21,735 - INFO - [raw sql] ()
+2025-04-05 17:31:21,736 - INFO - SELECT @@lower_case_table_names
+2025-04-05 17:31:21,737 - INFO - [raw sql] ()
+2025-04-05 17:31:21,738 - INFO - BEGIN (implicit)
+2025-04-05 17:31:21,741 - INFO - SELECT users.id, users.username, users.password_hash, users.email 
+FROM users 
+WHERE users.username = %s
+2025-04-05 17:31:21,742 - INFO - [generated in 0.00109s] ('ola',)
+2025-04-05 17:31:21,744 - WARNING - (trapped) error reading bcrypt version
+Traceback (most recent call last):
+  File "C:\Users\diogo\AppData\Local\Programs\Python\Python313\Lib\site-packages\passlib\handlers\bcrypt.py", line 620, in _load_backend_mixin
+    version = _bcrypt.__about__.__version__
+              ^^^^^^^^^^^^^^^^^
+AttributeError: module 'bcrypt' has no attribute '__about__'
+2025-04-05 17:31:22,001 - INFO - ROLLBACK
+2025-04-05 17:33:31,348 - INFO - BEGIN (implicit)
+2025-04-05 17:33:31,349 - INFO - SELECT users.id, users.username, users.password_hash, users.email 
+FROM users 
+WHERE users.username = %s
+2025-04-05 17:33:31,350 - INFO - [cached since 129.6s ago] ('ola',)
+2025-04-05 17:33:31,352 - INFO - ROLLBACK
+2025-04-05 17:34:03,333 - INFO - BEGIN (implicit)
+2025-04-05 17:34:03,334 - INFO - SELECT users.id, users.username, users.password_hash, users.email 
+FROM users 
+WHERE users.username = %s
+2025-04-05 17:34:03,335 - INFO - [cached since 161.6s ago] ('ola',)
+2025-04-05 17:34:03,338 - INFO - SELECT tickets.id, tickets.title, tickets.description 
+FROM tickets
+2025-04-05 17:34:03,339 - INFO - [generated in 0.00107s] ()
+2025-04-05 17:34:03,341 - INFO - ROLLBACK
+2025-04-05 17:34:13,640 - INFO - BEGIN (implicit)
+2025-04-05 17:34:13,641 - INFO - SELECT users.id, users.username, users.password_hash, users.email 
+FROM users 
+WHERE users.username = %s
+2025-04-05 17:34:13,643 - INFO - [cached since 171.9s ago] ('ola',)
+2025-04-05 17:34:13,644 - INFO - SELECT tickets.id, tickets.title, tickets.description 
+FROM tickets
+2025-04-05 17:34:13,645 - INFO - [cached since 10.31s ago] ()
+2025-04-05 17:34:13,646 - INFO - ROLLBACK
+2025-04-05 17:39:35,792 - INFO - BEGIN (implicit)
+2025-04-05 17:39:35,793 - INFO - SELECT users.id, users.username, users.password_hash, users.email 
+FROM users 
+WHERE users.username = %s
+2025-04-05 17:39:35,794 - INFO - [cached since 494.1s ago] ('ola',)
+2025-04-05 17:39:35,796 - INFO - ROLLBACK
+2025-04-05 17:48:21,319 - INFO - BEGIN (implicit)
+2025-04-05 17:48:21,320 - INFO - SELECT users.id, users.username, users.password_hash, users.email 
+FROM users 
+WHERE users.username = %s
+2025-04-05 17:48:21,321 - INFO - [cached since 1020s ago] ('ola',)
+2025-04-05 17:48:21,570 - INFO - ROLLBACK
+2025-04-05 17:48:29,234 - INFO - BEGIN (implicit)
+2025-04-05 17:48:29,235 - INFO - SELECT users.id, users.username, users.password_hash, users.email 
+FROM users 
+WHERE users.username = %s
+2025-04-05 17:48:29,235 - INFO - [cached since 1027s ago] ('ola',)
+2025-04-05 17:48:29,237 - INFO - ROLLBACK
+2025-04-05 17:52:36,694 - INFO - BEGIN (implicit)
+2025-04-05 17:52:36,695 - INFO - SELECT users.id, users.username, users.password_hash, users.email 
+FROM users 
+WHERE users.username = %s
+2025-04-05 17:52:36,696 - INFO - [cached since 1275s ago] ('ola',)
+2025-04-05 17:52:36,698 - INFO - ROLLBACK
+2025-04-05 17:54:27,383 - INFO - BEGIN (implicit)
+2025-04-05 17:54:27,384 - INFO - SELECT users.id, users.username, users.password_hash, users.email 
+FROM users 
+WHERE users.username = %s
+2025-04-05 17:54:27,385 - INFO - [cached since 1386s ago] ('ola',)
+2025-04-05 17:54:27,386 - INFO - ROLLBACK
+2025-04-05 17:55:24,035 - INFO - BEGIN (implicit)
+2025-04-05 17:55:24,036 - INFO - SELECT users.id, users.username, users.password_hash, users.email 
+FROM users 
+WHERE users.username = %s
+2025-04-05 17:55:24,036 - INFO - [cached since 1442s ago] ('ola',)
+2025-04-05 17:55:24,038 - INFO - SELECT tickets.id, tickets.title, tickets.description 
+FROM tickets
+2025-04-05 17:55:24,038 - INFO - [cached since 1281s ago] ()
+2025-04-05 17:55:24,040 - INFO - ROLLBACK
+2025-04-05 20:01:23,255 - INFO - SELECT DATABASE()
+2025-04-05 20:01:23,256 - INFO - [raw sql] ()
+2025-04-05 20:01:23,257 - INFO - SELECT @@sql_mode
+2025-04-05 20:01:23,258 - INFO - [raw sql] ()
+2025-04-05 20:01:23,258 - INFO - SELECT @@lower_case_table_names
+2025-04-05 20:01:23,259 - INFO - [raw sql] ()
+2025-04-05 20:01:23,260 - INFO - BEGIN (implicit)
+2025-04-05 20:01:23,263 - INFO - SELECT users.id, users.username, users.password_hash, users.email 
+FROM users
+2025-04-05 20:01:23,264 - INFO - [generated in 0.00077s] ()
+2025-04-05 20:01:23,266 - INFO - ROLLBACK
+2025-04-05 20:01:37,525 - INFO - BEGIN (implicit)
+2025-04-05 20:01:37,527 - INFO - SELECT users.id, users.username, users.password_hash, users.email 
+FROM users 
+WHERE users.username = %s
+2025-04-05 20:01:37,528 - INFO - [generated in 0.00089s] ('ola',)
+2025-04-05 20:01:37,531 - WARNING - (trapped) error reading bcrypt version
+Traceback (most recent call last):
+  File "C:\Users\diogo\AppData\Local\Programs\Python\Python313\Lib\site-packages\passlib\handlers\bcrypt.py", line 620, in _load_backend_mixin
+    version = _bcrypt.__about__.__version__
+              ^^^^^^^^^^^^^^^^^
+AttributeError: module 'bcrypt' has no attribute '__about__'
+2025-04-05 20:01:37,799 - INFO - ROLLBACK
+2025-04-05 20:01:46,498 - INFO - BEGIN (implicit)
+2025-04-05 20:01:46,498 - INFO - SELECT users.id, users.username, users.password_hash, users.email 
+FROM users 
+WHERE users.username = %s
+2025-04-05 20:01:46,499 - INFO - [cached since 8.972s ago] ('ola',)
+2025-04-05 20:01:46,501 - INFO - ROLLBACK
+2025-04-05 20:25:19,218 - INFO - BEGIN (implicit)
+2025-04-05 20:25:19,219 - INFO - SELECT users.id, users.username, users.password_hash, users.email 
+FROM users 
+WHERE users.username = %s
+2025-04-05 20:25:19,219 - INFO - [cached since 1422s ago] ('ola',)
+2025-04-05 20:25:19,458 - INFO - ROLLBACK
+2025-04-05 20:26:07,126 - INFO - BEGIN (implicit)
+2025-04-05 20:26:07,128 - INFO - SELECT tickets.id, tickets.title, tickets.description 
+FROM tickets
+2025-04-05 20:26:07,129 - INFO - [generated in 0.00089s] ()
+2025-04-05 20:26:07,133 - INFO - ROLLBACK
+2025-04-05 20:28:39,381 - INFO - BEGIN (implicit)
+2025-04-05 20:28:39,383 - INFO - SELECT users.id, users.username, users.password_hash, users.email 
+FROM users 
+WHERE users.username = %s
+2025-04-05 20:28:39,383 - INFO - [cached since 1622s ago] ('ola',)
+2025-04-05 20:28:39,385 - INFO - ROLLBACK
+2025-04-05 20:47:21,906 - INFO - SELECT DATABASE()
+2025-04-05 20:47:21,906 - INFO - [raw sql] ()
+2025-04-05 20:47:21,907 - INFO - SELECT @@sql_mode
+2025-04-05 20:47:21,908 - INFO - [raw sql] ()
+2025-04-05 20:47:21,909 - INFO - SELECT @@lower_case_table_names
+2025-04-05 20:47:21,909 - INFO - [raw sql] ()
+2025-04-05 20:47:21,910 - INFO - BEGIN (implicit)
+2025-04-05 20:47:21,913 - INFO - SELECT users.id, users.username, users.password_hash, users.email 
+FROM users 
+WHERE users.username = %s
+2025-04-05 20:47:21,913 - INFO - [generated in 0.00057s] ('ola',)
+2025-04-05 20:47:21,916 - INFO - SELECT tickets.id, tickets.title, tickets.description 
+FROM tickets
+2025-04-05 20:47:21,916 - INFO - [generated in 0.00057s] ()
+2025-04-05 20:47:21,918 - INFO - ROLLBACK
+2025-04-05 20:47:23,665 - INFO - BEGIN (implicit)
+2025-04-05 20:47:23,666 - INFO - SELECT users.id, users.username, users.password_hash, users.email 
+FROM users 
+WHERE users.username = %s
+2025-04-05 20:47:23,666 - INFO - [cached since 1.753s ago] ('ola',)
+2025-04-05 20:47:23,668 - INFO - SELECT tickets.id, tickets.title, tickets.description 
+FROM tickets
+2025-04-05 20:47:23,668 - INFO - [cached since 1.753s ago] ()
+2025-04-05 20:47:23,669 - INFO - ROLLBACK
+2025-04-06 01:02:09,655 - INFO - SELECT DATABASE()
+2025-04-06 01:02:09,656 - INFO - [raw sql] ()
+2025-04-06 01:02:09,657 - INFO - SELECT @@sql_mode
+2025-04-06 01:02:09,657 - INFO - [raw sql] ()
+2025-04-06 01:02:09,658 - INFO - SELECT @@lower_case_table_names
+2025-04-06 01:02:09,659 - INFO - [raw sql] ()
+2025-04-06 01:02:09,661 - INFO - BEGIN (implicit)
+2025-04-06 01:02:09,664 - INFO - SELECT tickets.id, tickets.title, tickets.description 
+FROM tickets
+2025-04-06 01:02:09,664 - INFO - [generated in 0.00046s] ()
+2025-04-06 01:02:09,666 - INFO - ROLLBACK
+2025-04-06 01:02:10,620 - INFO - BEGIN (implicit)
+2025-04-06 01:02:10,621 - INFO - SELECT tickets.id, tickets.title, tickets.description 
+FROM tickets
+2025-04-06 01:02:10,621 - INFO - [cached since 0.9576s ago] ()
+2025-04-06 01:02:10,623 - INFO - ROLLBACK
+2025-04-06 01:02:20,816 - INFO - BEGIN (implicit)
+2025-04-06 01:02:20,817 - INFO - SELECT tickets.id, tickets.title, tickets.description 
+FROM tickets
+2025-04-06 01:02:20,817 - INFO - [cached since 11.15s ago] ()
+2025-04-06 01:02:20,818 - INFO - ROLLBACK
+2025-04-06 01:02:21,550 - INFO - BEGIN (implicit)
+2025-04-06 01:02:21,551 - INFO - SELECT tickets.id, tickets.title, tickets.description 
+FROM tickets
+2025-04-06 01:02:21,551 - INFO - [cached since 11.89s ago] ()
+2025-04-06 01:02:21,553 - INFO - ROLLBACK
+2025-04-06 01:02:25,372 - INFO - BEGIN (implicit)
+2025-04-06 01:02:25,375 - INFO - SELECT users.id, users.username, users.password_hash, users.email 
+FROM users
+2025-04-06 01:02:25,375 - INFO - [generated in 0.00099s] ()
+2025-04-06 01:02:25,378 - INFO - ROLLBACK
+2025-04-06 01:02:31,576 - INFO - BEGIN (implicit)
+2025-04-06 01:02:31,578 - INFO - SELECT tickets.id, tickets.title, tickets.description 
+FROM tickets
+2025-04-06 01:02:31,578 - INFO - [cached since 21.91s ago] ()
+2025-04-06 01:02:31,580 - INFO - ROLLBACK
+2025-04-06 01:04:49,715 - INFO - SELECT DATABASE()
+2025-04-06 01:04:49,716 - INFO - [raw sql] ()
+2025-04-06 01:04:49,717 - INFO - SELECT @@sql_mode
+2025-04-06 01:04:49,718 - INFO - [raw sql] ()
+2025-04-06 01:04:49,719 - INFO - SELECT @@lower_case_table_names
+2025-04-06 01:04:49,719 - INFO - [raw sql] ()
+2025-04-06 01:04:49,721 - INFO - BEGIN (implicit)
+2025-04-06 01:04:49,726 - INFO - SELECT users.id, users.username, users.password_hash, users.email 
+FROM users 
+WHERE users.username = %s
+2025-04-06 01:04:49,726 - INFO - [generated in 0.00062s] ('ola',)
+2025-04-06 01:04:49,738 - WARNING - (trapped) error reading bcrypt version
+Traceback (most recent call last):
+  File "C:\Users\diogo\AppData\Local\Programs\Python\Python313\Lib\site-packages\passlib\handlers\bcrypt.py", line 620, in _load_backend_mixin
+    version = _bcrypt.__about__.__version__
+              ^^^^^^^^^^^^^^^^^
+AttributeError: module 'bcrypt' has no attribute '__about__'
+2025-04-06 01:04:50,001 - INFO - ROLLBACK
+2025-04-06 01:04:55,362 - INFO - BEGIN (implicit)
+2025-04-06 01:04:55,363 - INFO - SELECT users.id, users.username, users.password_hash, users.email 
+FROM users 
+WHERE users.username = %s
+2025-04-06 01:04:55,364 - INFO - [cached since 5.638s ago] ('ola',)
+2025-04-06 01:04:55,365 - INFO - SELECT tickets.id, tickets.title, tickets.description 
+FROM tickets
+2025-04-06 01:04:55,365 - INFO - [generated in 0.00035s] ()
+2025-04-06 01:04:55,367 - INFO - ROLLBACK
