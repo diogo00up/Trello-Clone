@@ -38,10 +38,10 @@ class TicketResponse(BaseModel):
     id: int
     title: str
     description: str
+    ticket_class: str
 
     class Config:
         from_attributes = True  
-
 
 class TicketCreate(BaseModel):
     title: str
@@ -50,3 +50,5 @@ class TicketCreate(BaseModel):
     class Config:
         from_attributes = True  
 
+class TicketUpdate(BaseModel):
+    ticket_class: str

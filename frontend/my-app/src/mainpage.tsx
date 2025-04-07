@@ -1,14 +1,33 @@
 import React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 import './mainpage.css';
 import add_plus from './add_plus.svg';
+
 
 type TicketProps = {
   title: string;
   text: string;
   ticket_class : string;
 };
+
+type ColumnProps = {
+  title: string;
+  ticketClass: string;
+  tickets: TicketProps[];
+};
+
+
+function Column({ title, ticketClass, tickets }: ColumnProps) {
+  return (
+    <div className="indivual_column" title={ticketClass}>
+      <h3 className="column-title">{title}</h3>
+      {tickets.filter((ticket) => ticket.ticket_class === ticketClass).map((ticket, index) => (
+        <Ticket key={index} title={ticket.title} text={ticket.text} ticket_class={ticket.ticket_class}/>
+        ))}
+    </div>
+  );
+}
 
 
 function Ticket({ title, text, ticket_class }: TicketProps){
@@ -29,13 +48,14 @@ function Ticket({ title, text, ticket_class }: TicketProps){
   );
 }
 
-
 function MainTable(){
   
   const token = sessionStorage.getItem('access_token');
   const [title, setTitle] = useState<string>('New title');
   const [description, setDescription] = useState<string>('Insert new text');
   const [tickets, setTickets] = useState<TicketProps[]>([]); // store list of tickets
+
+  
 
   
   const handleButtonClick = async () => {
@@ -92,6 +112,10 @@ function MainTable(){
 
   };
 
+  useEffect(() => {
+    handleTicketLoad();
+  }, []);
+
   return (
     <div className='background'>
 
@@ -105,39 +129,16 @@ function MainTable(){
         <span className="add-text">Click to load the tickets</span>
       </div>
 
-  
-
+      
       <div className='main-board'>
 
-        <div className="indivual_column">
-          <h3 className="column-title" title='backlog'>Backlog</h3>
-          {tickets.filter(ticket => ticket.ticket_class === 'backlog').map((ticket, index) => (
-            <Ticket key={index} title={ticket.title} text={ticket.text} ticket_class={ticket.ticket_class} /> ))}
-        </div>
-
-        <div className="indivual_column" title='current_sprint'>
-          <h3 className="column-title">Sprint</h3>
-          {tickets.filter(ticket => ticket.ticket_class === 'current_sprint').map((ticket, index) => (
-            <Ticket key={index} title={ticket.title} text={ticket.text} ticket_class={ticket.ticket_class} /> ))}
-        </div>
-
-        <div className="indivual_column" title='in_progress'>
-          <h3 className="column-title">InProgress</h3>
-          {tickets.filter(ticket => ticket.ticket_class === 'in_progress').map((ticket, index) => (
-            <Ticket key={index} title={ticket.title} text={ticket.text} ticket_class={ticket.ticket_class} /> ))}
-        </div>
-
-        <div className="indivual_column" title='done'>
-          <h3 className="column-title">Done</h3>
-          {tickets.filter(ticket => ticket.ticket_class === 'done').map((ticket, index) => (
-            <Ticket key={index} title={ticket.title} text={ticket.text} ticket_class={ticket.ticket_class} /> ))}
-        </div>
-      
+        <Column title="Backlog" ticketClass="backlog" tickets={tickets} />
+        <Column title="Sprint" ticketClass="current_sprint" tickets={tickets} />
+        <Column title="InProgress" ticketClass="in_progress" tickets={tickets} />
+        <Column title="Done" ticketClass="done" tickets={tickets} />
+            
       </div>
-
- 
-
-
+      
     </div>
     
   );

@@ -1,4 +1,4 @@
-from schemas import UserResponse,TicketResponse,TicketUser,UserCreate,TicketCreate,UserLogin
+from schemas import UserResponse,TicketResponse,TicketUser,UserCreate,TicketCreate,UserLogin,TicketUpdate
 from models import  User, Ticket, UserTicket
 from database import get_db
 from auth import get_current_user, create_access_token
@@ -27,6 +27,24 @@ async def get_tickets(db: AsyncSession = Depends(get_db)):
     tickets = result.scalars().all()  # Retrives all tickets
     return tickets
 
+
+@router.put("/tickets/{ticket_id}")
+async def update_ticket_class(ticket_id: int, update_data: TicketUpdate, db: AsyncSession = Depends(get_db)):
+    # Fetch the ticket to check if it exists
+    result = await db.execute(select(Ticket).where(Ticket.id == ticket_id))
+    ticket = result.scalar_one_or_none()
+    
+    if not ticket:
+        raise HTTPException(status_code=404, detail="Ticket not found")
+    
+    ticket.ticket_class = update_data.ticket_class
+    db.add(ticket)
+    await db.commit()
+    await db.refresh(ticket)
+
+    return {"message": "Ticket updated successfully", "ticket": ticket}
+
+
 @router.get("/user_ticket", response_model=List[TicketUser])
 async def get_tickets(db: AsyncSession = Depends(get_db)): 
     result = await db.execute(select(UserTicket))
@@ -40,6 +58,7 @@ async def get_joined_tables(db: AsyncSession = Depends(get_db)):
         .join(UserTicket, UserTicket.user_id == User.id)
         .join(Ticket, Ticket.id == UserTicket.ticket_id).where(User.id==1)
     )
+
     result = await db.execute(stmt)
     rows = result.all()  # returns list of tuples (User, Ticket)
     return [
