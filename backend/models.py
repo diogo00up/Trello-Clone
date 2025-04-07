@@ -18,6 +18,7 @@ class Ticket(Base):
     title = Column(String(255))
     description = Column(String(255))
     ticket_owner = Column(Integer, ForeignKey("users.id"))
+    ticket_class = Column(String(255))
 
 class UserTicket(Base):
     __tablename__ = "user_ticket"

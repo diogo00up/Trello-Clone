@@ -53,6 +53,7 @@ async def get_joined_tables(db: AsyncSession = Depends(get_db)):
                 "id": ticket.id,
                 "title": ticket.title,
                 "description": ticket.description,
+                "ticket_class" : ticket.ticket_class
             }
         }
         for user, ticket in rows

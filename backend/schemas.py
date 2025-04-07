@@ -49,3 +49,4 @@ class TicketCreate(BaseModel):
 
     class Config:
         from_attributes = True  
+

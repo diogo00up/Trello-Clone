@@ -19,7 +19,7 @@
     background-color: rgb(23, 15, 19);
     border: 1px solid #881010;
     border-radius: 8px;
-    width: 300px;
+    width: 200px;
     margin: 16px;
     box-shadow:  0 2px 4px rgba(0,0,0,0.1);
     
@@ -38,7 +38,7 @@
 
 
 .ticketbox input{
-    width : 280px;
+    width : 180px;
     height: 100%;
     padding: 10px 12px;
     font-size: 16px;
@@ -51,6 +51,11 @@
     transition: border-color 0.2s, box-shadow 0.2s;
     box-sizing: border-box;
    
+}
+
+.ticketbox a {
+    font-size: 20px;
+    color: white;
 }
 
 input:focus {
@@ -83,5 +88,31 @@ textarea {
     background-color: #fff;
   }
   
+.main-board{
+  background-color: #881010;
+  height: 600px;
+  margin-left: 100px;
+  margin-right: 100px;
+  display: flex;
+  justify-content: center;
+  gap: 25px;
+  
+}
 
+.indivual_column{
+  background-color: #7c3aed;
+  width: 400px;
+  padding: 0px;
+  margin: 15px;
+  
+}
+
+.column-title{
+  padding: 0px;
+
+}
+
+.background{
+  background-color: #329a6d;
+}
 
