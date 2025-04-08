@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import './mainpage.css';
 import add_plus from './add_plus.svg';
-
+import FooterCustom from './footer'
 
 type TicketProps = {
   title: string;
@@ -53,37 +53,52 @@ function MainTable(){
   const token = sessionStorage.getItem('access_token');
   const [title, setTitle] = useState<string>('New title');
   const [description, setDescription] = useState<string>('Insert new text');
-  const [tickets, setTickets] = useState<TicketProps[]>([]); // store list of tickets
+  const [tickets, setTickets] = useState<TicketProps[]>([]); 
+  const [showPopup, setShowPopup] = useState<boolean>(false);
 
-  
 
-  
+
   const handleButtonClick = async () => {
-
-    console.log('my session token is : ',token);
-
+    console.log('My session token is:', token);
+  
     const ticket = {
       title,
       description
     };
-
   
     try {
-      const response = await axios.post('http://127.0.0.1:8000/createTicket', ticket,{
+      
+      const response = await axios.post('http://127.0.0.1:8000/createTicket', ticket, {
         headers: {
           Authorization: `Bearer ${token}`
         }
       });
   
-      console.log('Response from the API:', response.data);
+      console.log('Response from the API (Create Ticket):', response.data);
   
-    }catch (error) {
-        console.error('LogIn Error:', error);
-      }
-
+      const user_id = response.data.owner_id;
+      const ticket_id = response.data.ticket_id;
+  
+      const ticketUser = {
+        user_id,
+        ticket_id
+      };
+  
+      const relationResponse = await axios.post('http://127.0.0.1:8000/createTicketUserRelation', ticketUser, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+  
+      console.log('Response from the API (Create TicketUser relation):', relationResponse.data);
+  
+    } catch (error) {
+      console.error('Error creating new ticket or ticket-user relation:', error);
+    }
+  
+    setShowPopup(false);
   };
-
-
+  
   const handleTicketLoad = async () => {
     console.log("chamei a funcao");
     console.log('my session token is : ',token);
@@ -112,32 +127,47 @@ function MainTable(){
 
   };
 
+  const callTicketTemplate = async() =>{
+    setShowPopup(true); 
+  }
+
+  const cancelTicketCreation = () => {
+    setShowPopup(false); 
+  };
+
   useEffect(() => {
     handleTicketLoad();
   }, []);
-
+  
   return (
     <div className='background'>
 
-      <div className="add-ticket" onClick={handleButtonClick}>
+      <div className="add-ticket" onClick={callTicketTemplate}>
         <img src={add_plus} className="add_plus" alt="add" />
-        <span className="add-text">Click to add new ticket</span>
+        <span className="add-text">Create new ticket</span>
       </div>
 
-      <div className="add-ticket" onClick={handleTicketLoad}>
-        <img src={add_plus} className="add_plus" alt="add" />
-        <span className="add-text">Click to load the tickets</span>
-      </div>
+      {showPopup && (
+        <div className='pop-put-new-ticket'>
+          <label htmlFor="title">New ticket title:</label>
+          <input type="text" id="title" value={title} onChange={(e) => setTitle(e.target.value)}/>
 
-      
+          <label htmlFor="new-ticket-description">New ticket description:</label>
+          <input type="text" id="new-ticket-description" value={description} onChange={(e) => setDescription(e.target.value)}/>
+
+          <button onClick={handleButtonClick}>Submit Ticket</button>
+          <button onClick={cancelTicketCreation}>Cancel</button>
+        </div>
+      )}
+
       <div className='main-board'>
-
         <Column title="Backlog" ticketClass="backlog" tickets={tickets} />
         <Column title="Sprint" ticketClass="current_sprint" tickets={tickets} />
         <Column title="InProgress" ticketClass="in_progress" tickets={tickets} />
         <Column title="Done" ticketClass="done" tickets={tickets} />
-            
       </div>
+
+      <FooterCustom />
       
     </div>
     

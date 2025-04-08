@@ -46,9 +46,15 @@ class TicketResponse(BaseModel):
 class TicketCreate(BaseModel):
     title: str
     description: str
-
+    
     class Config:
         from_attributes = True  
 
 class TicketUpdate(BaseModel):
     ticket_class: str
+
+class TicketUser(BaseModel):
+    user_id : int
+    ticket_id: int
+    class Config:
+        from_attributes = True  

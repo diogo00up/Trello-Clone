@@ -83,20 +83,19 @@ textarea {
   
   textarea:focus {
     outline: none;
-    border-color: #7c3aed; 
+    border-color: #139e2f; 
     box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.2); 
     background-color: #fff;
   }
   
 .main-board{
   background-color: #881010;
-  height: 600px;
   margin-left: 100px;
   margin-right: 100px;
   display: flex;
   justify-content: center;
   gap: 25px;
-  
+  margin: 50px;  
 }
 
 .indivual_column{
@@ -104,6 +103,8 @@ textarea {
   width: 400px;
   padding: 0px;
   margin: 15px;
+  height: 700px; /* Set your desired height here */
+  overflow-y: auto; /* This makes the column scrollable */
   
 }
 
@@ -116,3 +117,17 @@ textarea {
   background-color: #329a6d;
 }
 
+.pop-put-new-ticket {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgb(109, 191, 16);
+  border: 2px solid #ccc;
+  padding: 20px;
+  z-index: 1000;
+  box-shadow: 0px 0px 10px rgba(0,0,0,0.3);
+  font-size: 25px;
+  display: flex;
+  
+}

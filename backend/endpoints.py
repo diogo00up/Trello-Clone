@@ -114,9 +114,28 @@ async def login(user: UserLogin, db: AsyncSession = Depends(get_db)):
     
     return {"access_token": access_token, "token_type": "bearer"}
 
+
 @router.post("/createTicket")
-async def dashboard(ticket: TicketCreate, current_user: User = Depends(get_current_user)):
-    return {"message": f"Welcome {current_user.username}!", "ticket": ticket}
+async def dashboard(ticket: TicketCreate, current_user: User = Depends(get_current_user), db: AsyncSession = Depends(get_db)):
+    new_ticket = Ticket(title=ticket.title, description=ticket.description,ticket_owner = current_user.id, ticket_class="backlog")
+    db.add(new_ticket)
+    await db.commit()
+    await db.refresh(new_ticket)
+    owner_id = new_ticket.ticket_owner
+    ticket_id =  new_ticket.id
+    return {    
+        "owner_id": owner_id,
+        "ticket_id": ticket_id
+    }
+    
+@router.post("/createTicketUserRelation")
+async def dashboard(relation: TicketUser, current_user: User = Depends(get_current_user), db: AsyncSession = Depends(get_db)):
+    new_relation = UserTicket(user_id = relation.user_id,ticket_id = relation.ticket_id)
+    db.add(new_relation)
+    await db.commit()
+    await db.refresh(new_relation)
+    return {"relation i wanna create is  ": relation, "Put in data base :" : new_relation}
+   
 
 
 @router.get("/loadTickets")
