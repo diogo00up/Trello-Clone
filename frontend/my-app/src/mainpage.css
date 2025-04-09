@@ -1,7 +1,21 @@
+@import url('https://fonts.googleapis.com/css2?family=Saira:wght@300;400;500;600;700&display=swap');
+
+body {
+  font-family: 'Saira', sans-serif;
+}
+
+
 .add-ticket {
     display: flex;
     align-items: center;
     cursor: pointer;
+    margin-right: 50px;
+    margin-left: 50px;
+    height: 100%;
+    background-color: #d3d3d3;
+    border-radius: 10px; 
+    padding-left: 10px;
+  
   }
   
   .add_plus {
@@ -17,21 +31,24 @@
   
   .ticketbox{
     background-color: rgb(23, 15, 19);
-    border: 1px solid #881010;
+    border: 1px solid #000000;
     border-radius: 8px;
     width: 200px;
     margin: 16px;
     box-shadow:  0 2px 4px rgba(0,0,0,0.1);
+    margin-bottom: 0px;
     
 }
 
 .ticketTitle{
-    margin: 0px;
+    margin: 10px;
+    height: 20px;
+    margin-top: 0px;
+    margin-bottom: 30px;
  
 }
 
 .tickerText{
-    
     height: auto;
     padding: 8px;
 }
@@ -88,19 +105,11 @@ textarea {
     background-color: #fff;
   }
   
-.main-board{
-  background-color: #881010;
-  margin-left: 100px;
-  margin-right: 100px;
-  display: flex;
-  justify-content: center;
-  gap: 25px;
-  margin: 50px;  
-}
 
 .indivual_column{
-  background-color: #7c3aed;
-  width: 400px;
+  background-color: #d3d3d3;
+  border-radius: 10px; 
+  width: 250px;
   padding: 0px;
   margin: 15px;
   height: 700px; /* Set your desired height here */
@@ -114,7 +123,7 @@ textarea {
 }
 
 .background{
-  background-color: #329a6d;
+  background-color: #000000;
 }
 
 .pop-put-new-ticket {
@@ -122,7 +131,6 @@ textarea {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: rgb(109, 191, 16);
   border: 2px solid #ccc;
   padding: 20px;
   z-index: 1000;
@@ -130,4 +138,87 @@ textarea {
   font-size: 25px;
   display: flex;
   
+}
+
+
+
+#backlog {
+  position: relative;
+  left: 20px; 
+  top: 5px;  
+
+
+}
+
+#sprint{
+  position: relative;
+  left: 250px; 
+  top: 5px;   
+}
+
+#in-progress{
+  position: relative;
+  left: 340px; 
+  top: 5px;   
+}
+
+#done{
+  position: relative;
+  left: 490px; 
+  top: 5px;   
+}
+
+
+.board-wrapper {
+  background-color: #d3d3d3;
+  padding-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 50px;
+  margin-bottom: 20px;
+  margin-top: 10px;
+  border-radius: 10px; 
+}
+
+.titles {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  width: 100%;
+  color: #06dd2a;
+  font-weight: bold;
+  font-size: 18px;
+  margin-bottom: 0px;
+  text-align: center;
+}
+
+.titles a {
+  padding: 10px;
+}
+
+.main-board {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 25px;
+  background-color: #ffffff;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.class-name-ticket {
+  background-color: blueviolet;
+  border-radius: 10px; 
+  
+  height: 15px;
+  padding: 5px;
+  margin: 5px;
+  display: flex;
+  align-items: center; 
+}
+
+#call-id-ticket {
+  color: white;  /* or any color you like */
+  text-decoration: none;
+  position: relative; 
+  font-size: small;
 }

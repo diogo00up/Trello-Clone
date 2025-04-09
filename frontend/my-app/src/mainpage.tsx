@@ -21,7 +21,6 @@ type ColumnProps = {
 function Column({ title, ticketClass, tickets }: ColumnProps) {
   return (
     <div className="indivual_column" title={ticketClass}>
-      <h3 className="column-title">{title}</h3>
       {tickets.filter((ticket) => ticket.ticket_class === ticketClass).map((ticket, index) => (
         <Ticket key={index} title={ticket.title} text={ticket.text} ticket_class={ticket.ticket_class}/>
         ))}
@@ -42,7 +41,11 @@ function Ticket({ title, text, ticket_class }: TicketProps){
       <div className='tickerText'>
         <textarea value={text} readOnly />
       </div>
-      <a>{ticket_class}</a>
+
+      <div className='class-name-ticket'>
+        <a id='call-id-ticket'>{ticket_class}</a>
+      </div>
+    
           
     </div>  
   );
@@ -160,15 +163,23 @@ function MainTable(){
         </div>
       )}
 
-      <div className='main-board'>
-        <Column title="Backlog" ticketClass="backlog" tickets={tickets} />
-        <Column title="Sprint" ticketClass="current_sprint" tickets={tickets} />
-        <Column title="InProgress" ticketClass="in_progress" tickets={tickets} />
-        <Column title="Done" ticketClass="done" tickets={tickets} />
+      <div className="board-wrapper">
+        <div className='titles'>
+          <a>Backlog</a>
+          <a>Current Sprint</a>
+          <a>In Progress</a>
+          <a>Done</a>
+        </div>
+
+        <div className='main-board'>
+          <Column title="Backlog" ticketClass="backlog" tickets={tickets} />
+          <Column title="Sprint" ticketClass="current_sprint" tickets={tickets} />
+          <Column title="InProgress" ticketClass="in_progress" tickets={tickets} />
+          <Column title="Done" ticketClass="done" tickets={tickets} />
+        </div>
       </div>
 
       <FooterCustom />
-      
     </div>
     
   );
