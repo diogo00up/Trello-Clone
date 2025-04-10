@@ -114,7 +114,6 @@ textarea {
   margin: 15px;
   height: 700px; 
   overflow-y: auto; 
-  
 }
 
 .column-title{
@@ -221,5 +220,10 @@ textarea {
   text-decoration: none;
   position: relative; 
   font-size: small;
+}
+
+
+.teste{
+  background-color:#06dd2a;
 }
 
