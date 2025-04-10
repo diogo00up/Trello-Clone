@@ -169,6 +169,7 @@ function MainTable(){
           <a>Current Sprint</a>
           <a>In Progress</a>
           <a>Done</a>
+          
         </div>
 
         <div className='main-board'>
