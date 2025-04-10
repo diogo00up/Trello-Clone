@@ -7,6 +7,8 @@ import { useNavigate } from 'react-router-dom';
 import './App.css';
 import FooterCustom from './footer'
 
+
+
 function App() {
   return (
     <>
@@ -120,11 +122,14 @@ function LogIn(){
             <input id = 'LogInPassword' type = 'password' value = {logInPassword} onChange={(e) => setLogInPassword(e.target.value)}/>
 
             <button id="LogInButton" onClick={handleLogIn}> Log In</button>
+          
           </div>
 
         </div>
 
       </header>
+      
+
       <FooterCustom />
 
     </div>

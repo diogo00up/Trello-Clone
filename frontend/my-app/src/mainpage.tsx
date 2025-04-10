@@ -18,6 +18,7 @@ type ColumnProps = {
 };
 
 
+
 function Column({ title, ticketClass, tickets }: ColumnProps) {
   return (
     <div className="indivual_column" title={ticketClass}>
@@ -181,12 +182,15 @@ function MainTable(){
       </div>
 
       <FooterCustom />
+      
+ 
     </div>
     
   );
 }
   
 export default MainTable;
+
 
 
 
