@@ -1,3 +1,4 @@
+
 .App input {
   width: 365px;  
   height: 20px;  
@@ -37,6 +38,8 @@ button{
 
 .App {
   text-align: center;
+  background-image: url("backgroud.jpg");
+  background-size: cover;
 }
 
 .App-logo {
@@ -70,7 +73,6 @@ button{
 
 
 .SignUpPageHeader{
-  background-color: #282c34;
   min-height: 100vh;
   color: white;
   font-size: large;
@@ -81,10 +83,10 @@ button{
 .formContainers{
   padding-top: 50px;
   padding-bottom:50px;
-  background-color: rgb(84, 100, 100);
   justify-content: center;
   display: flex;
   gap: 50px; 
+  margin-top: 200px;
 
 }
 
@@ -97,7 +99,7 @@ button{
   flex-direction: column;
   gap: 10px; 
   width: 400px;
-  border-radius: 5px; 
+  border-radius: 15px; 
   padding-bottom: 10px;
   
 }
@@ -110,7 +112,7 @@ button{
   flex-direction: column;
   gap: 10px; 
   width: 400px;
-  border-radius: 5px; 
+  border-radius: 15px; 
   padding-bottom: 10px;
 }
 

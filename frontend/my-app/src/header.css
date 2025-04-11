@@ -1,0 +1,48 @@
+.header{
+    background-color: rgb(90, 26, 180);
+    height: 340px;
+    display: flex;
+    position: relative;
+    color: white;
+}
+
+.header-title{
+    width: 400px;
+    position: absolute;
+    left: 100px;
+    
+}
+
+.header-subtitle{
+    margin-top: 80px;
+    width: 300px;
+    position: absolute;
+    left: 620px;
+
+    
+}
+
+.header-subtitle h3{
+    font-size: 35px;
+}
+
+.header-icon{
+    margin-top: 30px;
+    width: 400px;
+    position: absolute;
+    left: 1000px;
+}
+
+.HeaderLogoImage{
+    height: 70vmin;
+}
+
+.header-line{
+    position: relative;
+    height: 3px;
+    background-color:rgb(90, 26, 180);
+    width: 1065px;
+    margin: 20px 0;
+    top: 400px;
+
+}

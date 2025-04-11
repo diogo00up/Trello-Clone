@@ -3,6 +3,7 @@ import axios from 'axios';
 import './mainpage.css';
 import add_plus from './add_plus.svg';
 import FooterCustom from './footer';
+import HeaderCustom from './header';
 import { DndContext, useDraggable, useDroppable, DragOverlay } from '@dnd-kit/core';
 
 type TicketProps = {
@@ -153,7 +154,9 @@ function MainTable() {
   }, []);
 
   return (
+    
     <div className="background">
+       <HeaderCustom />  
 
       <div className="add-ticket" onClick={() => setShowPopup(true)}>
         <img src={add_plus} className="add_plus" alt="add" />

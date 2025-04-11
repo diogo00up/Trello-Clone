@@ -6,6 +6,7 @@ import MainTable from './mainpage';
 import { useNavigate } from 'react-router-dom';
 import './App.css';
 import FooterCustom from './footer'
+import HeaderCustom from './header';
 
 
 
@@ -88,11 +89,11 @@ function LogIn(){
   
   
   return(
+    
     <div className = 'App'> 
       <header className ='SignUpPageHeader'>
-        <h1 className='title'>Welcome to Trello!</h1>
-        <img src={logo} className="Applogo" alt="logo" />  
-
+        <HeaderCustom />  
+        
         <div className ='formContainers'>
 
           <div className="createAccount">
@@ -128,9 +129,9 @@ function LogIn(){
         </div>
 
       </header>
+      <FooterCustom />
       
 
-      <FooterCustom />
 
     </div>
   );

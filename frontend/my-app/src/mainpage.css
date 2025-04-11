@@ -30,8 +30,8 @@ body {
   }
   
   .ticketbox{
-    background-color: rgb(23, 15, 19);
-    border: 1px solid #000000;
+    background-color: rgb(125, 122, 137);
+    border: 1px solid #ffffff;
     border-radius: 8px;
     width: 200px;
     margin: 16px;
@@ -169,7 +169,7 @@ textarea {
 }
 
 .board-wrapper {
-  padding-top: 20px;
+  padding-top: 200px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -183,7 +183,7 @@ textarea {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   width: 100%;
-  color: #06dd2a;
+  color: #ffffff;
   font-weight: bold;
   font-size: 18px;
   margin-bottom: 0px;
@@ -192,7 +192,9 @@ textarea {
 
 .titles a {
   padding: 10px;
-  background-color: #484848;
+  background-color: rgb(90, 26, 180);
+  border-top-right-radius: 10px;
+  border-top-left-radius: 10px;
 }
 
 .main-board {
@@ -201,20 +203,21 @@ textarea {
   gap: 25px;
   width: 100%;
   margin-bottom: 20px;
-  background: rgba(0, 0, 0, 0.3); /* Semi-transparent white */
-  backdrop-filter: blur(10px); /* Applies a blur effect to the background */
+  background: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(10px); 
   border-bottom-left-radius: 10px; 
   border-bottom-right-radius: 10px; 
 }
 
 .class-name-ticket {
-  background-color: blueviolet;
+  background-color: rgb(36, 14, 234);
   border-radius: 10px; 
   height: 15px;
   padding: 5px;
   margin: 5px;
   display: flex;
-  align-items: center; 
+  align-items: center;
+  width: fit-content;
 }
 
 #call-id-ticket {
