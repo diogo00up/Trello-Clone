@@ -122,7 +122,8 @@ textarea {
 }
 
 .background{
-  background-color: #000000;
+  background-image: url("backgroud.jpg");
+  background-size: cover;
 }
 
 .pop-put-new-ticket {
@@ -167,9 +168,7 @@ textarea {
   top: 5px;   
 }
 
-
 .board-wrapper {
-  background-color: #d3d3d3;
   padding-top: 20px;
   display: flex;
   flex-direction: column;
@@ -200,9 +199,12 @@ textarea {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 25px;
-  background-color: #ffffff;
   width: 100%;
   margin-bottom: 20px;
+  background: rgba(0, 0, 0, 0.3); /* Semi-transparent white */
+  backdrop-filter: blur(10px); /* Applies a blur effect to the background */
+  border-bottom-left-radius: 10px; 
+  border-bottom-right-radius: 10px; 
 }
 
 .class-name-ticket {

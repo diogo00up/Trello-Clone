@@ -3,14 +3,10 @@ import axios from 'axios';
 import './mainpage.css';
 import add_plus from './add_plus.svg';
 import FooterCustom from './footer';
-import {
-  DndContext,
-  useDraggable,
-  useDroppable,
-  DragOverlay,
-} from '@dnd-kit/core';
+import { DndContext, useDraggable, useDroppable, DragOverlay } from '@dnd-kit/core';
 
 type TicketProps = {
+  id: string;   
   title: string;
   text: string;
   ticket_class: string;
@@ -23,30 +19,18 @@ type ColumnProps = {
 };
 
 function Column({ title, ticketClass, tickets }: ColumnProps) {
-  const { setNodeRef } = useDroppable({
-    id: ticketClass,
-  });
+  const { setNodeRef } = useDroppable({ id: ticketClass });
 
   return (
     <div className="indivual_column" ref={setNodeRef} title={ticketClass}>
-      {tickets
-        .filter((ticket) => ticket.ticket_class === ticketClass)
-        .map((ticket, index) => (
-          <Ticket
-            key={index}
-            title={ticket.title}
-            text={ticket.text}
-            ticket_class={ticket.ticket_class}
-          />
-        ))}
+      {tickets.filter((ticket) => ticket.ticket_class === ticketClass).map((ticket, index) => (
+          <Ticket key={ticket.id} id={ticket.id} title={ticket.title} text={ticket.text} ticket_class={ticket.ticket_class}/>))}
     </div>
   );
 }
 
-function Ticket({ title, text, ticket_class }: TicketProps) {
-  const { attributes, listeners, setNodeRef, transform } = useDraggable({
-    id: title,
-  });
+function Ticket({ id, title, text, ticket_class }: TicketProps) {
+  const { attributes, listeners, setNodeRef, transform } = useDraggable({ id });
 
   const style = {
     transform: transform
@@ -56,13 +40,7 @@ function Ticket({ title, text, ticket_class }: TicketProps) {
   };
 
   return (
-    <div
-      ref={setNodeRef}
-      style={style}
-      {...listeners}
-      {...attributes}
-      className="ticketbox"
-    >
+    <div ref={setNodeRef} style={style} {...listeners} {...attributes} className="ticketbox">
       <div className="ticketTitle">
         <input type="text" value={title} readOnly />
       </div>
@@ -83,8 +61,7 @@ function MainTable() {
   const [tickets, setTickets] = useState<TicketProps[]>([]);
   const [showPopup, setShowPopup] = useState<boolean>(false);
   const [activeId, setActiveId] = useState<string | null>(null);
-
-  const activeTicket = tickets.find((t) => t.title === activeId);
+  const activeTicket = tickets.find((t) => t.id === activeId);
 
   const handleButtonClick = async () => {
     const ticket = { title, description };
@@ -114,6 +91,20 @@ function MainTable() {
 
     setShowPopup(false);
   };
+  const updateTicketAfterDrag = async (ticket_id: number, ticket_class: string) => {
+    try {
+
+      const response = await axios.put('http://127.0.0.1:8000/updatedtickets', {
+        ticket_id: ticket_id,
+        ticket_class: ticket_class,
+      });
+  
+      console.log('Ticket updated:', response.data);
+    } 
+    catch (error) {
+      console.error('Error updating ticket:', error);
+    }
+  };
 
   const handleTicketLoad = async () => {
     try {
@@ -124,6 +115,7 @@ function MainTable() {
       });
 
       const loadedTickets = response.data.tickets.map((ticket: any) => ({
+        id: ticket.id, 
         title: ticket.title,
         text: ticket.description,
         ticket_class: ticket.ticket_class,
@@ -135,21 +127,19 @@ function MainTable() {
     }
   };
 
-  const callTicketTemplate = () => setShowPopup(true);
-  const cancelTicketCreation = () => setShowPopup(false);
-
   const handleDragStart = (event: any) => {
-    setActiveId(event.active.id);
+    setActiveId(event.active.id); 
   };
 
   const handleDragEnd = (event: any) => {
     const { active, over } = event;
+    console.log("Coluna que vou dropar: ",over.id);
+    console.log("id do ticket que vou dropar: ", Number(active.id));
+    updateTicketAfterDrag(active.id,over.id);
 
     if (active.id && over?.id) {
       const updatedTickets = tickets.map((ticket) =>
-        ticket.title === active.id
-          ? { ...ticket, ticket_class: over.id }
-          : ticket
+        ticket.id === active.id ? { ...ticket, ticket_class: over.id } : ticket 
       );
 
       setTickets(updatedTickets);
@@ -164,7 +154,8 @@ function MainTable() {
 
   return (
     <div className="background">
-      <div className="add-ticket" onClick={callTicketTemplate}>
+
+      <div className="add-ticket" onClick={() => setShowPopup(true)}>
         <img src={add_plus} className="add_plus" alt="add" />
         <span className="add-text">Create new ticket</span>
       </div>
@@ -172,27 +163,16 @@ function MainTable() {
       {showPopup && (
         <div className="pop-put-new-ticket">
           <label htmlFor="title">New ticket title:</label>
-          <input
-            type="text"
-            id="title"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-          />
-
+          <input type="text" id="title" value={title} onChange={(e) => setTitle(e.target.value)} />
           <label htmlFor="new-ticket-description">New ticket description:</label>
-          <input
-            type="text"
-            id="new-ticket-description"
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-          />
-
+          <input type="text" id="new-ticket-description" value={description} onChange={(e) => setDescription(e.target.value)}/>
           <button onClick={handleButtonClick}>Submit Ticket</button>
-          <button onClick={cancelTicketCreation}>Cancel</button>
+          <button onClick={() => setShowPopup(false)}>Cancel</button>
         </div>
       )}
 
       <div className="board-wrapper">
+
         <div className="titles">
           <a>Backlog</a>
           <a>Current Sprint</a>
@@ -201,6 +181,7 @@ function MainTable() {
         </div>
 
         <DndContext onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
+          
           <div className="main-board">
             <Column title="Backlog" ticketClass="backlog" tickets={tickets} />
             <Column title="Sprint" ticketClass="current_sprint" tickets={tickets} />
@@ -210,12 +191,7 @@ function MainTable() {
 
           <DragOverlay>
             {activeId && activeTicket ? (
-              <Ticket
-                title={activeTicket.title}
-                text={activeTicket.text}
-                ticket_class={activeTicket.ticket_class}
-              />
-            ) : null}
+              <Ticket id={activeTicket.id} title={activeTicket.title} text={activeTicket.text} ticket_class={activeTicket.ticket_class} />) : null}
           </DragOverlay>
         </DndContext>
       </div>

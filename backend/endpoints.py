@@ -28,10 +28,10 @@ async def get_tickets(db: AsyncSession = Depends(get_db)):
     return tickets
 
 
-@router.put("/tickets/{ticket_id}")
-async def update_ticket_class(ticket_id: int, update_data: TicketUpdate, db: AsyncSession = Depends(get_db)):
+@router.put("/updatedtickets")
+async def update_ticket_class(update_data: TicketUpdate, db: AsyncSession = Depends(get_db)):
     # Fetch the ticket to check if it exists
-    result = await db.execute(select(Ticket).where(Ticket.id == ticket_id))
+    result = await db.execute(select(Ticket).where(Ticket.id == update_data.ticket_id))
     ticket = result.scalar_one_or_none()
     
     if not ticket:

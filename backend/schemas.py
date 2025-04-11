@@ -51,7 +51,9 @@ class TicketCreate(BaseModel):
         from_attributes = True  
 
 class TicketUpdate(BaseModel):
+    ticket_id: int
     ticket_class: str
+
 
 class TicketUser(BaseModel):
     user_id : int
