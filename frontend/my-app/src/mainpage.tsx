@@ -31,29 +31,50 @@ function Column({ title, ticketClass, tickets }: ColumnProps) {
 }
 
 function Ticket({ id, title, text, ticket_class }: TicketProps) {
-  const { attributes, listeners, setNodeRef, transform } = useDraggable({ id });
+
+  const [isEditing, setIsEditing] = useState(false); 
+  const [editedTitle, setEditedTitle] = useState(title);
+  const [editedText, setEditedText] = useState(text); 
+
+  const { attributes, listeners, setNodeRef, transform } = useDraggable({id, disabled: isEditing, });
+
+  const handleCancel = () => {
+    setEditedTitle(title);
+    setEditedText(text);
+    setIsEditing(false);
+  };
 
   const style = {
-    transform: transform
-      ? `translate(${transform.x}px, ${transform.y}px)`
-      : undefined,
-    cursor: 'grab',
+    transform: transform ? `translate(${transform.x}px, ${transform.y}px)` : undefined,
+    cursor: isEditing ? 'text' : 'grab', 
   };
 
   return (
     <div ref={setNodeRef} style={style} {...listeners} {...attributes} className="ticketbox">
-      <div className="ticketTitle">
-        <input type="text" value={title} readOnly />
+
+      <div className="ticketTitle"  onPointerDown={(e) => e.stopPropagation()}>
+          {isEditing ? ( <input type="text" value={editedTitle} onChange={(e) => setEditedTitle(e.target.value)}/>) : (<input type="text" value={editedTitle} readOnly onClick={() => setIsEditing(true)} />)}
       </div>
-      <div className="tickerText">
-        <textarea value={text} readOnly />
+
+      <div className="tickerText" onPointerDown={(e) => e.stopPropagation()}>
+        {isEditing ? ( <textarea value={editedText}  onChange={(e) => setEditedText(e.target.value)} /> ) : (<textarea value={editedText} readOnly onClick={() => setIsEditing(true)} />)}
       </div>
+
+      {isEditing && (
+        <div className="edit-buttons">
+          <button onClick={() => setIsEditing(false)}>Save</button>
+          <button onClick={handleCancel}>Cancel</button>
+        </div>
+      )}
+      
       <div className="class-name-ticket">
         <a id="call-id-ticket">{ticket_class}</a>
       </div>
     </div>
   );
 }
+
+
 
 function MainTable() {
   const token = sessionStorage.getItem('access_token');
