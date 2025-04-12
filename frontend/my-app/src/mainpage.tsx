@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './mainpage.css';
 import add_plus from './add_plus.svg';
+import user_icon from './user_icon.svg';
+import close from './close.svg'
 import FooterCustom from './footer';
 import HeaderCustom from './header';
 import { DndContext, useDraggable, useDroppable, DragOverlay } from '@dnd-kit/core';
@@ -52,6 +54,8 @@ function Ticket({ id, title, text, ticket_class }: TicketProps) {
   return (
     <div ref={setNodeRef} style={style} {...listeners} {...attributes} className="ticketbox">
 
+      <img src={close} className="close-button" alt="add" onPointerDown={(e) => e.stopPropagation()} />
+
       <div className="ticketTitle"  onPointerDown={(e) => e.stopPropagation()}>
           {isEditing ? ( <input type="text" value={editedTitle} onChange={(e) => setEditedTitle(e.target.value)}/>) : (<input type="text" value={editedTitle} readOnly onClick={() => setIsEditing(true)} />)}
       </div>
@@ -73,7 +77,6 @@ function Ticket({ id, title, text, ticket_class }: TicketProps) {
     </div>
   );
 }
-
 
 
 function MainTable() {
@@ -179,10 +182,21 @@ function MainTable() {
     <div className="background">
        <HeaderCustom />  
 
-      <div className="add-ticket" onClick={() => setShowPopup(true)}>
-        <img src={add_plus} className="add_plus" alt="add" />
-        <span className="add-text">Create new ticket</span>
+      <div className='tool-bar'>
+
+        <div className="add-ticket" onClick={() => setShowPopup(true)}>
+          <img src={add_plus} className="add_plus" alt="add" />
+          <span className="add-text">Create new ticket</span>
+        </div>
+
+        <div className='user-icon'>
+          <img src={user_icon} className="add_plus" alt="add" />
+          <span className="add-text">Edit user settings</span>
+        </div>
+
       </div>
+
+      
 
       {showPopup && (
         <div className="pop-put-new-ticket">

@@ -1,32 +1,69 @@
 @import url('https://fonts.googleapis.com/css2?family=Saira:wght@300;400;500;600;700&display=swap');
 
-body {
-  font-family: 'Saira', sans-serif;
+* {
+  font-family: 'Saira';
 }
 
+.tool-bar{
+  margin-top: 15px;
+  height: 40px;
+  background-color: #ffffff;
+  display: flex;
+  padding-left: 10px;
+  margin-left: 50px;
+  margin-right: 50px;
+  border-radius: 10px; 
+  padding-top: 5px;
+  padding-bottom: 5px;
+  gap:15px;
+}
 
 .add-ticket {
     display: flex;
     align-items: center;
     cursor: pointer;
-    margin-right: 50px;
-    margin-left: 50px;
-    height: 100%;
-    background-color: #d3d3d3;
+    background-color: #7871d5;
     border-radius: 10px; 
     padding-left: 10px;
+    padding-right: 10px;
+    width: fit-content;
+    
   
+  }
+
+  .user-icon{
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    background-color: #7871d5;
+    border-radius: 10px; 
+    padding-left: 10px;
+    padding-right: 10px;
+    width: fit-content;
+
   }
   
   .add_plus {
-    width: 24px;
-    height: 24px;
+    width: 30px;
+    height: 30px;
     margin-right: 8px;
+  }
+
+  .close-button{
+
+    width: 30px;
+    height: 30px;
+    margin-right: 8px;
+    margin: 0px;
+    left: 160px;
+    top: 0px;
+    margin-top: 0px;
+    position: relative;
   }
   
   .add-text {
-    font-size: 14px;
-    color: #333;
+    font-size: 18px;
+    color: #ffffff;
   }
   
   .ticketbox{
@@ -36,19 +73,19 @@ body {
     width: 200px;
     margin: 16px;
     box-shadow:  0 2px 4px rgba(0,0,0,0.1);
-    margin-bottom: 0px;
-    
+  
 }
 
 .ticketTitle{
+    display: flex;
     margin: 10px;
     height: 20px;
-    margin-top: 0px;
-    margin-bottom: 30px;
+    margin-bottom: 10px;
  
 }
 
 .tickerText{
+    display: flex;
     height: auto;
     padding: 8px;
 }
