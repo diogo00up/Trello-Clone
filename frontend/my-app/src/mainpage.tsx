@@ -32,7 +32,7 @@ function Column({ title, ticketClass, tickets }: ColumnProps) {
   );
 }
 
-function Ticket({ id, title, text, ticket_class }: TicketProps) {
+function Ticket({id, title, text, ticket_class }: TicketProps) {
 
   const [isEditing, setIsEditing] = useState(false); 
   const [editedTitle, setEditedTitle] = useState(title);
@@ -50,6 +50,26 @@ function Ticket({ id, title, text, ticket_class }: TicketProps) {
     transform: transform ? `translate(${transform.x}px, ${transform.y}px)` : undefined,
     cursor: isEditing ? 'text' : 'grab', 
   };
+  
+  const updateTicketInfo = async () => {
+    try {
+
+      const response = await axios.put('http://127.0.0.1:8000/updateTextTitle', {
+        id : id,
+        title : editedTitle,
+        text : editedText,
+      });
+  
+      console.log('Ticket text and title updated:', response.data);
+      // i need to update tickets   const [tickets, setTickets] = useState<TicketProps[]>([]); i need to load the tickets again from the database to make this array updated compared to the databse
+      //handleTicketLoad();
+      //need to updated tickets array so it display up to date tickets when i drag them 
+      
+    } 
+    catch (error) {
+      console.error('Error updating ticket title and text:', error);
+    }
+  };
 
   return (
     <div ref={setNodeRef} style={style} {...listeners} {...attributes} className="ticketbox">
@@ -66,7 +86,7 @@ function Ticket({ id, title, text, ticket_class }: TicketProps) {
 
       {isEditing && (
         <div className="edit-buttons">
-          <button onClick={() => setIsEditing(false)}>Save</button>
+          <button onClick={() => {setIsEditing(false); updateTicketInfo();}}>Save</button>
           <button onClick={handleCancel}>Cancel</button>
         </div>
       )}

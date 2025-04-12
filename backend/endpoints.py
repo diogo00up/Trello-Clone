@@ -1,4 +1,4 @@
-from schemas import UserResponse,TicketResponse,TicketUser,UserCreate,TicketCreate,UserLogin,TicketUpdate
+from schemas import UserResponse,TicketResponse,TicketUser,UserCreate,TicketCreate,UserLogin,TicketUpdate,TicketTextTitleUpdate
 from models import  User, Ticket, UserTicket
 from database import get_db
 from auth import get_current_user, create_access_token
@@ -43,6 +43,22 @@ async def update_ticket_class(update_data: TicketUpdate, db: AsyncSession = Depe
     await db.refresh(ticket)
 
     return {"message": "Ticket updated successfully", "ticket": ticket}
+
+
+@router.put("/updateTextTitle")
+async def update_ticket_class(newdata: TicketTextTitleUpdate, db: AsyncSession = Depends(get_db)):
+    result = await db.execute(select(Ticket).where(Ticket.id == newdata.id))
+    ticket = result.scalar_one_or_none()
+    
+    if not ticket:
+        raise HTTPException(status_code=404, detail="Ticket not found")
+    
+    ticket.title = newdata.title
+    ticket.description =newdata.text
+    db.add(ticket)
+    await db.commit()
+    await db.refresh(ticket)
+    return {"message": "Ticket Ttile and data updated successfully", "ticket": ticket}
 
 
 @router.get("/user_ticket", response_model=List[TicketUser])

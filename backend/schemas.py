@@ -54,6 +54,11 @@ class TicketUpdate(BaseModel):
     ticket_id: int
     ticket_class: str
 
+class TicketTextTitleUpdate(BaseModel):
+    id: int
+    title : str
+    text : str
+
 
 class TicketUser(BaseModel):
     user_id : int
