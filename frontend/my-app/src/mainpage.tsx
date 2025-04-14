@@ -13,26 +13,30 @@ type TicketProps = {
   title: string;
   text: string;
   ticket_class: string;
+  handleTicketLoad: () => void;
+
 };
 
 type ColumnProps = {
   title: string;
   ticketClass: string;
   tickets: TicketProps[];
+  handleTicketLoad: () => void;
+
 };
 
-function Column({ title, ticketClass, tickets }: ColumnProps) {
+function Column({ title, ticketClass, tickets, handleTicketLoad }: ColumnProps) {
   const { setNodeRef } = useDroppable({ id: ticketClass });
 
   return (
     <div className="indivual_column" ref={setNodeRef} title={ticketClass}>
       {tickets.filter((ticket) => ticket.ticket_class === ticketClass).map((ticket, index) => (
-          <Ticket key={ticket.id} id={ticket.id} title={ticket.title} text={ticket.text} ticket_class={ticket.ticket_class}/>))}
+          <Ticket key={ticket.id} id={ticket.id} title={ticket.title} text={ticket.text} ticket_class={ticket.ticket_class}  handleTicketLoad={handleTicketLoad} />))}
     </div>
   );
 }
 
-function Ticket({id, title, text, ticket_class }: TicketProps) {
+function Ticket({id, title, text, ticket_class, handleTicketLoad }: TicketProps) {
 
   const [isEditing, setIsEditing] = useState(false); 
   const [editedTitle, setEditedTitle] = useState(title);
@@ -61,9 +65,8 @@ function Ticket({id, title, text, ticket_class }: TicketProps) {
       });
   
       console.log('Ticket text and title updated:', response.data);
-      // i need to update tickets   const [tickets, setTickets] = useState<TicketProps[]>([]); i need to load the tickets again from the database to make this array updated compared to the databse
-      //handleTicketLoad();
-      //need to updated tickets array so it display up to date tickets when i drag them 
+   
+      await handleTicketLoad();
       
     } 
     catch (error) {
@@ -71,10 +74,16 @@ function Ticket({id, title, text, ticket_class }: TicketProps) {
     }
   };
 
+  const deleteTicket = async () => {
+    console.log("presseded delete button with id:", id)
+    
+
+  }
+
   return (
     <div ref={setNodeRef} style={style} {...listeners} {...attributes} className="ticketbox">
 
-      <img src={close} className="close-button" alt="add" onPointerDown={(e) => e.stopPropagation()} />
+      <img src={close} className="close-button" alt="add" onPointerDown={(e) => e.stopPropagation()} onClick={() => deleteTicket()} />
 
       <div className="ticketTitle"  onPointerDown={(e) => e.stopPropagation()}>
           {isEditing ? ( <input type="text" value={editedTitle} onChange={(e) => setEditedTitle(e.target.value)}/>) : (<input type="text" value={editedTitle} readOnly onClick={() => setIsEditing(true)} />)}
@@ -216,8 +225,6 @@ function MainTable() {
 
       </div>
 
-      
-
       {showPopup && (
         <div className="pop-put-new-ticket">
           <label htmlFor="title">New ticket title:</label>
@@ -241,15 +248,15 @@ function MainTable() {
         <DndContext onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
           
           <div className="main-board">
-            <Column title="Backlog" ticketClass="backlog" tickets={tickets} />
-            <Column title="Sprint" ticketClass="current_sprint" tickets={tickets} />
-            <Column title="InProgress" ticketClass="in_progress" tickets={tickets} />
-            <Column title="Done" ticketClass="done" tickets={tickets} />
+            <Column title="Backlog" ticketClass="backlog" tickets={tickets}  handleTicketLoad={handleTicketLoad} />
+            <Column title="Sprint" ticketClass="current_sprint" tickets={tickets}  handleTicketLoad={handleTicketLoad} />
+            <Column title="InProgress" ticketClass="in_progress" tickets={tickets}  handleTicketLoad={handleTicketLoad} />
+            <Column title="Done" ticketClass="done" tickets={tickets}  handleTicketLoad={handleTicketLoad} />
           </div>
 
           <DragOverlay>
             {activeId && activeTicket ? (
-              <Ticket id={activeTicket.id} title={activeTicket.title} text={activeTicket.text} ticket_class={activeTicket.ticket_class} />) : null}
+              <Ticket id={activeTicket.id} title={activeTicket.title} text={activeTicket.text} ticket_class={activeTicket.ticket_class}  handleTicketLoad={handleTicketLoad} />) : null}
           </DragOverlay>
         </DndContext>
       </div>

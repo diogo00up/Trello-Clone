@@ -1,4 +1,4 @@
-from schemas import UserResponse,TicketResponse,TicketUser,UserCreate,TicketCreate,UserLogin,TicketUpdate,TicketTextTitleUpdate
+from schemas import UserResponse,TicketResponse,TicketUser,UserCreate,TicketCreate,UserLogin,TicketUpdate,TicketTextTitleUpdate,TicketDelete
 from models import  User, Ticket, UserTicket
 from database import get_db
 from auth import get_current_user, create_access_token
@@ -59,6 +59,31 @@ async def update_ticket_class(newdata: TicketTextTitleUpdate, db: AsyncSession =
     await db.commit()
     await db.refresh(ticket)
     return {"message": "Ticket Ttile and data updated successfully", "ticket": ticket}
+
+
+@router.delete("/deleteTicket")
+async def delete_ticket(tickedDelete : TicketDelete,  db: AsyncSession = Depends(get_db)):
+
+    #ERROR,  ITS NOT DELEING THE TICKET LINE
+    result = await db.execute(select(Ticket).where(Ticket.id == tickedDelete.id))
+    db_ticket = result.scalars().first()
+    if db_ticket is None:
+        raise HTTPException(status_code=404, detail="Ticket not found")
+    db.delete(db_ticket)
+    db.commit()
+    
+    result = await db.execute(select(UserTicket).where(UserTicket.ticket_id == tickedDelete.id))
+    db_userTickets = result.scalars().all()
+    if db_userTickets is None:
+        raise HTTPException(status_code=404, detail="Conections not found")
+    for x in db_userTickets:
+        await db.delete(x)
+    await db.commit()
+   
+    return {
+        "TicketTable": f"Ticket with id: {tickedDelete.id} deleted",
+        "TicketUser": "Deleted all connections with the deleted ticket"
+    }
 
 
 @router.get("/user_ticket", response_model=List[TicketUser])

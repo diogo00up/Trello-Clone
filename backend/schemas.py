@@ -10,7 +10,6 @@ class UserResponse(BaseModel):
     class Config:
         from_attributes = True  
         
-
 class TicketUser(BaseModel):
     id: int
     user_id: int
@@ -53,12 +52,20 @@ class TicketCreate(BaseModel):
 class TicketUpdate(BaseModel):
     ticket_id: int
     ticket_class: str
+    class Config:
+        from_attributes = True  
 
 class TicketTextTitleUpdate(BaseModel):
     id: int
     title : str
     text : str
+    class Config:
+        from_attributes = True  
 
+class TicketDelete(BaseModel):
+    id: int
+    class Config:
+        from_attributes = True  
 
 class TicketUser(BaseModel):
     user_id : int
