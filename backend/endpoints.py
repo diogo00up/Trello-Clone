@@ -69,8 +69,8 @@ async def delete_ticket(tickedDelete : TicketDelete,  db: AsyncSession = Depends
     db_ticket = result.scalars().first()
     if db_ticket is None:
         raise HTTPException(status_code=404, detail="Ticket not found")
-    db.delete(db_ticket)
-    db.commit()
+    await db.delete(db_ticket)
+    await db.commit()
     
     result = await db.execute(select(UserTicket).where(UserTicket.ticket_id == tickedDelete.id))
     db_userTickets = result.scalars().all()

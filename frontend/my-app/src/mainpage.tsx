@@ -76,9 +76,23 @@ function Ticket({id, title, text, ticket_class, handleTicketLoad }: TicketProps)
 
   const deleteTicket = async () => {
     console.log("presseded delete button with id:", id)
-    
 
-  }
+    try {
+
+      const response = await axios.delete('http://127.0.0.1:8000/deleteTicket', {
+        data: { id: id }  
+      });
+
+      console.log('Ticket and UserTicket deleted: ', response.data);
+   
+      await handleTicketLoad();
+      
+    } 
+    catch (error) {
+      console.error('Error updating ticket title and text:', error);
+    }
+
+  };
 
   return (
     <div ref={setNodeRef} style={style} {...listeners} {...attributes} className="ticketbox">
