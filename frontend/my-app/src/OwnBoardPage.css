@@ -67,7 +67,7 @@
   }
   
   .ticketbox{
-    background-color: rgb(125, 122, 137);
+    background-color: rgb(54, 44, 112);
     border: 1px solid #ffffff;
     border-radius: 8px;
     width: 200px;
@@ -159,7 +159,7 @@ textarea {
 }
 
 .background{
-  background-image: url("backgroud.jpg");
+  background-image: url("images/backgroud.jpg");
   background-size: cover;
 }
 

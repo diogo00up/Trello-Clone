@@ -29,7 +29,7 @@ async def get_tickets(db: AsyncSession = Depends(get_db)):
 
 
 @router.put("/updatedtickets")
-async def update_ticket_class(update_data: TicketUpdate, db: AsyncSession = Depends(get_db)):
+async def update_ticket_class(update_data: TicketUpdate, db: AsyncSession = Depends(get_db), current_user: User = Depends(get_current_user)):
     # Fetch the ticket to check if it exists
     result = await db.execute(select(Ticket).where(Ticket.id == update_data.ticket_id))
     ticket = result.scalar_one_or_none()
@@ -46,7 +46,7 @@ async def update_ticket_class(update_data: TicketUpdate, db: AsyncSession = Depe
 
 
 @router.put("/updateTextTitle")
-async def update_ticket_class(newdata: TicketTextTitleUpdate, db: AsyncSession = Depends(get_db)):
+async def update_ticket_class(newdata: TicketTextTitleUpdate, db: AsyncSession = Depends(get_db), current_user: User = Depends(get_current_user)):
     result = await db.execute(select(Ticket).where(Ticket.id == newdata.id))
     ticket = result.scalar_one_or_none()
     
@@ -62,9 +62,8 @@ async def update_ticket_class(newdata: TicketTextTitleUpdate, db: AsyncSession =
 
 
 @router.delete("/deleteTicket")
-async def delete_ticket(tickedDelete : TicketDelete,  db: AsyncSession = Depends(get_db)):
+async def delete_ticket(tickedDelete : TicketDelete,  db: AsyncSession = Depends(get_db), current_user: User = Depends(get_current_user)):
 
-    #ERROR,  ITS NOT DELEING THE TICKET LINE
     result = await db.execute(select(Ticket).where(Ticket.id == tickedDelete.id))
     db_ticket = result.scalars().first()
     if db_ticket is None:
@@ -137,6 +136,7 @@ async def create_user(user: UserCreate, db: AsyncSession = Depends(get_db)):
     await db.commit()
     await db.refresh(new_user)
     return new_user
+
 
 @router.post("/login")
 async def login(user: UserLogin, db: AsyncSession = Depends(get_db)):

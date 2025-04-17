@@ -1,5 +1,5 @@
 import './header.css';
-import symbol from './symbol.svg';
+import symbol from '../images/symbol.svg';
 
 function HeaderCustom(){
     return (

@@ -2,27 +2,26 @@ import { Routes, Route } from 'react-router-dom';
 import logo from './logo.svg';
 import { useState } from 'react';
 import axios from 'axios';
-import MainTable from './mainpage'; 
+import MainTable from './OwnBoardPage'; 
 import { useNavigate } from 'react-router-dom';
-import './App.css';
-import FooterCustom from './footer'
-import HeaderCustom from './header';
-
+import './AuthPage.css';
+import FooterCustom from './footer/footer'
+import HeaderCustom from './header/header';
 
 
 function App() {
   return (
     <>
       <Routes>
-        <Route path="/" element={<LogIn />} />
-        <Route path="/main" element={<MainTable />} />
+        <Route path="/welcome" element={<LogIn />} />
+        <Route path="/mainPage" element={<MainTable />} />
       </Routes>     
     </>
   );
 }
 
 function LogIn(){
-
+  
   const navigate = useNavigate(); 
   const [username, setUsername] = useState<string>('');
   const [email, setEmail] = useState<string>('');
@@ -44,7 +43,7 @@ function LogIn(){
         const response = await axios.post('http://127.0.0.1:8000/users', {
         username,
         email,
-        password: password1, // Send only one password field
+        password: password1, 
       });
   
       console.log('CreateAccount successful:', response.data);
@@ -79,7 +78,7 @@ function LogIn(){
     setPassword1('');
     setPassword2('');
 
-    navigate('/main');
+    navigate('/mainpage');
 
     } catch (error) {
       console.error('LogIn Error:', error);

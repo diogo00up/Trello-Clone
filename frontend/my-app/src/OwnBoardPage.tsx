@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import './mainpage.css';
-import add_plus from './add_plus.svg';
-import user_icon from './user_icon.svg';
-import close from './close.svg'
-import FooterCustom from './footer';
-import HeaderCustom from './header';
+import './OwnBoardPage.css';
+import add_plus from './icons/add_plus.svg';
+import user_icon from './icons/user_icon.svg';
+import close from './icons/close.svg'
+import FooterCustom from './footer/footer';
+import HeaderCustom from './header/header';
 import { DndContext, useDraggable, useDroppable, DragOverlay } from '@dnd-kit/core';
 
 type TicketProps = {
@@ -41,7 +41,7 @@ function Ticket({id, title, text, ticket_class, handleTicketLoad }: TicketProps)
   const [isEditing, setIsEditing] = useState(false); 
   const [editedTitle, setEditedTitle] = useState(title);
   const [editedText, setEditedText] = useState(text); 
-
+  const token = sessionStorage.getItem('access_token');
   const { attributes, listeners, setNodeRef, transform } = useDraggable({id, disabled: isEditing, });
 
   const handleCancel = () => {
@@ -59,6 +59,11 @@ function Ticket({id, title, text, ticket_class, handleTicketLoad }: TicketProps)
     try {
 
       const response = await axios.put('http://127.0.0.1:8000/updateTextTitle', {
+      
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+
         id : id,
         title : editedTitle,
         text : editedText,
@@ -80,6 +85,11 @@ function Ticket({id, title, text, ticket_class, handleTicketLoad }: TicketProps)
     try {
 
       const response = await axios.delete('http://127.0.0.1:8000/deleteTicket', {
+
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+
         data: { id: id }  
       });
 
@@ -163,6 +173,9 @@ function MainTable() {
     try {
 
       const response = await axios.put('http://127.0.0.1:8000/updatedtickets', {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
         ticket_id: ticket_id,
         ticket_class: ticket_class,
       });
