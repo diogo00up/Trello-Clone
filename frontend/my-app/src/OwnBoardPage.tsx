@@ -59,15 +59,17 @@ function Ticket({id, title, text, ticket_class, handleTicketLoad }: TicketProps)
     try {
 
       const response = await axios.put('http://127.0.0.1:8000/updateTextTitle', {
+        id: id,
+        title: editedTitle,
+        text: editedText,
+      },
       
+      {
         headers: {
           Authorization: `Bearer ${token}`,
         },
-
-        id : id,
-        title : editedTitle,
-        text : editedText,
-      });
+      }
+    );
   
       console.log('Ticket text and title updated:', response.data);
    
@@ -172,17 +174,16 @@ function MainTable() {
   const updateTicketAfterDrag = async (ticket_id: number, ticket_class: string) => {
     try {
 
-      const response = await axios.put('http://127.0.0.1:8000/updatedtickets', {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-        ticket_id: ticket_id,
-        ticket_class: ticket_class,
-      });
+      const response = await axios.put('http://127.0.0.1:8000/updatedtickets', { ticket_id, ticket_class }, 
+        {
+          headers: {
+            Authorization: `Bearer ${token}`, 
+          },
+        }
+      );
   
       console.log('Ticket updated:', response.data);
-    } 
-    catch (error) {
+    } catch (error) {
       console.error('Error updating ticket:', error);
     }
   };
