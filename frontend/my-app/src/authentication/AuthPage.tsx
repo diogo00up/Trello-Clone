@@ -2,12 +2,13 @@ import { Routes, Route } from 'react-router-dom';
 import logo from './logo.svg';
 import { useState } from 'react';
 import axios from 'axios';
-import MainTable from './OwnBoardPage'; 
+import MainTable from '../OwnBoardPage'; 
 import { useNavigate } from 'react-router-dom';
 import './AuthPage.css';
-import FooterCustom from './footer/footer'
-import HeaderCustom from './header/header';
+import FooterCustom from '../footer/footer'
+import HeaderCustom from '../header/header';
 import { forEachChild } from 'typescript';
+import Menu from '../menu'
 
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
       <Routes>
         <Route path="/welcome" element={<LogIn />} />
         <Route path="/mainPage" element={<MainTable />} />
+        <Route path="/menu" element={<Menu />} />
       </Routes>     
     </>
   );
@@ -32,7 +34,6 @@ function LogIn(){
   const [logInPassword, setLogInPassword] = useState<string>('');
   const [flag , setFlag] = useState<boolean>(false);
   const [message, setMessage] = useState<string>('');
-
   const [flag2 , setFlag2] = useState<boolean>(false);
   const [message2, setMessage2] = useState<string>('');
 
@@ -99,7 +100,8 @@ function LogIn(){
     setPassword1('');
     setPassword2('');
 
-    navigate('/mainPage');
+    //CHANGE THIS NAVIGATE TO CHANGE PANGES FOR TESTING PURPOSES
+    navigate('/menu');
 
     } catch (error) {
       console.error('LogIn Error:', error);
