@@ -32,7 +32,7 @@ button{
   width: 150px;
   font-family: 'Dancing Script', cursive;
   font-size: 20px;
-  background-color:aquamarine ;
+  background-color:rgb(40, 212, 95) ;
 
 }
 
@@ -107,7 +107,7 @@ button{
 .Login{
   padding-left:  20px;
   text-align: left;
-  background-color: #592021;
+  background-color: #223356;
   display: flex;
   flex-direction: column;
   gap: 10px; 
@@ -119,6 +119,11 @@ button{
 .App-link {
   color: #61dafb;
 }
+
+#error-message {
+  color: red;
+}
+
 
 @keyframes App-logo-spin {
   from {

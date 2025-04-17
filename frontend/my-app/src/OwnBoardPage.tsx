@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './OwnBoardPage.css';
 import add_plus from './icons/add_plus.svg';
 import user_icon from './icons/user_icon.svg';
+import log_out from './icons/log_out.svg'
 import close from './icons/close.svg'
 import FooterCustom from './footer/footer';
 import HeaderCustom from './header/header';
@@ -142,6 +144,7 @@ function MainTable() {
   const [showPopup, setShowPopup] = useState<boolean>(false);
   const [activeId, setActiveId] = useState<string | null>(null);
   const activeTicket = tickets.find((t) => t.id === activeId);
+  const navigate = useNavigate();
 
   const handleButtonClick = async () => {
     const ticket = { title, description };
@@ -230,8 +233,20 @@ function MainTable() {
     setActiveId(null);
   };
 
+  const logOut = async () => {
+    console.log("logout");
+    sessionStorage.clear();
+    navigate('/welcome');
+    
+  }
+
   useEffect(() => {
-    handleTicketLoad();
+    if (!sessionStorage.getItem('access_token')) {
+      navigate('/welcome');
+    }
+    else{
+      handleTicketLoad();
+    }
   }, []);
 
   return (
@@ -249,6 +264,11 @@ function MainTable() {
         <div className='user-icon'>
           <img src={user_icon} className="add_plus" alt="add" />
           <span className="add-text">Edit user settings</span>
+        </div>
+
+        <div className='user-icon' onClick={logOut}>
+          <img src={log_out} className="add_plus" alt="add" />
+          <span className="add-text">Exit</span>
         </div>
 
       </div>

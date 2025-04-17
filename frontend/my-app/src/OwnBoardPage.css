@@ -164,6 +164,7 @@ textarea {
 }
 
 .pop-put-new-ticket {
+  background-color: #493661;
   position: fixed;
   top: 50%;
   left: 50%;

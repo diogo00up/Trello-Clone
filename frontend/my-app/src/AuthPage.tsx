@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import './AuthPage.css';
 import FooterCustom from './footer/footer'
 import HeaderCustom from './header/header';
+import { forEachChild } from 'typescript';
 
 
 function App() {
@@ -29,6 +30,11 @@ function LogIn(){
   const [password2, setPassword2] = useState<string>('');
   const [logInUsername, setLogInUsername] = useState<string>('');
   const [logInPassword, setLogInPassword] = useState<string>('');
+  const [flag , setFlag] = useState<boolean>(false);
+  const [message, setMessage] = useState<string>('');
+
+  const [flag2 , setFlag2] = useState<boolean>(false);
+  const [message2, setMessage2] = useState<string>('');
 
   const handleCreateAccount = async () => {
 
@@ -36,6 +42,23 @@ function LogIn(){
   
     if (password1 !== password2) {
       console.error('Passwords do not match!');
+      setFlag2(true);
+      setMessage2("The passwords do not match");
+      return;
+    }
+
+    if(username.length < 6 ){
+      setFlag2(true);
+      setMessage2("Username too short");
+      return;
+    }
+
+   
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!emailRegex.test(email)) {
+      setFlag2(true);
+      setMessage2("Invalid email syntax");
       return;
     }
   
@@ -68,8 +91,6 @@ function LogIn(){
 
     });
     
-
-
     console.log('logIn successful:', response.data);
     sessionStorage.setItem('access_token', response.data.access_token);
 
@@ -78,12 +99,14 @@ function LogIn(){
     setPassword1('');
     setPassword2('');
 
-    navigate('/mainpage');
+    navigate('/mainPage');
 
     } catch (error) {
       console.error('LogIn Error:', error);
+  
+      setFlag(true);
+      setMessage("Failed credentials or server issue");
     }
-    
   };
   
   
@@ -111,6 +134,11 @@ function LogIn(){
             <input type="password" id="password2" value={password2} onChange={(e) => setPassword2(e.target.value)} />
 
             <button id="createButton" onClick={handleCreateAccount}> Create Account</button>
+
+            {flag2 && ( 
+                <a id='error-message'>{message2}</a>  
+            )}
+
           </div>
 
           <div className = 'Login'>
@@ -122,6 +150,10 @@ function LogIn(){
             <input id = 'LogInPassword' type = 'password' value = {logInPassword} onChange={(e) => setLogInPassword(e.target.value)}/>
 
             <button id="LogInButton" onClick={handleLogIn}> Log In</button>
+
+            {flag && ( 
+                <a id='error-message'>{message}</a>  
+            )}
           
           </div>
 

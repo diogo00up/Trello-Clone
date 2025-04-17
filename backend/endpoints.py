@@ -18,7 +18,7 @@ pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto") # Object creat
 @router.get("/users", response_model=List[UserResponse])
 async def get_users(db: AsyncSession = Depends(get_db)):
     result = await db.execute(select(User))
-    users = result.scalars().all()  # Retrieves all users
+    users = result.scalars().all()  
     return users
 
 @router.get("/tickets", response_model=List[TicketResponse])
