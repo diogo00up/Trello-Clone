@@ -6,6 +6,7 @@ import add_plus from './icons/add_plus.svg';
 import user_icon from './icons/user_icon.svg';
 import log_out from './icons/log_out.svg'
 import close from './icons/close.svg'
+import back from './icons/back.svg'
 import FooterCustom from './footer/footer';
 import HeaderCustom from './header/header';
 import { DndContext, useDraggable, useDroppable, DragOverlay } from '@dnd-kit/core';
@@ -240,6 +241,13 @@ function MainTable() {
     
   }
 
+  const goBack = async () => {
+    console.log("goback");
+    navigate('/menu');
+    
+  }
+
+
   useEffect(() => {
     if (!sessionStorage.getItem('access_token')) {
       navigate('/welcome');
@@ -269,6 +277,11 @@ function MainTable() {
         <div className='user-icon' onClick={logOut}>
           <img src={log_out} className="add_plus" alt="add" />
           <span className="add-text">Exit</span>
+        </div>
+
+        <div className='user-icon' onClick={goBack}>
+          <img src={back} className="add_plus" alt="add" />
+          <span className="add-text">Go Back</span>
         </div>
 
       </div>

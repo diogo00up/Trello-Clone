@@ -3,6 +3,7 @@ import FooterCustom from './footer/footer'
 import './menu.css';
 import user from './icons/user.svg'
 import users from './icons/users.svg'
+import back from './icons/back.svg'
 import { useNavigate } from 'react-router-dom';
 
 function Menu(){
@@ -15,13 +16,24 @@ function Menu(){
 
     const changeToPublic = async () =>{
         console.log("Cliquei no botao")
+        navigate('/groupPage');
     }
+
+    const goBack = async () =>{
+        console.log("Cliquei no botao")
+        navigate('/welcome');
+    }
+
 
     return(
         <div className='page-background'>
 
+            <div className='back-button' onClick={goBack}>
+                <img src={back} className="users-icon-button" alt="add" />
+
+            </div>
+
             <div className=' menu-div'>
-        
                 <div className='button-private' onClick={changeToPrivate}>
                     <img src={user} className="user-icon-button" alt="add" />
                     <a className='menu-message'>Check my backlog!</a>

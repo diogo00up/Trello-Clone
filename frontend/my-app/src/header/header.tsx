@@ -18,9 +18,7 @@ function HeaderCustom(){
             <img src={symbol} className="HeaderLogoImage" alt="logo" />
         </div>
 
-        <div className='header-line'>
-            
-        </div>
+      
 
       </div>
   

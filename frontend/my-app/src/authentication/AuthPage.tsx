@@ -3,6 +3,7 @@ import logo from './logo.svg';
 import { useState } from 'react';
 import axios from 'axios';
 import MainTable from '../OwnBoardPage'; 
+import GroupPage from '../teamsBoardPage';
 import { useNavigate } from 'react-router-dom';
 import './AuthPage.css';
 import FooterCustom from '../footer/footer'
@@ -18,6 +19,7 @@ function App() {
         <Route path="/welcome" element={<LogIn />} />
         <Route path="/mainPage" element={<MainTable />} />
         <Route path="/menu" element={<Menu />} />
+        <Route path="/groupPage" element={<GroupPage />} />
       </Routes>     
     </>
   );
@@ -71,6 +73,8 @@ function LogIn(){
       });
   
       console.log('CreateAccount successful:', response.data);
+      setFlag2(true);
+      setMessage2("Acounted Created!");
   
    
       setLogInUsername('');
