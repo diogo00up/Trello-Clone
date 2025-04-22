@@ -208,7 +208,8 @@ function MainTable() {
       }));
 
       setTickets(loadedTickets);
-    } catch (error) {
+    } 
+    catch (error) {
       console.error('LogIn Error:', error);
     }
   };

@@ -5,11 +5,7 @@ from sqlalchemy import ForeignKey
 Base = declarative_base()
 
 # Define SQLAlchemy 
-class Group(Base):
-    __tablename__ = "groups"
-    id = Column(Integer, primary_key=True, index=True)
-    group_name = Column(String(255))
-  
+
 class User(Base):
     __tablename__ = "users"
     id = Column(Integer, primary_key=True, index=True)
@@ -30,3 +26,20 @@ class UserTicket(Base):
     id = Column(Integer, primary_key=True, index=True)
     user_id = Column(Integer, ForeignKey("users.id"))
     ticket_id = Column(Integer, ForeignKey("tickets.id"))
+
+
+class Group(Base):
+    __tablename__ = "groups"
+    id = Column(Integer, primary_key=True, index=True)
+    group_name = Column(String(255))
+  
+
+class groupTicket(Base):
+    __tablename__ = "group_tickets"
+    id = Column(Integer, primary_key=True, index=True)
+    title = Column(String(255))
+    description = Column(String(255))
+    ticket_owner = Column(Integer, ForeignKey("users.id"))
+    ticket_class = Column(String(255))
+    group_id = Column(Integer, ForeignKey("groups.id"))
+
