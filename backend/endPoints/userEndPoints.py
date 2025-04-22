@@ -1,5 +1,5 @@
-from schemas import UserResponse,TicketResponse,TicketUser,UserCreate,TicketCreate,UserLogin,TicketUpdate,TicketTextTitleUpdate,TicketDelete
-from models import  User, Ticket, UserTicket
+from schemas import UserResponse,TicketResponse,TicketUser,UserCreate,TicketCreate,UserLogin,TicketUpdate,TicketTextTitleUpdate,TicketDelete,GroupResponse
+from models import  User, Ticket, UserTicket, Group
 from database import get_db
 from auth import get_current_user, create_access_token
 from typing import List
@@ -12,8 +12,6 @@ from fastapi import APIRouter
 import logging
 
 router = APIRouter()
-
-pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto") # Object created for hashing and verifistion of passwords
 
 @router.get("/users", response_model=List[UserResponse])
 async def get_users(db: AsyncSession = Depends(get_db)):
@@ -127,35 +125,6 @@ async def create_ticket(ticket: TicketCreate, db: AsyncSession = Depends(get_db)
     return new_ticket
 
 
-
-@router.post("/users", response_model=UserResponse)
-async def create_user(user: UserCreate, db: AsyncSession = Depends(get_db)):
-    hashed_password = pwd_context.hash(user.password)
-    new_user = User(email=user.email, username=user.username, password_hash=hashed_password)
-    db.add(new_user)
-    await db.commit()
-    await db.refresh(new_user)
-    return new_user
-
-
-@router.post("/login")
-async def login(user: UserLogin, db: AsyncSession = Depends(get_db)):
-    
-    result = await db.execute(select(User).where(User.username == user.logInUsername))
-    db_user = result.scalars().first()
-
-    if db_user is None or not pwd_context.verify(user.logInPassword, db_user.password_hash):
-        logging.error(f"Either username or password doesnt match with that its in the database: {user.username}")
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Invalid username or password",
-        )
-    
-    access_token = create_access_token(data={"sub": db_user.username})
-    
-    return {"access_token": access_token, "token_type": "bearer"}
-
-
 @router.post("/createTicket")
 async def dashboard(ticket: TicketCreate, current_user: User = Depends(get_current_user), db: AsyncSession = Depends(get_db)):
     new_ticket = Ticket(title=ticket.title, description=ticket.description,ticket_owner = current_user.id, ticket_class="backlog")
@@ -177,7 +146,6 @@ async def dashboard(relation: TicketUser, current_user: User = Depends(get_curre
     await db.refresh(new_relation)
     return {"relation i wanna create is  ": relation, "Put in data base :" : new_relation}
    
-
 
 @router.get("/loadTickets")
 async def dashboard(current_user: User = Depends(get_current_user), db: AsyncSession = Depends(get_db)):

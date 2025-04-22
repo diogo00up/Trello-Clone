@@ -1,7 +1,9 @@
 import logging
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi import FastAPI
-from endpoints import router as endpoints_router
+from endPoints.userEndPoints import router as endpoints_router
+from endPoints.groupEndPoints import router as GroupEndpoints_router
+from endPoints.logInEndPpoints import router as logInEndPpoints_router
 
 
 
@@ -24,6 +26,8 @@ app.add_middleware(
 
 
 app.include_router(endpoints_router)
+app.include_router(GroupEndpoints_router)
+app.include_router(logInEndPpoints_router)
 
 @app.get("/")
 async def root():

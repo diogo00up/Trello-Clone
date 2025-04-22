@@ -2,6 +2,14 @@ from pydantic import BaseModel
 
 # Modelo Pydantic para serialização dos dados
 
+class GroupResponse(BaseModel):
+    id: int
+    group_name: str
+
+    class Config:
+        from_attributes = True  
+        
+
 class UserResponse(BaseModel):
     id: int
     username: str

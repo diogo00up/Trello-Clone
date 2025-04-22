@@ -5,6 +5,11 @@ from sqlalchemy import ForeignKey
 Base = declarative_base()
 
 # Define SQLAlchemy 
+class Group(Base):
+    __tablename__ = "groups"
+    id = Column(Integer, primary_key=True, index=True)
+    group_name = Column(String(255))
+  
 class User(Base):
     __tablename__ = "users"
     id = Column(Integer, primary_key=True, index=True)

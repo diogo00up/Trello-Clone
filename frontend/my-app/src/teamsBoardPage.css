@@ -3,9 +3,29 @@
     background-size: cover;
 }
 
-
 .teams-main-board{
-    
     height: 900px;
+}
 
+.group_choice{
+    margin-top: 20px;
+    background-color: rgb(205, 196, 196);
+    display: flex;
+    width: fit-content;
+    border-radius: 15px;
+
+    
+}
+
+.group-box{
+    display: flex;
+    margin: 10px;
+    font-size: 15px;
+    border-radius: 12px;
+}
+
+#group-choice-a{
+    font-size: 20px;
+    display: flex;
+    margin: 10px;
 }
