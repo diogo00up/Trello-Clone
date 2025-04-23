@@ -116,15 +116,6 @@ async def get_joined_tables(db: AsyncSession = Depends(get_db)):
         for user, ticket in rows
     ]
 
-@router.post("/tickets", response_model=TicketResponse)
-async def create_ticket(ticket: TicketCreate, db: AsyncSession = Depends(get_db)):
-    new_ticket = Ticket(title=ticket.title, description=ticket.description)
-    db.add(new_ticket)
-    await db.commit()
-    await db.refresh(new_ticket)
-    return new_ticket
-
-
 @router.post("/createTicket")
 async def dashboard(ticket: TicketCreate, current_user: User = Depends(get_current_user), db: AsyncSession = Depends(get_db)):
     new_ticket = Ticket(title=ticket.title, description=ticket.description,ticket_owner = current_user.id, ticket_class="backlog")

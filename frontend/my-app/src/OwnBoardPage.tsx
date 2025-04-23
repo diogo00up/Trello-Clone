@@ -175,6 +175,8 @@ function MainTable() {
 
     setShowPopup(false);
   };
+
+  
   const updateTicketAfterDrag = async (ticket_id: number, ticket_class: string) => {
     try {
 

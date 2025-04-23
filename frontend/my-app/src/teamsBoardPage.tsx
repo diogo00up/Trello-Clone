@@ -24,7 +24,7 @@ SetCurrentGroup: React.Dispatch<React.SetStateAction<groupProps | undefined>>;
 type TicketProps = {
     id: number;   
     title: string;
-    text: string;
+    description: string;
     ticket_owner : number;
     ticket_class: string;
     group_id : number;  
@@ -38,31 +38,36 @@ type ColumnProps = {
     loadGroupTickets: () => void;
 };
 
-function Column({ title, ticketClass, tickets, loadGroupTickets }: ColumnProps) {
+function Column({title, ticketClass, tickets, loadGroupTickets }: ColumnProps) {
   return (
     <div className="indivual_column" title={ticketClass}>
-      {tickets.filter((ticket) => ticket.ticket_class === ticketClass).map((ticket, index) => 
-        (<GroupTicket key={ticket.id} id={ticket.id} title={ticket.title} text={ticket.text} ticket_owner={ticket.ticket_owner} ticket_class={ticket.ticket_class} group_id={ticket.group_id} loadGroupTickets={loadGroupTickets} />))}
+      {tickets.filter((ticket) => ticket.ticket_class === ticketClass).map((ticket) => {
+
+        return (
+          <GroupTicket key={ticket.id} id={ticket.id} title={ticket.title} description={ticket.description} ticket_owner={ticket.ticket_owner} ticket_class={ticket.ticket_class} group_id={ticket.group_id} loadGroupTickets={loadGroupTickets}/>
+        );
+        })}
     </div>
   );
 }
 
-function GroupTicket({id, title, text,ticket_owner, ticket_class, group_id, loadGroupTickets}: TicketProps){
+function GroupTicket({id, title, description,ticket_owner, ticket_class, group_id, loadGroupTickets}: TicketProps){
     const [editedTitle, setEditedTitle] = useState(title);
-    const [editedText, setEditedText] = useState(text); 
+    const [editedText, setEditedText] = useState(description); 
     const [isEditing, setIsEditing] = useState(false); 
     const token = sessionStorage.getItem('access_token');
 
     const handleCancel = () => {
       setEditedTitle(title);
-      setEditedText(text);
+      setEditedText(description);
       setIsEditing(false);
     };
 
     const updateTicketInfo = async () => {
+      console.log(description);
       try {
   
-        const response = await axios.put('http://127.0.0.1:8000/updateTextTitle', {
+        const response = await axios.put('http://127.0.0.1:8000/updateGroupTextTitle', {
           id: id,
           title: editedTitle,
           text: editedText,
@@ -144,7 +149,7 @@ function GroupTicket({id, title, text,ticket_owner, ticket_class, group_id, load
 function GroupChoice({ currentGroup, groupList, SetCurrentGroup }: GroupChoiceProps){
     return(
 
-        <div className='group_choice'>
+      <div className='group_choice'>
         <a id='group-choice-a'>Scroll threw your working teams: </a>
         <select className='group-box' value={currentGroup?.id || ''} onChange={(e) => {const selectedId = parseInt(e.target.value);
         const selectedGroup = groupList.find(group => group.id === selectedId);
@@ -163,11 +168,37 @@ function GroupChoice({ currentGroup, groupList, SetCurrentGroup }: GroupChoicePr
 };
 
 function GroupPage(){
-
     const [Groups, SetGroups] = useState<groupProps[]>([]);
     const [currentGroup, SetCurrentGroup] = useState<groupProps>();
     const [tickets, setTickets] = useState<TicketProps[]>([]);
     const token = sessionStorage.getItem('access_token');
+    const [showPopup, setShowPopup] = useState<boolean>(false);
+    const [title, setTitle] = useState<string>('New title');
+    const [description, setDescription] = useState<string>('Insert new text');
+
+    const navigate = useNavigate();
+
+    const handleButtonClick = async () => {
+      const group_id = currentGroup?.id;
+      const ticket = { title, description, group_id };
+  
+      try {
+        const response = await axios.post('http://127.0.0.1:8000/createGroupTicket', ticket, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+  
+        console.log("Created the new Group ticket: ",response.data)
+      
+        await loadGroupTickets();
+
+      }
+       catch (error) {
+        console.error('Error creating new ticket or ticket-user relation:', error);
+      }
+      setShowPopup(false);
+    };
 
     const getGroups = async () => {
         try {
@@ -200,8 +231,20 @@ function GroupPage(){
           catch (error) {
             console.error('Error getting Groups from API:', error);
           }
-
     };
+
+    const logOut = async () => {
+      console.log("logout");
+      sessionStorage.clear();
+      navigate('/welcome');
+      
+    }
+  
+    const goBack = async () => {
+      console.log("goback");
+      navigate('/menu');
+      
+    }
 
     useEffect(() => {
         getGroups();
@@ -217,9 +260,44 @@ function GroupPage(){
     return(
         <div className='teams-background'>
             <HeaderCustom/>
+
+            <div className='tool-bar'>
+
+              <div className="add-ticket" onClick={() => setShowPopup(true)}>
+                <img src={add_plus} className="add_plus" alt="add" />
+                <span className="add-text">Create new ticket</span>
+              </div>
+
+              <div className='user-icon'>
+                <img src={user_icon} className="add_plus" alt="add" />
+                <span className="add-text">Edit user settings</span>
+              </div>
+
+              <div className='user-icon' onClick={logOut}>
+                <img src={log_out} className="add_plus" alt="add" />
+                <span className="add-text">Exit</span>
+              </div>
+
+              <div className='user-icon' onClick={goBack}>
+                <img src={back} className="add_plus" alt="add" />
+                <span className="add-text">Go Back</span>
+              </div>
+
+            </div>
+
+            {showPopup && (
+              <div className="pop-put-new-ticket">
+                <label htmlFor="title">New ticket title:</label>
+                <input type="text" id="title" value={title} onChange={(e) => setTitle(e.target.value)} />
+                <label htmlFor="new-ticket-description">New ticket description:</label>
+                <input type="text" id="new-ticket-description" value={description} onChange={(e) => setDescription(e.target.value)}/>
+                <button onClick={handleButtonClick}>Submit Ticket</button>
+                <button onClick={() => setShowPopup(false)}>Cancel</button>
+              </div>
+            )}
+
             <GroupChoice currentGroup={currentGroup} groupList={Groups} SetCurrentGroup={SetCurrentGroup}/>
             
-
             <div className="board-wrapper">
 
                 <div className="titles">
@@ -228,18 +306,17 @@ function GroupPage(){
                     <a>In Progress</a>
                     <a>Done</a>
                 </div>
-                
+
                 <div className='teams-main-board'>
-                    <Column title="Backlog" ticketClass="backlog" tickets={tickets} loadGroupTickets={loadGroupTickets}   />
-                    <Column title="Sprint" ticketClass="current_sprint" tickets={tickets} loadGroupTickets={loadGroupTickets} />
-                    <Column title="InProgress" ticketClass="in_progress" tickets={tickets} loadGroupTickets={loadGroupTickets}   />
-                    <Column title="Done" ticketClass="done" tickets={tickets} loadGroupTickets={loadGroupTickets}  />
+                  <Column title="Backlog" ticketClass="backlog" tickets={tickets} loadGroupTickets={loadGroupTickets}   />
+                  <Column title="Sprint" ticketClass="current_sprint" tickets={tickets} loadGroupTickets={loadGroupTickets} />
+                  <Column title="InProgress" ticketClass="in_progress" tickets={tickets} loadGroupTickets={loadGroupTickets}   />
+                  <Column title="Done" ticketClass="done" tickets={tickets} loadGroupTickets={loadGroupTickets}  />
                 </div>
 
             </div>
           
-            <FooterCustom/>
-            
+            <FooterCustom/>          
         </div>
         
     )

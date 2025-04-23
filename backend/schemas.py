@@ -57,6 +57,14 @@ class TicketCreate(BaseModel):
     class Config:
         from_attributes = True  
 
+class GroupTicketCreate(BaseModel):
+    title: str
+    description: str
+    group_id: int
+    
+    class Config:
+        from_attributes = True  
+
 class TicketUpdate(BaseModel):
     ticket_id: int
     ticket_class: str

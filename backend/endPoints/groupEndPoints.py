@@ -1,4 +1,4 @@
-from schemas import UserResponse,TicketResponse,TicketUser,UserCreate,TicketCreate,UserLogin,TicketUpdate,TicketTextTitleUpdate,TicketDelete,GroupResponse
+from schemas import GroupTicketCreate,TicketTextTitleUpdate,TicketDelete,GroupResponse
 from models import  User, Ticket, UserTicket, Group, groupTicket,user_group
 from database import get_db
 from auth import get_current_user, create_access_token
@@ -47,7 +47,28 @@ async def delete_group_ticket(tickedDelete : TicketDelete,  db: AsyncSession = D
     "TicketTable": f"Ticket with id: {tickedDelete.id} deleted from group_tickets",
     }
 
+@router.put("/updateGroupTextTitle")
+async def update_group_ticket_class(newdata: TicketTextTitleUpdate, db: AsyncSession = Depends(get_db), current_user: User = Depends(get_current_user)):
+    result = await db.execute(select(groupTicket).where(groupTicket.id == newdata.id))
+    ticket = result.scalar_one_or_none()
+    
+    if not ticket:
+        raise HTTPException(status_code=404, detail="Ticket not found")
+    
+    ticket.title = newdata.title
+    ticket.description =newdata.text
+    db.add(ticket)
+    await db.commit()
+    await db.refresh(ticket)
+    return {"message": "Group Ticket Title and data updated successfully", "ticket": ticket}
 
 
+@router.post("/createGroupTicket")
+async def create_group_ticket(ticket: GroupTicketCreate, current_user: User = Depends(get_current_user), db: AsyncSession = Depends(get_db)):
+    new_ticket = groupTicket(title=ticket.title, description=ticket.description,ticket_owner = current_user.id, ticket_class="backlog",group_id=ticket.group_id)
+    db.add(new_ticket)
+    await db.commit()
+    await db.refresh(new_ticket)
+    return new_ticket
 
 
