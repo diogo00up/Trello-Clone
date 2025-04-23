@@ -1,4 +1,5 @@
 from pydantic import BaseModel
+from datetime import datetime
 
 # Modelo Pydantic para serialização dos dados
 
@@ -88,4 +89,16 @@ class TicketUser(BaseModel):
     ticket_id: int
     class Config:
         from_attributes = True  
+
+class GroupTicketResponse(BaseModel):
+    id: int
+    title: str
+    description: str
+    ticket_owner: int
+    ticket_class: str
+    group_id: int
+    date_created: datetime
+
+    class Config:
+        orm_mode = True
 

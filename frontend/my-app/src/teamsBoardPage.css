@@ -39,5 +39,11 @@
     border-bottom-right-radius: 10px; 
 }
 
+.close-button{
+    cursor: pointer;
+}
 
 
+.ticket-date{
+    font-size: 14px;
+}

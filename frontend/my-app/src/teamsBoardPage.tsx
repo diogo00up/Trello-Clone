@@ -28,6 +28,7 @@ type TicketProps = {
     ticket_owner : number;
     ticket_class: string;
     group_id : number;  
+    date_created: string; 
     loadGroupTickets: () => void;
 };
 
@@ -44,14 +45,14 @@ function Column({title, ticketClass, tickets, loadGroupTickets }: ColumnProps) {
       {tickets.filter((ticket) => ticket.ticket_class === ticketClass).map((ticket) => {
 
         return (
-          <GroupTicket key={ticket.id} id={ticket.id} title={ticket.title} description={ticket.description} ticket_owner={ticket.ticket_owner} ticket_class={ticket.ticket_class} group_id={ticket.group_id} loadGroupTickets={loadGroupTickets}/>
+          <GroupTicket key={ticket.id} id={ticket.id} title={ticket.title} description={ticket.description} ticket_owner={ticket.ticket_owner} ticket_class={ticket.ticket_class} group_id={ticket.group_id} date_created={ticket.date_created} loadGroupTickets={loadGroupTickets}/>
         );
         })}
     </div>
   );
 }
 
-function GroupTicket({id, title, description,ticket_owner, ticket_class, group_id, loadGroupTickets}: TicketProps){
+function GroupTicket({id, title, description,ticket_owner, ticket_class, group_id, date_created, loadGroupTickets}: TicketProps){
     const [editedTitle, setEditedTitle] = useState(title);
     const [editedText, setEditedText] = useState(description); 
     const [isEditing, setIsEditing] = useState(false); 
@@ -140,6 +141,11 @@ function GroupTicket({id, title, description,ticket_owner, ticket_class, group_i
           <div className="class-name-ticket">
             <a id="call-id-ticket">{ticket_class}</a>
           </div>
+
+          <div className="ticket-date">
+            <span>Created on: {new Date(date_created).toLocaleString()}</span>
+          </div>
+          
         </div>
 
       );

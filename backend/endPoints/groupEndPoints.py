@@ -1,4 +1,4 @@
-from schemas import GroupTicketCreate,TicketTextTitleUpdate,TicketDelete,GroupResponse
+from schemas import GroupTicketCreate,TicketTextTitleUpdate,TicketDelete,GroupResponse,GroupTicketResponse
 from models import  User, Ticket, UserTicket, Group, groupTicket,user_group
 from database import get_db
 from auth import get_current_user, create_access_token
@@ -20,7 +20,7 @@ async def get_users(current_user: User = Depends(get_current_user), db: AsyncSes
     groups = result.scalars().all()  
     return groups
 
-@router.get("/GroupTickets")
+@router.get("/GroupTickets", response_model=List[GroupTicketResponse])
 async def get_GroupTickets(group_id: int ,db: AsyncSession = Depends(get_db)):
     stmt = (select(groupTicket).where(groupTicket.group_id==group_id))
     result = await db.execute(stmt)

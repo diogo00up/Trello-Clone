@@ -1,6 +1,8 @@
-from sqlalchemy import Column, Integer, String
+from sqlalchemy import Column, Integer, String, Boolean
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import ForeignKey
+from sqlalchemy import DateTime
+from sqlalchemy.sql import func
 
 Base = declarative_base()
 
@@ -42,10 +44,12 @@ class groupTicket(Base):
     ticket_owner = Column(Integer, ForeignKey("users.id"))
     ticket_class = Column(String(255))
     group_id = Column(Integer, ForeignKey("groups.id"))
+    date_created = Column(DateTime, default=func.now())
 
 class user_group(Base):
     __tablename__ = "user_group"
     id = Column(Integer, primary_key=True, index=True)
     user_id = Column(Integer, ForeignKey("users.id"))
     group_id = Column(Integer, ForeignKey("groups.id"))
+    is_admin = Column(Boolean, default=False)
 
