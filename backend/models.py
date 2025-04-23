@@ -43,3 +43,9 @@ class groupTicket(Base):
     ticket_class = Column(String(255))
     group_id = Column(Integer, ForeignKey("groups.id"))
 
+class user_group(Base):
+    __tablename__ = "user_group"
+    id = Column(Integer, primary_key=True, index=True)
+    user_id = Column(Integer, ForeignKey("users.id"))
+    group_id = Column(Integer, ForeignKey("groups.id"))
+
