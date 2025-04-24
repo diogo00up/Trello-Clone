@@ -1,7 +1,12 @@
 from pydantic import BaseModel
-from datetime import datetime
+from datetime import date
 
 # Modelo Pydantic para serialização dos dados
+
+class RoleResponse(BaseModel):
+    is_admin: int
+    class Config:
+        from_attributes = True  
 
 class GroupResponse(BaseModel):
     id: int
@@ -97,7 +102,7 @@ class GroupTicketResponse(BaseModel):
     ticket_owner: int
     ticket_class: str
     group_id: int
-    date_created: datetime
+    date_created: date
 
     class Config:
         orm_mode = True

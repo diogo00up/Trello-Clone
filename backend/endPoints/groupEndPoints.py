@@ -1,4 +1,4 @@
-from schemas import GroupTicketCreate,TicketTextTitleUpdate,TicketDelete,GroupResponse,GroupTicketResponse,TicketUpdate
+from schemas import GroupTicketCreate,TicketTextTitleUpdate,TicketDelete,GroupResponse,GroupTicketResponse,TicketUpdate,RoleResponse
 from models import  User, Ticket, UserTicket, Group, groupTicket,user_group
 from database import get_db
 from auth import get_current_user, create_access_token
@@ -87,5 +87,16 @@ async def update_group_ticket_class(update_data: TicketUpdate, db: AsyncSession 
 
     return {"message": "Ticket updated successfully", "ticket": ticket}
 
+@router.get("/getUserRole", response_model=List[RoleResponse])
+async def get_GroupTickets(group_id: int , db: AsyncSession = Depends(get_db), current_user: User = Depends(get_current_user)):
+    stmt = (select(user_group).where(user_group.group_id==group_id).where(user_group.user_id==current_user.id))
+    result = await db.execute(stmt)
+    line = result.scalars().all() 
+    
+    if not line:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Error retrieving tickets from database",
+        )
 
-
+    return line

@@ -15,7 +15,7 @@ function HeaderCustom(){
         </div>
 
         <div className='header-icon'>
-            <img src={symbol} className="HeaderLogoImage" alt="logo" />
+
         </div>
 
       

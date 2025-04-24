@@ -4,15 +4,20 @@
   font-family: 'Saira';
 }
 
+.background{
+  background-image: url("images/bg4.jpg");
+  background-size: cover;
+}
+
+
 .tool-bar{
-  margin-top: 15px;
+  position: relative;
+  top:-50px;
   height: 40px;
-  background-color: #ffffff;
+  background-color: transparent;
+  box-shadow: 0 4px 20px rgba(255, 255, 255, 0.3);
   display: flex;
   padding-left: 10px;
-  margin-left: 50px;
-  margin-right: 50px;
-  border-radius: 10px; 
   padding-top: 5px;
   padding-bottom: 5px;
   gap:15px;
@@ -22,7 +27,9 @@
     display: flex;
     align-items: center;
     cursor: pointer;
-    background-color: #226dcf;
+    background-color: rgba(61, 60, 60, 0.4);
+    backdrop-filter: blur(10px); 
+    -webkit-backdrop-filter: blur(10px); 
     border-radius: 10px; 
     padding-left: 10px;
     padding-right: 10px;
@@ -35,7 +42,9 @@
     display: flex;
     align-items: center;
     cursor: pointer;
-    background-color: #226dcf;
+    background-color: rgba(61, 60, 60, 0.4);
+    backdrop-filter: blur(10px); 
+    -webkit-backdrop-filter: blur(10px); 
     border-radius: 10px; 
     padding-left: 10px;
     padding-right: 10px;
@@ -55,8 +64,8 @@
     height: 30px;
     margin-right: 8px;
     margin: 0px;
-    left: 160px;
-    top: 0px;
+    left: 230px;
+    top: -10px;
     margin-top: 0px;
     position: relative;
   }
@@ -67,12 +76,13 @@
   }
   
   .ticketbox{
-    background-color: #082b58;
+    
     border: 1px solid #ffffff;
     border-radius: 8px;
     width: 266px;
     margin: 16px;
-    box-shadow:  0 2px 4px rgba(0,0,0,0.1);
+    background-color: transparent;
+    box-shadow: 0 4px 20px rgba(255, 255, 255, 0.3);
   
 }
 
@@ -81,6 +91,7 @@
     margin: 10px;
     height: 20px;
     margin-bottom: 10px;
+    
  
 }
 
@@ -92,15 +103,17 @@
 
 
 .ticketbox input{
-    width : 180px;
+    width : 260px;
     height: 100%;
     padding: 10px 12px;
     font-size: 16px;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f9f9f9;
+    background-color: transparent;
+    box-shadow: 0 4px 20px rgba(255, 255, 255, 0.3);
+    color: white;
     border: 1px solid #ccc;
-    border-radius: 12px;
-    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+
+  
     resize: none;
     transition: border-color 0.2s, box-shadow 0.2s;
     box-sizing: border-box;
@@ -126,10 +139,10 @@ textarea {
     padding: 10px 12px;
     font-size: 16px;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f9f9f9;
+    background-color: transparent;
+    box-shadow: 0 4px 20px rgba(255, 255, 255, 0.3);
+    color: white;
     border: 1px solid #ccc;
-    border-radius: 12px;
-    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
     resize: none;
     transition: border-color 0.2s, box-shadow 0.2s;
     box-sizing: border-box;
@@ -144,13 +157,15 @@ textarea {
   
 
 .indivual_column{
-  background-color: #d3d3d3;
+  background-color: rgba(92, 92, 92, 0.14);
+  backdrop-filter: blur(90px);
   border-radius: 10px; 
   width: 300px;
   padding: 0px;
   margin: 15px;
   height: 700px; 
   overflow-y: auto; 
+  
 }
 
 .column-title{
@@ -158,10 +173,6 @@ textarea {
 
 }
 
-.background{
-  background-image: url("images/backgroud.jpg");
-  background-size: cover;
-}
 
 .pop-put-new-ticket {
   background-color: #493661;
@@ -207,7 +218,6 @@ textarea {
 }
 
 .board-wrapper {
-  padding-top: 200px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -230,9 +240,9 @@ textarea {
 
 .titles a {
   padding: 10px;
-  background-color: #082b58;
-  border-top-right-radius: 10px;
-  border-top-left-radius: 10px;
+  background-color: transparent;
+  box-shadow: 0 4px 20px rgba(255, 255, 255, 0.3);
+  border: 1px solid rgb(255, 255, 255); 
 }
 
 .main-board {

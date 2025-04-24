@@ -7,8 +7,9 @@ import HeaderCustom from './header/header';
 import add_plus from './icons/add_plus.svg';
 import user_icon from './icons/user_icon.svg';
 import log_out from './icons/log_out.svg'
-import close from './icons/close.svg'
+import close from './icons/x.svg'
 import back from './icons/back.svg'
+import tool from './icons/tool.svg'
 import { DndContext, useDraggable, useDroppable, DragOverlay } from '@dnd-kit/core';
 
 type groupProps = {
@@ -153,7 +154,7 @@ function GroupTicket({id, title, description,ticket_owner, ticket_class, group_i
           </div>
 
           <div className="ticket-date">
-            <span>Created on: {new Date(date_created).toLocaleString()}</span>
+            <span>Deliver date: {new Date(date_created).toLocaleDateString()}</span>
           </div>
           
         </div>
@@ -166,7 +167,7 @@ function GroupChoice({ currentGroup, groupList, SetCurrentGroup }: GroupChoicePr
     return(
 
       <div className='group_choice'>
-        <a id='group-choice-a'>Scroll threw your working teams: </a>
+        <a id='group-choice-a'>Team: </a>
         <select className='group-box' value={currentGroup?.id || ''} onChange={(e) => {const selectedId = parseInt(e.target.value);
         const selectedGroup = groupList.find(group => group.id === selectedId);
         SetCurrentGroup(selectedGroup)}}>
@@ -191,10 +192,9 @@ function GroupPage(){
     const [showPopup, setShowPopup] = useState<boolean>(false);
     const [title, setTitle] = useState<string>('New title');
     const [description, setDescription] = useState<string>('Insert new text');
-
     const [activeId, setActiveId] = useState<number| null>(null);
     const activeTicket = tickets.find((t) => t.id === activeId);
-
+    const [isAdmin, setIsAdmin] = useState<number>(0);
     const navigate = useNavigate();
 
     const updateTicketAfterDrag = async (ticket_id: number, ticket_class: string) => {
@@ -274,6 +274,24 @@ function GroupPage(){
           }
     };
 
+    const loadAdminSetting = async () => {
+      setTickets([]); 
+      try {
+          const response = await axios.get('http://127.0.0.1:8000/getUserRole', {
+              headers: {
+                Authorization: `Bearer ${token}`,
+            },
+              params: { group_id: currentGroup?.id }
+          });
+
+          console.log('Response about current User Role: ', response.data[0].is_admin);
+          setIsAdmin(response.data[0].is_admin);
+        } 
+        catch (error) {
+          console.error('Error fetching role:', error);
+        }
+    };
+
     const logOut = async () => {
       console.log("logout");
       sessionStorage.clear();
@@ -320,6 +338,7 @@ function GroupPage(){
       }
       else if (currentGroup){
           loadGroupTickets();
+          loadAdminSetting();
       }
     }, [currentGroup]);
 
@@ -362,8 +381,15 @@ function GroupPage(){
               </div>
             )}
 
-            <GroupChoice currentGroup={currentGroup} groupList={Groups} SetCurrentGroup={SetCurrentGroup}/>
+            <div className='admin-info'>
+              <a> Current role: {isAdmin == 1? "Admin" : "Member"} </a>
+              <img src={tool} className="tool-box" alt="add" />
+
+            </div>
+        
             
+            <GroupChoice currentGroup={currentGroup} groupList={Groups} SetCurrentGroup={SetCurrentGroup}/>
+
             <div className="board-wrapper">
 
                 <div className="titles">

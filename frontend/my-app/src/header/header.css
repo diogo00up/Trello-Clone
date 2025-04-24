@@ -4,17 +4,19 @@
     display: flex;
     position: relative;
     color: white;
+    border-bottom: 1px solid rgb(255, 255, 255); 
 }
 
 .header-title{
     width: 400px;
     position: absolute;
+    top: -30px;
     left: 100px;
     
 }
 
 .header-subtitle{
-    margin-top: 80px;
+    margin-top: 60px;
     width: 300px;
     position: absolute;
     left: 620px;

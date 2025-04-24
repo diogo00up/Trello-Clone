@@ -1,16 +1,19 @@
 .teams-background{
-    background-image: url("images/backgroud.jpg");
+    background-image: url("images/bg4.jpg");
     background-size: cover;
 }
 
 
 .group_choice{
-    margin-top: 20px;
+   
     margin-left: 50px;
-    background-color: rgb(255, 255, 255);
+    border: 1px solid rgb(255, 255, 255); 
     display: flex;
     width: fit-content;
-    border-radius: 10px;
+    color: white;
+    background-color: transparent;
+    box-shadow: 0 4px 20px rgba(255, 255, 255, 0.3);
+    
    
 }
 
@@ -32,11 +35,15 @@
     grid-template-columns: repeat(4, 1fr);
     gap: 25px;
     width: 100%;
-    margin-bottom: 20px;
-    background: rgba(0, 0, 0, 0.3);
-    backdrop-filter: blur(10px); 
-    border-bottom-left-radius: 10px; 
-    border-bottom-right-radius: 10px; 
+    margin-bottom: 40px;
+
+    background-color: transparent;
+    box-shadow: 0 4px 20px rgba(255, 255, 255, 0.3);
+
+    border-bottom: 1px solid rgb(255, 255, 255); 
+    border-left: 1px solid rgb(255, 255, 255); 
+    border-right: 1px solid rgb(255, 255, 255); 
+
 }
 
 .close-button{
@@ -46,4 +53,33 @@
 
 .ticket-date{
     font-size: 14px;
+    color: white;
+    padding-left: 5px;
+}
+.button-teste{
+    height: 50px;
+}
+
+.admin-info{
+    color: red;
+    padding: 5px;
+    font-size: medium;
+    margin-left: 50px;
+    cursor: pointer;
+    width: fit-content;
+    
+}
+
+.tool-box:hover {
+    background-color: rgb(255, 255, 255);
+  
+  }
+
+.tool-box{
+    transition: background-color 0.3s ease;
+    width: 30px;
+    height: 30px;
+    position: relative;
+    top:10px
+    
 }
