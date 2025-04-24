@@ -22,7 +22,7 @@
     display: flex;
     align-items: center;
     cursor: pointer;
-    background-color: #7871d5;
+    background-color: #226dcf;
     border-radius: 10px; 
     padding-left: 10px;
     padding-right: 10px;
@@ -35,7 +35,7 @@
     display: flex;
     align-items: center;
     cursor: pointer;
-    background-color: #7871d5;
+    background-color: #226dcf;
     border-radius: 10px; 
     padding-left: 10px;
     padding-right: 10px;
@@ -67,10 +67,10 @@
   }
   
   .ticketbox{
-    background-color: rgb(54, 44, 112);
+    background-color: #082b58;
     border: 1px solid #ffffff;
     border-radius: 8px;
-    width: 200px;
+    width: 266px;
     margin: 16px;
     box-shadow:  0 2px 4px rgba(0,0,0,0.1);
   
@@ -146,7 +146,7 @@ textarea {
 .indivual_column{
   background-color: #d3d3d3;
   border-radius: 10px; 
-  width: 250px;
+  width: 300px;
   padding: 0px;
   margin: 15px;
   height: 700px; 
@@ -230,7 +230,7 @@ textarea {
 
 .titles a {
   padding: 10px;
-  background-color: rgb(90, 26, 180);
+  background-color: #082b58;
   border-top-right-radius: 10px;
   border-top-left-radius: 10px;
 }

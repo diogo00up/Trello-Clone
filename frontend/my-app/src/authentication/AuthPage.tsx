@@ -97,6 +97,7 @@ function LogIn(){
     });
     
     console.log('logIn successful:', response.data);
+    sessionStorage.clear();
     sessionStorage.setItem('access_token', response.data.access_token);
 
     setUsername('');

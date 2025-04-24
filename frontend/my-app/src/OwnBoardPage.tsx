@@ -143,8 +143,10 @@ function MainTable() {
   const [description, setDescription] = useState<string>('Insert new text');
   const [tickets, setTickets] = useState<TicketProps[]>([]);
   const [showPopup, setShowPopup] = useState<boolean>(false);
+
   const [activeId, setActiveId] = useState<string | null>(null);
   const activeTicket = tickets.find((t) => t.id === activeId);
+  
   const navigate = useNavigate();
 
   const handleButtonClick = async () => {

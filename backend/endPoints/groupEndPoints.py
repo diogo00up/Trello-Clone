@@ -1,4 +1,4 @@
-from schemas import GroupTicketCreate,TicketTextTitleUpdate,TicketDelete,GroupResponse,GroupTicketResponse
+from schemas import GroupTicketCreate,TicketTextTitleUpdate,TicketDelete,GroupResponse,GroupTicketResponse,TicketUpdate
 from models import  User, Ticket, UserTicket, Group, groupTicket,user_group
 from database import get_db
 from auth import get_current_user, create_access_token
@@ -70,5 +70,22 @@ async def create_group_ticket(ticket: GroupTicketCreate, current_user: User = De
     await db.commit()
     await db.refresh(new_ticket)
     return new_ticket
+
+@router.put("/updatedGroupTickets")
+async def update_group_ticket_class(update_data: TicketUpdate, db: AsyncSession = Depends(get_db), current_user: User = Depends(get_current_user)):
+
+    result = await db.execute(select(groupTicket).where(groupTicket.id == update_data.ticket_id))
+    ticket = result.scalar_one_or_none()
+    
+    if not ticket:
+        raise HTTPException(status_code=404, detail="Ticket not found")
+    
+    ticket.ticket_class = update_data.ticket_class
+    db.add(ticket)
+    await db.commit()
+    await db.refresh(ticket)
+
+    return {"message": "Ticket updated successfully", "ticket": ticket}
+
 
 

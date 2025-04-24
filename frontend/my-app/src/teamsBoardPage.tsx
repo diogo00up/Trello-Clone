@@ -9,6 +9,7 @@ import user_icon from './icons/user_icon.svg';
 import log_out from './icons/log_out.svg'
 import close from './icons/close.svg'
 import back from './icons/back.svg'
+import { DndContext, useDraggable, useDroppable, DragOverlay } from '@dnd-kit/core';
 
 type groupProps = {
     id: number;
@@ -40,8 +41,9 @@ type ColumnProps = {
 };
 
 function Column({title, ticketClass, tickets, loadGroupTickets }: ColumnProps) {
+  const { setNodeRef } = useDroppable({ id: ticketClass });
   return (
-    <div className="indivual_column" title={ticketClass}>
+    <div className="indivual_column"  ref={setNodeRef} title={ticketClass}>
       {tickets.filter((ticket) => ticket.ticket_class === ticketClass).map((ticket) => {
 
         return (
@@ -57,11 +59,17 @@ function GroupTicket({id, title, description,ticket_owner, ticket_class, group_i
     const [editedText, setEditedText] = useState(description); 
     const [isEditing, setIsEditing] = useState(false); 
     const token = sessionStorage.getItem('access_token');
+    const { attributes, listeners, setNodeRef, transform } = useDraggable({id, disabled: isEditing, });
 
     const handleCancel = () => {
       setEditedTitle(title);
       setEditedText(description);
       setIsEditing(false);
+    };
+
+    const style = {
+      transform: transform ? `translate(${transform.x}px, ${transform.y}px)` : undefined,
+      cursor: isEditing ? 'text' : 'grab', 
     };
 
     const updateTicketInfo = async () => {
@@ -94,6 +102,8 @@ function GroupTicket({id, title, description,ticket_owner, ticket_class, group_i
     const deleteTicket = async () => {
       console.log("presseded delete button with id:", id);
 
+      if (!window.confirm("Are you sure you want to delete this ticket?")) return;
+
       try {
 
         const response = await axios.delete('http://127.0.0.1:8000/deleteGroupTicket', {
@@ -119,7 +129,7 @@ function GroupTicket({id, title, description,ticket_owner, ticket_class, group_i
    
 
     return (
-        <div className="ticketbox">
+        <div ref={setNodeRef} style={style} {...listeners} {...attributes} className="ticketbox">
 
           <img src={close} className="close-button" alt="add" onPointerDown={(e) => e.stopPropagation()} onClick={() => deleteTicket()} />
        
@@ -174,19 +184,44 @@ function GroupChoice({ currentGroup, groupList, SetCurrentGroup }: GroupChoicePr
 };
 
 function GroupPage(){
+    const token = sessionStorage.getItem('access_token');
     const [Groups, SetGroups] = useState<groupProps[]>([]);
     const [currentGroup, SetCurrentGroup] = useState<groupProps>();
     const [tickets, setTickets] = useState<TicketProps[]>([]);
-    const token = sessionStorage.getItem('access_token');
     const [showPopup, setShowPopup] = useState<boolean>(false);
     const [title, setTitle] = useState<string>('New title');
     const [description, setDescription] = useState<string>('Insert new text');
 
+    const [activeId, setActiveId] = useState<number| null>(null);
+    const activeTicket = tickets.find((t) => t.id === activeId);
+
     const navigate = useNavigate();
+
+    const updateTicketAfterDrag = async (ticket_id: number, ticket_class: string) => {
+      try {
+  
+        const response = await axios.put('http://127.0.0.1:8000/updatedGroupTickets', { ticket_id, ticket_class }, 
+          {
+            headers: {
+              Authorization: `Bearer ${token}`, 
+            },
+          }
+        );
+    
+        console.log('Ticket updated:', response.data);
+      } catch (error) {
+        console.error('Error updating ticket:', error);
+      }
+    };
 
     const handleButtonClick = async () => {
       const group_id = currentGroup?.id;
       const ticket = { title, description, group_id };
+
+      if (!title.trim() || !description.trim()) {
+        alert("Please provide a valid title and description.");
+        return;
+      }
   
       try {
         const response = await axios.post('http://127.0.0.1:8000/createGroupTicket', ticket, {
@@ -252,13 +287,38 @@ function GroupPage(){
       
     }
 
+    const handleDragStart = (event: any) => {
+      setActiveId(event.active.id); 
+    };
+
+    const handleDragEnd = (event: any) => {
+      const { active, over } = event;
+      console.log("Coluna que vou dropar: ",over.id);
+      console.log("id do ticket que vou dropar: ", Number(active.id));
+      updateTicketAfterDrag(active.id,over.id);
+  
+      if (active.id && over?.id) {
+          const updatedTickets = tickets.map((ticket) =>
+          ticket.id === active.id ? { ...ticket, ticket_class: over.id } : ticket 
+        );
+  
+        setTickets(updatedTickets);
+      }
+  
+      setActiveId(null);
+    };
+  
+
     useEffect(() => {
         getGroups();
         }, 
     []);
 
     useEffect(() => {
-      if (currentGroup) {
+      if (!sessionStorage.getItem('access_token')) {
+        navigate('/welcome');
+      }
+      else if (currentGroup){
           loadGroupTickets();
       }
     }, [currentGroup]);
@@ -313,15 +373,24 @@ function GroupPage(){
                     <a>Done</a>
                 </div>
 
-                <div className='teams-main-board'>
-                  <Column title="Backlog" ticketClass="backlog" tickets={tickets} loadGroupTickets={loadGroupTickets}   />
-                  <Column title="Sprint" ticketClass="current_sprint" tickets={tickets} loadGroupTickets={loadGroupTickets} />
-                  <Column title="InProgress" ticketClass="in_progress" tickets={tickets} loadGroupTickets={loadGroupTickets}   />
-                  <Column title="Done" ticketClass="done" tickets={tickets} loadGroupTickets={loadGroupTickets}  />
-                </div>
+                <DndContext onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
 
+                  <div className='teams-main-board'>
+                    <Column title="Backlog" ticketClass="backlog" tickets={tickets} loadGroupTickets={loadGroupTickets}   />
+                    <Column title="Sprint" ticketClass="current_sprint" tickets={tickets} loadGroupTickets={loadGroupTickets} />
+                    <Column title="InProgress" ticketClass="in_progress" tickets={tickets} loadGroupTickets={loadGroupTickets}   />
+                    <Column title="Done" ticketClass="done" tickets={tickets} loadGroupTickets={loadGroupTickets}  />
+                  </div>
+
+                  <DragOverlay>
+                    {activeId && activeTicket ? (
+                      <GroupTicket id={activeTicket.id} title={activeTicket.title} description={activeTicket.description} ticket_owner={activeTicket.ticket_owner} ticket_class={activeTicket.ticket_class} group_id={activeTicket.group_id} date_created={activeTicket.date_created}   loadGroupTickets={loadGroupTickets} />) : null}
+                  </DragOverlay>
+
+                </DndContext>
+            
             </div>
-          
+            
             <FooterCustom/>          
         </div>
         
