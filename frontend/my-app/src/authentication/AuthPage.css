@@ -28,11 +28,12 @@ header {
 }
 
 button{
-  border-radius: 10px; 
+  color: white;
   width: 150px;
   font-family: 'Dancing Script', cursive;
   font-size: 20px;
-  background-color:rgb(40, 212, 95) ;
+  background-color: transparent;
+  box-shadow: 0 4px 20px rgba(255, 255, 255, 0.3);
 
 }
 
@@ -81,12 +82,12 @@ button{
 
 
 .formContainers{
-  padding-top: 50px;
+
   padding-bottom:50px;
   justify-content: center;
   display: flex;
   gap: 50px; 
-  margin-top: 200px;
+  margin-top: 100px;
 
 }
 
@@ -94,7 +95,8 @@ button{
   padding-left:  20px;
   margin-right: 200px;
   text-align: left;
-  background-color: #223356;
+  background-color: transparent;
+  box-shadow: 0 4px 20px rgba(255, 255, 255, 0.3);
   display: flex;
   flex-direction: column;
   gap: 10px; 
@@ -107,7 +109,8 @@ button{
 .Login{
   padding-left:  20px;
   text-align: left;
-  background-color: #223356;
+  background-color: transparent;
+  box-shadow: 0 4px 20px rgba(255, 255, 255, 0.3);
   display: flex;
   flex-direction: column;
   gap: 10px; 

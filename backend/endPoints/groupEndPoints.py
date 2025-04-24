@@ -10,6 +10,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.future import select
 from fastapi import APIRouter
 import logging
+from datetime import date
 
 
 router = APIRouter()
@@ -65,7 +66,7 @@ async def update_group_ticket_class(newdata: TicketTextTitleUpdate, db: AsyncSes
 
 @router.post("/createGroupTicket")
 async def create_group_ticket(ticket: GroupTicketCreate, current_user: User = Depends(get_current_user), db: AsyncSession = Depends(get_db)):
-    new_ticket = groupTicket(title=ticket.title, description=ticket.description,ticket_owner = current_user.id, ticket_class="backlog",group_id=ticket.group_id)
+    new_ticket = groupTicket(title=ticket.title, description=ticket.description,ticket_owner = current_user.id, ticket_class="backlog",group_id=ticket.group_id, date_created=date.today())
     db.add(new_ticket)
     await db.commit()
     await db.refresh(new_ticket)

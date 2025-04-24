@@ -3,7 +3,7 @@ import FooterCustom from './footer/footer'
 import './menu.css';
 import user from './icons/user.svg'
 import users from './icons/users.svg'
-import back from './icons/back.svg'
+import back from './icons/back2.svg'
 import { useNavigate } from 'react-router-dom';
 
 function Menu(){
@@ -29,8 +29,7 @@ function Menu(){
         <div className='page-background'>
 
             <div className='back-button' onClick={goBack}>
-                <img src={back} className="users-icon-button" alt="add" />
-
+                <img src={back} className="back-icon-button" alt="add" />
             </div>
 
             <div className=' menu-div'>

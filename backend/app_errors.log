@@ -22058,3 +22058,993 @@ FROM user_group
 WHERE user_group.group_id = %s AND user_group.user_id = %s
 2025-04-24 20:32:31,175 - INFO - [generated in 0.00060s] (1, 1)
 2025-04-24 20:32:31,177 - INFO - ROLLBACK
+2025-04-24 20:33:21,419 - INFO - SELECT DATABASE()
+2025-04-24 20:33:21,420 - INFO - [raw sql] ()
+2025-04-24 20:33:21,421 - INFO - SELECT @@sql_mode
+2025-04-24 20:33:21,422 - INFO - [raw sql] ()
+2025-04-24 20:33:21,423 - INFO - SELECT @@lower_case_table_names
+2025-04-24 20:33:21,423 - INFO - [raw sql] ()
+2025-04-24 20:33:21,424 - INFO - BEGIN (implicit)
+2025-04-24 20:33:21,429 - INFO - SELECT users.id, users.username, users.password_hash, users.email 
+FROM users 
+WHERE users.username = %s
+2025-04-24 20:33:21,429 - INFO - [generated in 0.00064s] ('teste',)
+2025-04-24 20:33:21,433 - INFO - SELECT `groups`.id, `groups`.group_name 
+FROM `groups` INNER JOIN user_group ON user_group.group_id = `groups`.id 
+WHERE user_group.user_id = %s
+2025-04-24 20:33:21,434 - INFO - [generated in 0.00141s] (1,)
+2025-04-24 20:33:21,436 - INFO - ROLLBACK
+2025-04-24 20:33:21,440 - INFO - BEGIN (implicit)
+2025-04-24 20:33:21,441 - INFO - SELECT users.id, users.username, users.password_hash, users.email 
+FROM users 
+WHERE users.username = %s
+2025-04-24 20:33:21,442 - INFO - [cached since 0.01283s ago] ('teste',)
+2025-04-24 20:33:21,443 - INFO - SELECT `groups`.id, `groups`.group_name 
+FROM `groups` INNER JOIN user_group ON user_group.group_id = `groups`.id 
+WHERE user_group.user_id = %s
+2025-04-24 20:33:21,445 - INFO - [cached since 0.01211s ago] (1,)
+2025-04-24 20:33:21,448 - INFO - ROLLBACK
+2025-04-24 20:33:23,015 - INFO - BEGIN (implicit)
+2025-04-24 20:33:23,017 - INFO - SELECT group_tickets.id, group_tickets.title, group_tickets.description, group_tickets.ticket_owner, group_tickets.ticket_class, group_tickets.group_id, group_tickets.date_created 
+FROM group_tickets 
+WHERE group_tickets.group_id = %s
+2025-04-24 20:33:23,017 - INFO - [generated in 0.00055s] (1,)
+2025-04-24 20:33:23,030 - INFO - ROLLBACK
+2025-04-24 20:33:23,032 - INFO - BEGIN (implicit)
+2025-04-24 20:33:23,032 - INFO - SELECT users.id, users.username, users.password_hash, users.email 
+FROM users 
+WHERE users.username = %s
+2025-04-24 20:33:23,033 - INFO - [cached since 1.604s ago] ('teste',)
+2025-04-24 20:33:23,034 - INFO - SELECT user_group.id, user_group.user_id, user_group.group_id, user_group.is_admin 
+FROM user_group 
+WHERE user_group.group_id = %s AND user_group.user_id = %s
+2025-04-24 20:33:23,035 - INFO - [generated in 0.00040s] (1, 1)
+2025-04-24 20:33:23,036 - INFO - ROLLBACK
+2025-04-24 20:34:38,850 - INFO - BEGIN (implicit)
+2025-04-24 20:34:38,851 - INFO - SELECT users.id, users.username, users.password_hash, users.email 
+FROM users 
+WHERE users.username = %s
+2025-04-24 20:34:38,851 - INFO - [cached since 77.42s ago] ('teste',)
+2025-04-24 20:34:38,854 - INFO - SELECT `groups`.id, `groups`.group_name 
+FROM `groups` INNER JOIN user_group ON user_group.group_id = `groups`.id 
+WHERE user_group.user_id = %s
+2025-04-24 20:34:38,854 - INFO - [cached since 77.42s ago] (1,)
+2025-04-24 20:34:38,856 - INFO - ROLLBACK
+2025-04-24 20:34:38,861 - INFO - BEGIN (implicit)
+2025-04-24 20:34:38,861 - INFO - SELECT users.id, users.username, users.password_hash, users.email 
+FROM users 
+WHERE users.username = %s
+2025-04-24 20:34:38,862 - INFO - [cached since 77.43s ago] ('teste',)
+2025-04-24 20:34:38,863 - INFO - SELECT `groups`.id, `groups`.group_name 
+FROM `groups` INNER JOIN user_group ON user_group.group_id = `groups`.id 
+WHERE user_group.user_id = %s
+2025-04-24 20:34:38,864 - INFO - [cached since 77.43s ago] (1,)
+2025-04-24 20:34:38,867 - INFO - ROLLBACK
+2025-04-24 20:34:40,472 - INFO - BEGIN (implicit)
+2025-04-24 20:34:40,472 - INFO - SELECT group_tickets.id, group_tickets.title, group_tickets.description, group_tickets.ticket_owner, group_tickets.ticket_class, group_tickets.group_id, group_tickets.date_created 
+FROM group_tickets 
+WHERE group_tickets.group_id = %s
+2025-04-24 20:34:40,473 - INFO - [cached since 77.46s ago] (1,)
+2025-04-24 20:34:40,476 - INFO - ROLLBACK
+2025-04-24 20:34:40,478 - INFO - BEGIN (implicit)
+2025-04-24 20:34:40,478 - INFO - SELECT users.id, users.username, users.password_hash, users.email 
+FROM users 
+WHERE users.username = %s
+2025-04-24 20:34:40,479 - INFO - [cached since 79.05s ago] ('teste',)
+2025-04-24 20:34:40,481 - INFO - SELECT user_group.id, user_group.user_id, user_group.group_id, user_group.is_admin 
+FROM user_group 
+WHERE user_group.group_id = %s AND user_group.user_id = %s
+2025-04-24 20:34:40,482 - INFO - [cached since 77.45s ago] (1, 1)
+2025-04-24 20:34:40,484 - INFO - ROLLBACK
+2025-04-24 20:35:32,270 - INFO - BEGIN (implicit)
+2025-04-24 20:35:32,271 - INFO - SELECT users.id, users.username, users.password_hash, users.email 
+FROM users 
+WHERE users.username = %s
+2025-04-24 20:35:32,271 - INFO - [cached since 130.8s ago] ('teste',)
+2025-04-24 20:35:32,273 - INFO - SELECT group_tickets.id, group_tickets.title, group_tickets.description, group_tickets.ticket_owner, group_tickets.ticket_class, group_tickets.group_id, group_tickets.date_created 
+FROM group_tickets 
+WHERE group_tickets.id = %s
+2025-04-24 20:35:32,273 - INFO - [generated in 0.00042s] (2,)
+2025-04-24 20:35:32,275 - INFO - COMMIT
+2025-04-24 20:35:32,276 - INFO - BEGIN (implicit)
+2025-04-24 20:35:32,278 - INFO - SELECT group_tickets.id, group_tickets.title, group_tickets.description, group_tickets.ticket_owner, group_tickets.ticket_class, group_tickets.group_id, group_tickets.date_created 
+FROM group_tickets 
+WHERE group_tickets.id = %s
+2025-04-24 20:35:32,278 - INFO - [generated in 0.00058s] (2,)
+2025-04-24 20:35:32,280 - INFO - ROLLBACK
+2025-04-24 20:36:01,717 - INFO - BEGIN (implicit)
+2025-04-24 20:36:01,718 - INFO - SELECT users.id, users.username, users.password_hash, users.email 
+FROM users 
+WHERE users.username = %s
+2025-04-24 20:36:01,718 - INFO - [cached since 160.3s ago] ('teste',)
+2025-04-24 20:36:01,719 - WARNING - (trapped) error reading bcrypt version
+Traceback (most recent call last):
+  File "C:\Users\diogo\AppData\Local\Programs\Python\Python313\Lib\site-packages\passlib\handlers\bcrypt.py", line 620, in _load_backend_mixin
+    version = _bcrypt.__about__.__version__
+              ^^^^^^^^^^^^^^^^^
+AttributeError: module 'bcrypt' has no attribute '__about__'
+2025-04-24 20:36:01,971 - INFO - ROLLBACK
+2025-04-24 20:36:02,695 - INFO - BEGIN (implicit)
+2025-04-24 20:36:02,696 - INFO - SELECT users.id, users.username, users.password_hash, users.email 
+FROM users 
+WHERE users.username = %s
+2025-04-24 20:36:02,697 - INFO - [cached since 161.3s ago] ('teste',)
+2025-04-24 20:36:02,699 - INFO - SELECT `groups`.id, `groups`.group_name 
+FROM `groups` INNER JOIN user_group ON user_group.group_id = `groups`.id 
+WHERE user_group.user_id = %s
+2025-04-24 20:36:02,700 - INFO - [cached since 161.3s ago] (1,)
+2025-04-24 20:36:02,702 - INFO - ROLLBACK
+2025-04-24 20:36:02,707 - INFO - BEGIN (implicit)
+2025-04-24 20:36:02,708 - INFO - SELECT users.id, users.username, users.password_hash, users.email 
+FROM users 
+WHERE users.username = %s
+2025-04-24 20:36:02,708 - INFO - [cached since 161.3s ago] ('teste',)
+2025-04-24 20:36:02,711 - INFO - SELECT `groups`.id, `groups`.group_name 
+FROM `groups` INNER JOIN user_group ON user_group.group_id = `groups`.id 
+WHERE user_group.user_id = %s
+2025-04-24 20:36:02,711 - INFO - [cached since 161.3s ago] (1,)
+2025-04-24 20:36:02,714 - INFO - ROLLBACK
+2025-04-24 20:36:08,614 - INFO - BEGIN (implicit)
+2025-04-24 20:36:08,615 - INFO - SELECT group_tickets.id, group_tickets.title, group_tickets.description, group_tickets.ticket_owner, group_tickets.ticket_class, group_tickets.group_id, group_tickets.date_created 
+FROM group_tickets 
+WHERE group_tickets.group_id = %s
+2025-04-24 20:36:08,615 - INFO - [cached since 165.6s ago] (1,)
+2025-04-24 20:36:08,617 - INFO - BEGIN (implicit)
+2025-04-24 20:36:08,617 - INFO - SELECT users.id, users.username, users.password_hash, users.email 
+FROM users 
+WHERE users.username = %s
+2025-04-24 20:36:08,618 - INFO - [cached since 167.2s ago] ('teste',)
+2025-04-24 20:36:08,619 - INFO - ROLLBACK
+2025-04-24 20:36:08,620 - INFO - SELECT user_group.id, user_group.user_id, user_group.group_id, user_group.is_admin 
+FROM user_group 
+WHERE user_group.group_id = %s AND user_group.user_id = %s
+2025-04-24 20:36:08,621 - INFO - [cached since 165.6s ago] (1, 1)
+2025-04-24 20:36:08,624 - INFO - ROLLBACK
+2025-04-24 20:39:45,847 - INFO - BEGIN (implicit)
+2025-04-24 20:39:45,849 - INFO - SELECT users.id, users.username, users.password_hash, users.email 
+FROM users 
+WHERE users.username = %s
+2025-04-24 20:39:45,849 - INFO - [cached since 384.4s ago] ('teste',)
+2025-04-24 20:39:45,851 - INFO - SELECT `groups`.id, `groups`.group_name 
+FROM `groups` INNER JOIN user_group ON user_group.group_id = `groups`.id 
+WHERE user_group.user_id = %s
+2025-04-24 20:39:45,852 - INFO - [cached since 384.4s ago] (1,)
+2025-04-24 20:39:45,854 - INFO - ROLLBACK
+2025-04-24 20:39:45,861 - INFO - BEGIN (implicit)
+2025-04-24 20:39:45,862 - INFO - SELECT users.id, users.username, users.password_hash, users.email 
+FROM users 
+WHERE users.username = %s
+2025-04-24 20:39:45,863 - INFO - [cached since 384.4s ago] ('teste',)
+2025-04-24 20:39:45,866 - INFO - SELECT `groups`.id, `groups`.group_name 
+FROM `groups` INNER JOIN user_group ON user_group.group_id = `groups`.id 
+WHERE user_group.user_id = %s
+2025-04-24 20:39:45,866 - INFO - [cached since 384.4s ago] (1,)
+2025-04-24 20:39:45,868 - INFO - ROLLBACK
+2025-04-24 20:39:47,488 - INFO - BEGIN (implicit)
+2025-04-24 20:39:47,489 - INFO - SELECT group_tickets.id, group_tickets.title, group_tickets.description, group_tickets.ticket_owner, group_tickets.ticket_class, group_tickets.group_id, group_tickets.date_created 
+FROM group_tickets 
+WHERE group_tickets.group_id = %s
+2025-04-24 20:39:47,489 - INFO - [cached since 384.5s ago] (1,)
+2025-04-24 20:39:47,491 - INFO - BEGIN (implicit)
+2025-04-24 20:39:47,491 - INFO - SELECT users.id, users.username, users.password_hash, users.email 
+FROM users 
+WHERE users.username = %s
+2025-04-24 20:39:47,492 - INFO - [cached since 386.1s ago] ('teste',)
+2025-04-24 20:39:47,493 - INFO - ROLLBACK
+2025-04-24 20:39:47,494 - INFO - SELECT user_group.id, user_group.user_id, user_group.group_id, user_group.is_admin 
+FROM user_group 
+WHERE user_group.group_id = %s AND user_group.user_id = %s
+2025-04-24 20:39:47,495 - INFO - [cached since 384.5s ago] (1, 1)
+2025-04-24 20:39:47,498 - INFO - ROLLBACK
+2025-04-24 20:44:17,329 - INFO - BEGIN (implicit)
+2025-04-24 20:44:17,330 - INFO - SELECT users.id, users.username, users.password_hash, users.email 
+FROM users 
+WHERE users.username = %s
+2025-04-24 20:44:17,330 - INFO - [cached since 655.9s ago] ('teste',)
+2025-04-24 20:44:17,332 - INFO - SELECT group_tickets.id, group_tickets.title, group_tickets.description, group_tickets.ticket_owner, group_tickets.ticket_class, group_tickets.group_id, group_tickets.date_created 
+FROM group_tickets 
+WHERE group_tickets.id = %s
+2025-04-24 20:44:17,333 - INFO - [cached since 525.1s ago] (3,)
+2025-04-24 20:44:17,335 - INFO - UPDATE group_tickets SET ticket_class=%s WHERE group_tickets.id = %s
+2025-04-24 20:44:17,336 - INFO - [generated in 0.00066s] ('in_progress', 3)
+2025-04-24 20:44:17,338 - INFO - COMMIT
+2025-04-24 20:44:17,353 - INFO - BEGIN (implicit)
+2025-04-24 20:44:17,354 - INFO - SELECT group_tickets.id, group_tickets.title, group_tickets.description, group_tickets.ticket_owner, group_tickets.ticket_class, group_tickets.group_id, group_tickets.date_created 
+FROM group_tickets 
+WHERE group_tickets.id = %s
+2025-04-24 20:44:17,354 - INFO - [cached since 525.1s ago] (3,)
+2025-04-24 20:44:17,356 - INFO - ROLLBACK
+2025-04-24 20:44:18,423 - INFO - BEGIN (implicit)
+2025-04-24 20:44:18,423 - INFO - SELECT users.id, users.username, users.password_hash, users.email 
+FROM users 
+WHERE users.username = %s
+2025-04-24 20:44:18,423 - INFO - [cached since 657s ago] ('teste',)
+2025-04-24 20:44:18,425 - INFO - SELECT group_tickets.id, group_tickets.title, group_tickets.description, group_tickets.ticket_owner, group_tickets.ticket_class, group_tickets.group_id, group_tickets.date_created 
+FROM group_tickets 
+WHERE group_tickets.id = %s
+2025-04-24 20:44:18,425 - INFO - [cached since 526.2s ago] (3,)
+2025-04-24 20:44:18,427 - INFO - UPDATE group_tickets SET ticket_class=%s WHERE group_tickets.id = %s
+2025-04-24 20:44:18,427 - INFO - [cached since 1.092s ago] ('current_sprint', 3)
+2025-04-24 20:44:18,429 - INFO - COMMIT
+2025-04-24 20:44:18,435 - INFO - BEGIN (implicit)
+2025-04-24 20:44:18,436 - INFO - SELECT group_tickets.id, group_tickets.title, group_tickets.description, group_tickets.ticket_owner, group_tickets.ticket_class, group_tickets.group_id, group_tickets.date_created 
+FROM group_tickets 
+WHERE group_tickets.id = %s
+2025-04-24 20:44:18,436 - INFO - [cached since 526.2s ago] (3,)
+2025-04-24 20:44:18,438 - INFO - ROLLBACK
+2025-04-24 20:54:56,464 - INFO - BEGIN (implicit)
+2025-04-24 20:54:56,465 - INFO - SELECT users.id, users.username, users.password_hash, users.email 
+FROM users 
+WHERE users.username = %s
+2025-04-24 20:54:56,465 - INFO - [cached since 1295s ago] ('teste',)
+2025-04-24 20:54:56,470 - INFO - SELECT tickets.id, tickets.title, tickets.description, tickets.ticket_owner, tickets.ticket_class 
+FROM tickets INNER JOIN user_ticket ON user_ticket.ticket_id = tickets.id INNER JOIN users ON users.id = user_ticket.user_id 
+WHERE users.id = %s
+2025-04-24 20:54:56,471 - INFO - [generated in 0.00111s] (1,)
+2025-04-24 20:54:56,476 - INFO - ROLLBACK
+2025-04-24 20:54:56,481 - INFO - BEGIN (implicit)
+2025-04-24 20:54:56,482 - INFO - SELECT users.id, users.username, users.password_hash, users.email 
+FROM users 
+WHERE users.username = %s
+2025-04-24 20:54:56,483 - INFO - [cached since 1295s ago] ('teste',)
+2025-04-24 20:54:56,485 - INFO - SELECT tickets.id, tickets.title, tickets.description, tickets.ticket_owner, tickets.ticket_class 
+FROM tickets INNER JOIN user_ticket ON user_ticket.ticket_id = tickets.id INNER JOIN users ON users.id = user_ticket.user_id 
+WHERE users.id = %s
+2025-04-24 20:54:56,486 - INFO - [cached since 0.01606s ago] (1,)
+2025-04-24 20:54:56,488 - INFO - ROLLBACK
+2025-04-24 20:55:13,256 - INFO - BEGIN (implicit)
+2025-04-24 20:55:13,257 - INFO - SELECT users.id, users.username, users.password_hash, users.email 
+FROM users 
+WHERE users.username = %s
+2025-04-24 20:55:13,257 - INFO - [cached since 1312s ago] ('teste',)
+2025-04-24 20:55:13,259 - INFO - SELECT `groups`.id, `groups`.group_name 
+FROM `groups` INNER JOIN user_group ON user_group.group_id = `groups`.id 
+WHERE user_group.user_id = %s
+2025-04-24 20:55:13,260 - INFO - [cached since 1312s ago] (1,)
+2025-04-24 20:55:13,261 - INFO - ROLLBACK
+2025-04-24 20:55:13,267 - INFO - BEGIN (implicit)
+2025-04-24 20:55:13,267 - INFO - SELECT users.id, users.username, users.password_hash, users.email 
+FROM users 
+WHERE users.username = %s
+2025-04-24 20:55:13,268 - INFO - [cached since 1312s ago] ('teste',)
+2025-04-24 20:55:13,271 - INFO - SELECT `groups`.id, `groups`.group_name 
+FROM `groups` INNER JOIN user_group ON user_group.group_id = `groups`.id 
+WHERE user_group.user_id = %s
+2025-04-24 20:55:13,271 - INFO - [cached since 1312s ago] (1,)
+2025-04-24 20:55:13,273 - INFO - ROLLBACK
+2025-04-24 20:55:34,324 - INFO - BEGIN (implicit)
+2025-04-24 20:55:34,325 - INFO - SELECT users.id, users.username, users.password_hash, users.email 
+FROM users 
+WHERE users.username = %s
+2025-04-24 20:55:34,325 - INFO - [cached since 1333s ago] ('teste',)
+2025-04-24 20:55:34,542 - INFO - ROLLBACK
+2025-04-24 20:55:35,452 - INFO - BEGIN (implicit)
+2025-04-24 20:55:35,453 - INFO - SELECT users.id, users.username, users.password_hash, users.email 
+FROM users 
+WHERE users.username = %s
+2025-04-24 20:55:35,453 - INFO - [cached since 1334s ago] ('teste',)
+2025-04-24 20:55:35,455 - INFO - SELECT `groups`.id, `groups`.group_name 
+FROM `groups` INNER JOIN user_group ON user_group.group_id = `groups`.id 
+WHERE user_group.user_id = %s
+2025-04-24 20:55:35,455 - INFO - [cached since 1334s ago] (1,)
+2025-04-24 20:55:35,457 - INFO - ROLLBACK
+2025-04-24 20:55:35,462 - INFO - BEGIN (implicit)
+2025-04-24 20:55:35,462 - INFO - SELECT users.id, users.username, users.password_hash, users.email 
+FROM users 
+WHERE users.username = %s
+2025-04-24 20:55:35,463 - INFO - [cached since 1334s ago] ('teste',)
+2025-04-24 20:55:35,464 - INFO - SELECT `groups`.id, `groups`.group_name 
+FROM `groups` INNER JOIN user_group ON user_group.group_id = `groups`.id 
+WHERE user_group.user_id = %s
+2025-04-24 20:55:35,465 - INFO - [cached since 1334s ago] (1,)
+2025-04-24 20:55:35,467 - INFO - ROLLBACK
+2025-04-24 20:55:53,537 - INFO - BEGIN (implicit)
+2025-04-24 20:55:53,538 - INFO - SELECT group_tickets.id, group_tickets.title, group_tickets.description, group_tickets.ticket_owner, group_tickets.ticket_class, group_tickets.group_id, group_tickets.date_created 
+FROM group_tickets 
+WHERE group_tickets.group_id = %s
+2025-04-24 20:55:53,538 - INFO - [cached since 1351s ago] (1,)
+2025-04-24 20:55:53,540 - INFO - BEGIN (implicit)
+2025-04-24 20:55:53,541 - INFO - SELECT users.id, users.username, users.password_hash, users.email 
+FROM users 
+WHERE users.username = %s
+2025-04-24 20:55:53,541 - INFO - [cached since 1352s ago] ('teste',)
+2025-04-24 20:55:53,543 - INFO - ROLLBACK
+2025-04-24 20:55:53,544 - INFO - SELECT user_group.id, user_group.user_id, user_group.group_id, user_group.is_admin 
+FROM user_group 
+WHERE user_group.group_id = %s AND user_group.user_id = %s
+2025-04-24 20:55:53,545 - INFO - [cached since 1351s ago] (1, 1)
+2025-04-24 20:55:53,547 - INFO - ROLLBACK
+2025-04-24 20:56:22,627 - INFO - BEGIN (implicit)
+2025-04-24 20:56:22,627 - INFO - SELECT users.id, users.username, users.password_hash, users.email 
+FROM users 
+WHERE users.username = %s
+2025-04-24 20:56:22,628 - INFO - [cached since 1381s ago] ('teste',)
+2025-04-24 20:56:22,629 - INFO - SELECT tickets.id, tickets.title, tickets.description, tickets.ticket_owner, tickets.ticket_class 
+FROM tickets INNER JOIN user_ticket ON user_ticket.ticket_id = tickets.id INNER JOIN users ON users.id = user_ticket.user_id 
+WHERE users.id = %s
+2025-04-24 20:56:22,630 - INFO - [cached since 86.16s ago] (1,)
+2025-04-24 20:56:22,632 - INFO - ROLLBACK
+2025-04-24 20:56:22,637 - INFO - BEGIN (implicit)
+2025-04-24 20:56:22,637 - INFO - SELECT users.id, users.username, users.password_hash, users.email 
+FROM users 
+WHERE users.username = %s
+2025-04-24 20:56:22,638 - INFO - [cached since 1381s ago] ('teste',)
+2025-04-24 20:56:22,640 - INFO - SELECT tickets.id, tickets.title, tickets.description, tickets.ticket_owner, tickets.ticket_class 
+FROM tickets INNER JOIN user_ticket ON user_ticket.ticket_id = tickets.id INNER JOIN users ON users.id = user_ticket.user_id 
+WHERE users.id = %s
+2025-04-24 20:56:22,640 - INFO - [cached since 86.17s ago] (1,)
+2025-04-24 20:56:22,642 - INFO - ROLLBACK
+2025-04-24 21:00:54,842 - INFO - BEGIN (implicit)
+2025-04-24 21:00:54,843 - INFO - SELECT users.id, users.username, users.password_hash, users.email 
+FROM users 
+WHERE users.username = %s
+2025-04-24 21:00:54,844 - INFO - [cached since 1653s ago] ('teste',)
+2025-04-24 21:00:54,846 - INFO - SELECT tickets.id, tickets.title, tickets.description, tickets.ticket_owner, tickets.ticket_class 
+FROM tickets INNER JOIN user_ticket ON user_ticket.ticket_id = tickets.id INNER JOIN users ON users.id = user_ticket.user_id 
+WHERE users.id = %s
+2025-04-24 21:00:54,847 - INFO - [cached since 358.4s ago] (1,)
+2025-04-24 21:00:54,848 - INFO - ROLLBACK
+2025-04-24 21:00:54,853 - INFO - BEGIN (implicit)
+2025-04-24 21:00:54,854 - INFO - SELECT users.id, users.username, users.password_hash, users.email 
+FROM users 
+WHERE users.username = %s
+2025-04-24 21:00:54,854 - INFO - [cached since 1653s ago] ('teste',)
+2025-04-24 21:00:54,856 - INFO - SELECT tickets.id, tickets.title, tickets.description, tickets.ticket_owner, tickets.ticket_class 
+FROM tickets INNER JOIN user_ticket ON user_ticket.ticket_id = tickets.id INNER JOIN users ON users.id = user_ticket.user_id 
+WHERE users.id = %s
+2025-04-24 21:00:54,857 - INFO - [cached since 358.4s ago] (1,)
+2025-04-24 21:00:54,859 - INFO - ROLLBACK
+2025-04-24 21:00:59,327 - INFO - BEGIN (implicit)
+2025-04-24 21:00:59,327 - INFO - SELECT users.id, users.username, users.password_hash, users.email 
+FROM users 
+WHERE users.username = %s
+2025-04-24 21:00:59,328 - INFO - [cached since 1658s ago] ('teste',)
+2025-04-24 21:00:59,330 - INFO - SELECT `groups`.id, `groups`.group_name 
+FROM `groups` INNER JOIN user_group ON user_group.group_id = `groups`.id 
+WHERE user_group.user_id = %s
+2025-04-24 21:00:59,330 - INFO - [cached since 1658s ago] (1,)
+2025-04-24 21:00:59,332 - INFO - ROLLBACK
+2025-04-24 21:00:59,337 - INFO - BEGIN (implicit)
+2025-04-24 21:00:59,338 - INFO - SELECT users.id, users.username, users.password_hash, users.email 
+FROM users 
+WHERE users.username = %s
+2025-04-24 21:00:59,338 - INFO - [cached since 1658s ago] ('teste',)
+2025-04-24 21:00:59,340 - INFO - SELECT `groups`.id, `groups`.group_name 
+FROM `groups` INNER JOIN user_group ON user_group.group_id = `groups`.id 
+WHERE user_group.user_id = %s
+2025-04-24 21:00:59,341 - INFO - [cached since 1658s ago] (1,)
+2025-04-24 21:00:59,344 - INFO - ROLLBACK
+2025-04-24 21:01:01,813 - INFO - BEGIN (implicit)
+2025-04-24 21:01:01,814 - INFO - SELECT users.id, users.username, users.password_hash, users.email 
+FROM users 
+WHERE users.username = %s
+2025-04-24 21:01:01,815 - INFO - [cached since 1660s ago] ('teste',)
+2025-04-24 21:01:01,817 - INFO - SELECT tickets.id, tickets.title, tickets.description, tickets.ticket_owner, tickets.ticket_class 
+FROM tickets INNER JOIN user_ticket ON user_ticket.ticket_id = tickets.id INNER JOIN users ON users.id = user_ticket.user_id 
+WHERE users.id = %s
+2025-04-24 21:01:01,818 - INFO - [cached since 365.3s ago] (1,)
+2025-04-24 21:01:01,820 - INFO - ROLLBACK
+2025-04-24 21:01:01,825 - INFO - BEGIN (implicit)
+2025-04-24 21:01:01,826 - INFO - SELECT users.id, users.username, users.password_hash, users.email 
+FROM users 
+WHERE users.username = %s
+2025-04-24 21:01:01,827 - INFO - [cached since 1660s ago] ('teste',)
+2025-04-24 21:01:01,829 - INFO - SELECT tickets.id, tickets.title, tickets.description, tickets.ticket_owner, tickets.ticket_class 
+FROM tickets INNER JOIN user_ticket ON user_ticket.ticket_id = tickets.id INNER JOIN users ON users.id = user_ticket.user_id 
+WHERE users.id = %s
+2025-04-24 21:01:01,830 - INFO - [cached since 365.4s ago] (1,)
+2025-04-24 21:01:01,832 - INFO - ROLLBACK
+2025-04-24 21:01:45,422 - INFO - BEGIN (implicit)
+2025-04-24 21:01:45,423 - INFO - SELECT users.id, users.username, users.password_hash, users.email 
+FROM users 
+WHERE users.username = %s
+2025-04-24 21:01:45,423 - INFO - [cached since 1704s ago] ('teste',)
+2025-04-24 21:01:45,425 - INFO - SELECT `groups`.id, `groups`.group_name 
+FROM `groups` INNER JOIN user_group ON user_group.group_id = `groups`.id 
+WHERE user_group.user_id = %s
+2025-04-24 21:01:45,426 - INFO - [cached since 1704s ago] (1,)
+2025-04-24 21:01:45,427 - INFO - ROLLBACK
+2025-04-24 21:01:45,431 - INFO - BEGIN (implicit)
+2025-04-24 21:01:45,432 - INFO - SELECT users.id, users.username, users.password_hash, users.email 
+FROM users 
+WHERE users.username = %s
+2025-04-24 21:01:45,432 - INFO - [cached since 1704s ago] ('teste',)
+2025-04-24 21:01:45,435 - INFO - SELECT `groups`.id, `groups`.group_name 
+FROM `groups` INNER JOIN user_group ON user_group.group_id = `groups`.id 
+WHERE user_group.user_id = %s
+2025-04-24 21:01:45,435 - INFO - [cached since 1704s ago] (1,)
+2025-04-24 21:01:45,438 - INFO - ROLLBACK
+2025-04-24 21:01:48,220 - INFO - BEGIN (implicit)
+2025-04-24 21:01:48,220 - INFO - SELECT group_tickets.id, group_tickets.title, group_tickets.description, group_tickets.ticket_owner, group_tickets.ticket_class, group_tickets.group_id, group_tickets.date_created 
+FROM group_tickets 
+WHERE group_tickets.group_id = %s
+2025-04-24 21:01:48,221 - INFO - [cached since 1705s ago] (1,)
+2025-04-24 21:01:48,222 - INFO - BEGIN (implicit)
+2025-04-24 21:01:48,223 - INFO - SELECT users.id, users.username, users.password_hash, users.email 
+FROM users 
+WHERE users.username = %s
+2025-04-24 21:01:48,223 - INFO - [cached since 1707s ago] ('teste',)
+2025-04-24 21:01:48,225 - INFO - ROLLBACK
+2025-04-24 21:01:48,226 - INFO - SELECT user_group.id, user_group.user_id, user_group.group_id, user_group.is_admin 
+FROM user_group 
+WHERE user_group.group_id = %s AND user_group.user_id = %s
+2025-04-24 21:01:48,226 - INFO - [cached since 1705s ago] (1, 1)
+2025-04-24 21:01:48,229 - INFO - ROLLBACK
+2025-04-24 21:01:52,258 - INFO - BEGIN (implicit)
+2025-04-24 21:01:52,259 - INFO - SELECT group_tickets.id, group_tickets.title, group_tickets.description, group_tickets.ticket_owner, group_tickets.ticket_class, group_tickets.group_id, group_tickets.date_created 
+FROM group_tickets 
+WHERE group_tickets.group_id = %s
+2025-04-24 21:01:52,259 - INFO - [cached since 1709s ago] (2,)
+2025-04-24 21:01:52,261 - INFO - BEGIN (implicit)
+2025-04-24 21:01:52,262 - INFO - SELECT users.id, users.username, users.password_hash, users.email 
+FROM users 
+WHERE users.username = %s
+2025-04-24 21:01:52,262 - INFO - [cached since 1711s ago] ('teste',)
+2025-04-24 21:01:52,264 - INFO - ROLLBACK
+2025-04-24 21:01:52,265 - INFO - SELECT user_group.id, user_group.user_id, user_group.group_id, user_group.is_admin 
+FROM user_group 
+WHERE user_group.group_id = %s AND user_group.user_id = %s
+2025-04-24 21:01:52,266 - INFO - [cached since 1709s ago] (2, 1)
+2025-04-24 21:01:52,269 - INFO - ROLLBACK
+2025-04-24 21:01:53,630 - INFO - BEGIN (implicit)
+2025-04-24 21:01:53,631 - INFO - SELECT users.id, users.username, users.password_hash, users.email 
+FROM users 
+WHERE users.username = %s
+2025-04-24 21:01:53,632 - INFO - [cached since 1712s ago] ('teste',)
+2025-04-24 21:01:53,634 - INFO - SELECT tickets.id, tickets.title, tickets.description, tickets.ticket_owner, tickets.ticket_class 
+FROM tickets INNER JOIN user_ticket ON user_ticket.ticket_id = tickets.id INNER JOIN users ON users.id = user_ticket.user_id 
+WHERE users.id = %s
+2025-04-24 21:01:53,634 - INFO - [cached since 417.2s ago] (1,)
+2025-04-24 21:01:53,637 - INFO - ROLLBACK
+2025-04-24 21:01:53,641 - INFO - BEGIN (implicit)
+2025-04-24 21:01:53,642 - INFO - SELECT users.id, users.username, users.password_hash, users.email 
+FROM users 
+WHERE users.username = %s
+2025-04-24 21:01:53,642 - INFO - [cached since 1712s ago] ('teste',)
+2025-04-24 21:01:53,644 - INFO - SELECT tickets.id, tickets.title, tickets.description, tickets.ticket_owner, tickets.ticket_class 
+FROM tickets INNER JOIN user_ticket ON user_ticket.ticket_id = tickets.id INNER JOIN users ON users.id = user_ticket.user_id 
+WHERE users.id = %s
+2025-04-24 21:01:53,645 - INFO - [cached since 417.2s ago] (1,)
+2025-04-24 21:01:53,648 - INFO - ROLLBACK
+2025-04-24 21:02:00,297 - INFO - BEGIN (implicit)
+2025-04-24 21:02:00,298 - INFO - SELECT users.id, users.username, users.password_hash, users.email 
+FROM users 
+WHERE users.username = %s
+2025-04-24 21:02:00,299 - INFO - [cached since 1719s ago] ('teste',)
+2025-04-24 21:02:00,301 - INFO - SELECT `groups`.id, `groups`.group_name 
+FROM `groups` INNER JOIN user_group ON user_group.group_id = `groups`.id 
+WHERE user_group.user_id = %s
+2025-04-24 21:02:00,302 - INFO - [cached since 1719s ago] (1,)
+2025-04-24 21:02:00,304 - INFO - ROLLBACK
+2025-04-24 21:02:00,309 - INFO - BEGIN (implicit)
+2025-04-24 21:02:00,310 - INFO - SELECT users.id, users.username, users.password_hash, users.email 
+FROM users 
+WHERE users.username = %s
+2025-04-24 21:02:00,310 - INFO - [cached since 1719s ago] ('teste',)
+2025-04-24 21:02:00,312 - INFO - SELECT `groups`.id, `groups`.group_name 
+FROM `groups` INNER JOIN user_group ON user_group.group_id = `groups`.id 
+WHERE user_group.user_id = %s
+2025-04-24 21:02:00,312 - INFO - [cached since 1719s ago] (1,)
+2025-04-24 21:02:00,314 - INFO - ROLLBACK
+2025-04-24 21:02:02,490 - INFO - BEGIN (implicit)
+2025-04-24 21:02:02,491 - INFO - SELECT group_tickets.id, group_tickets.title, group_tickets.description, group_tickets.ticket_owner, group_tickets.ticket_class, group_tickets.group_id, group_tickets.date_created 
+FROM group_tickets 
+WHERE group_tickets.group_id = %s
+2025-04-24 21:02:02,492 - INFO - [cached since 1719s ago] (1,)
+2025-04-24 21:02:02,493 - INFO - BEGIN (implicit)
+2025-04-24 21:02:02,494 - INFO - SELECT users.id, users.username, users.password_hash, users.email 
+FROM users 
+WHERE users.username = %s
+2025-04-24 21:02:02,494 - INFO - [cached since 1721s ago] ('teste',)
+2025-04-24 21:02:02,495 - INFO - ROLLBACK
+2025-04-24 21:02:02,497 - INFO - SELECT user_group.id, user_group.user_id, user_group.group_id, user_group.is_admin 
+FROM user_group 
+WHERE user_group.group_id = %s AND user_group.user_id = %s
+2025-04-24 21:02:02,498 - INFO - [cached since 1719s ago] (1, 1)
+2025-04-24 21:02:02,500 - INFO - ROLLBACK
+2025-04-24 21:02:04,812 - INFO - BEGIN (implicit)
+2025-04-24 21:02:04,812 - INFO - SELECT users.id, users.username, users.password_hash, users.email 
+FROM users 
+WHERE users.username = %s
+2025-04-24 21:02:04,813 - INFO - [cached since 1723s ago] ('teste',)
+2025-04-24 21:02:04,815 - INFO - SELECT `groups`.id, `groups`.group_name 
+FROM `groups` INNER JOIN user_group ON user_group.group_id = `groups`.id 
+WHERE user_group.user_id = %s
+2025-04-24 21:02:04,815 - INFO - [cached since 1723s ago] (1,)
+2025-04-24 21:02:04,817 - INFO - ROLLBACK
+2025-04-24 21:02:04,821 - INFO - BEGIN (implicit)
+2025-04-24 21:02:04,822 - INFO - SELECT users.id, users.username, users.password_hash, users.email 
+FROM users 
+WHERE users.username = %s
+2025-04-24 21:02:04,823 - INFO - [cached since 1723s ago] ('teste',)
+2025-04-24 21:02:04,825 - INFO - SELECT `groups`.id, `groups`.group_name 
+FROM `groups` INNER JOIN user_group ON user_group.group_id = `groups`.id 
+WHERE user_group.user_id = %s
+2025-04-24 21:02:04,826 - INFO - [cached since 1723s ago] (1,)
+2025-04-24 21:02:04,829 - INFO - ROLLBACK
+2025-04-24 21:02:07,851 - INFO - BEGIN (implicit)
+2025-04-24 21:02:07,851 - INFO - SELECT group_tickets.id, group_tickets.title, group_tickets.description, group_tickets.ticket_owner, group_tickets.ticket_class, group_tickets.group_id, group_tickets.date_created 
+FROM group_tickets 
+WHERE group_tickets.group_id = %s
+2025-04-24 21:02:07,852 - INFO - [cached since 1725s ago] (1,)
+2025-04-24 21:02:07,854 - INFO - ROLLBACK
+2025-04-24 21:02:07,856 - INFO - BEGIN (implicit)
+2025-04-24 21:02:07,857 - INFO - SELECT users.id, users.username, users.password_hash, users.email 
+FROM users 
+WHERE users.username = %s
+2025-04-24 21:02:07,858 - INFO - [cached since 1726s ago] ('teste',)
+2025-04-24 21:02:07,859 - INFO - SELECT user_group.id, user_group.user_id, user_group.group_id, user_group.is_admin 
+FROM user_group 
+WHERE user_group.group_id = %s AND user_group.user_id = %s
+2025-04-24 21:02:07,860 - INFO - [cached since 1725s ago] (1, 1)
+2025-04-24 21:02:07,861 - INFO - ROLLBACK
+2025-04-24 21:02:10,405 - INFO - BEGIN (implicit)
+2025-04-24 21:02:10,406 - INFO - SELECT users.id, users.username, users.password_hash, users.email 
+FROM users 
+WHERE users.username = %s
+2025-04-24 21:02:10,406 - INFO - [cached since 1729s ago] ('teste',)
+2025-04-24 21:02:10,407 - INFO - SELECT tickets.id, tickets.title, tickets.description, tickets.ticket_owner, tickets.ticket_class 
+FROM tickets INNER JOIN user_ticket ON user_ticket.ticket_id = tickets.id INNER JOIN users ON users.id = user_ticket.user_id 
+WHERE users.id = %s
+2025-04-24 21:02:10,408 - INFO - [cached since 433.9s ago] (1,)
+2025-04-24 21:02:10,410 - INFO - ROLLBACK
+2025-04-24 21:02:10,415 - INFO - BEGIN (implicit)
+2025-04-24 21:02:10,415 - INFO - SELECT users.id, users.username, users.password_hash, users.email 
+FROM users 
+WHERE users.username = %s
+2025-04-24 21:02:10,416 - INFO - [cached since 1729s ago] ('teste',)
+2025-04-24 21:02:10,418 - INFO - SELECT tickets.id, tickets.title, tickets.description, tickets.ticket_owner, tickets.ticket_class 
+FROM tickets INNER JOIN user_ticket ON user_ticket.ticket_id = tickets.id INNER JOIN users ON users.id = user_ticket.user_id 
+WHERE users.id = %s
+2025-04-24 21:02:10,418 - INFO - [cached since 433.9s ago] (1,)
+2025-04-24 21:02:10,422 - INFO - ROLLBACK
+2025-04-24 21:10:34,814 - INFO - BEGIN (implicit)
+2025-04-24 21:10:34,815 - INFO - SELECT users.id, users.username, users.password_hash, users.email 
+FROM users 
+WHERE users.username = %s
+2025-04-24 21:10:34,815 - INFO - [cached since 2233s ago] ('',)
+2025-04-24 21:10:34,819 - INFO - ROLLBACK
+2025-04-24 21:11:56,675 - INFO - BEGIN (implicit)
+2025-04-24 21:11:56,675 - INFO - SELECT users.id, users.username, users.password_hash, users.email 
+FROM users 
+WHERE users.username = %s
+2025-04-24 21:11:56,676 - INFO - [cached since 2315s ago] ('',)
+2025-04-24 21:11:56,677 - INFO - ROLLBACK
+2025-04-24 21:11:58,564 - INFO - BEGIN (implicit)
+2025-04-24 21:11:58,565 - INFO - SELECT users.id, users.username, users.password_hash, users.email 
+FROM users 
+WHERE users.username = %s
+2025-04-24 21:11:58,565 - INFO - [cached since 2317s ago] ('',)
+2025-04-24 21:11:58,566 - INFO - ROLLBACK
+2025-04-24 21:12:05,693 - INFO - BEGIN (implicit)
+2025-04-24 21:12:05,693 - INFO - SELECT users.id, users.username, users.password_hash, users.email 
+FROM users 
+WHERE users.username = %s
+2025-04-24 21:12:05,694 - INFO - [cached since 2324s ago] ('',)
+2025-04-24 21:12:05,695 - INFO - ROLLBACK
+2025-04-24 21:12:06,022 - INFO - BEGIN (implicit)
+2025-04-24 21:12:06,023 - INFO - SELECT users.id, users.username, users.password_hash, users.email 
+FROM users 
+WHERE users.username = %s
+2025-04-24 21:12:06,023 - INFO - [cached since 2325s ago] ('',)
+2025-04-24 21:12:06,024 - INFO - ROLLBACK
+2025-04-24 21:12:06,201 - INFO - BEGIN (implicit)
+2025-04-24 21:12:06,202 - INFO - SELECT users.id, users.username, users.password_hash, users.email 
+FROM users 
+WHERE users.username = %s
+2025-04-24 21:12:06,202 - INFO - [cached since 2325s ago] ('',)
+2025-04-24 21:12:06,203 - INFO - ROLLBACK
+2025-04-24 21:12:06,541 - INFO - BEGIN (implicit)
+2025-04-24 21:12:06,542 - INFO - SELECT users.id, users.username, users.password_hash, users.email 
+FROM users 
+WHERE users.username = %s
+2025-04-24 21:12:06,543 - INFO - [cached since 2325s ago] ('',)
+2025-04-24 21:12:06,544 - INFO - ROLLBACK
+2025-04-24 21:12:06,787 - INFO - BEGIN (implicit)
+2025-04-24 21:12:06,788 - INFO - SELECT users.id, users.username, users.password_hash, users.email 
+FROM users 
+WHERE users.username = %s
+2025-04-24 21:12:06,789 - INFO - [cached since 2325s ago] ('',)
+2025-04-24 21:12:06,790 - INFO - ROLLBACK
+2025-04-24 21:12:15,031 - INFO - BEGIN (implicit)
+2025-04-24 21:12:15,032 - INFO - SELECT users.id, users.username, users.password_hash, users.email 
+FROM users 
+WHERE users.username = %s
+2025-04-24 21:12:15,032 - INFO - [cached since 2334s ago] ('',)
+2025-04-24 21:12:15,034 - INFO - ROLLBACK
+2025-04-24 21:12:15,579 - INFO - BEGIN (implicit)
+2025-04-24 21:12:15,580 - INFO - SELECT users.id, users.username, users.password_hash, users.email 
+FROM users 
+WHERE users.username = %s
+2025-04-24 21:12:15,580 - INFO - [cached since 2334s ago] ('',)
+2025-04-24 21:12:15,581 - INFO - ROLLBACK
+2025-04-24 21:12:16,122 - INFO - BEGIN (implicit)
+2025-04-24 21:12:16,122 - INFO - SELECT users.id, users.username, users.password_hash, users.email 
+FROM users 
+WHERE users.username = %s
+2025-04-24 21:12:16,123 - INFO - [cached since 2335s ago] ('',)
+2025-04-24 21:12:16,124 - INFO - ROLLBACK
+2025-04-24 21:12:16,724 - INFO - BEGIN (implicit)
+2025-04-24 21:12:16,724 - INFO - SELECT users.id, users.username, users.password_hash, users.email 
+FROM users 
+WHERE users.username = %s
+2025-04-24 21:12:16,725 - INFO - [cached since 2335s ago] ('',)
+2025-04-24 21:12:16,726 - INFO - ROLLBACK
+2025-04-24 21:12:26,640 - INFO - BEGIN (implicit)
+2025-04-24 21:12:26,640 - INFO - SELECT users.id, users.username, users.password_hash, users.email 
+FROM users 
+WHERE users.username = %s
+2025-04-24 21:12:26,641 - INFO - [cached since 2345s ago] ('',)
+2025-04-24 21:12:26,642 - INFO - ROLLBACK
+2025-04-24 21:12:47,408 - INFO - BEGIN (implicit)
+2025-04-24 21:12:47,409 - INFO - SELECT users.id, users.username, users.password_hash, users.email 
+FROM users 
+WHERE users.username = %s
+2025-04-24 21:12:47,409 - INFO - [cached since 2366s ago] ('',)
+2025-04-24 21:12:47,410 - INFO - ROLLBACK
+2025-04-24 21:13:56,200 - INFO - BEGIN (implicit)
+2025-04-24 21:13:56,201 - INFO - SELECT users.id, users.username, users.password_hash, users.email 
+FROM users 
+WHERE users.username = %s
+2025-04-24 21:13:56,202 - INFO - [cached since 2435s ago] ('teste',)
+2025-04-24 21:13:56,425 - INFO - ROLLBACK
+2025-04-24 21:14:14,059 - INFO - BEGIN (implicit)
+2025-04-24 21:14:14,060 - INFO - SELECT users.id, users.username, users.password_hash, users.email 
+FROM users 
+WHERE users.username = %s
+2025-04-24 21:14:14,060 - INFO - [cached since 2453s ago] ('teste',)
+2025-04-24 21:14:14,278 - INFO - ROLLBACK
+2025-04-24 21:18:47,492 - INFO - BEGIN (implicit)
+2025-04-24 21:18:47,493 - INFO - SELECT users.id, users.username, users.password_hash, users.email 
+FROM users 
+WHERE users.username = %s
+2025-04-24 21:18:47,494 - INFO - [cached since 2726s ago] ('teste',)
+2025-04-24 21:18:47,713 - INFO - ROLLBACK
+2025-04-24 21:19:04,982 - INFO - BEGIN (implicit)
+2025-04-24 21:19:04,983 - INFO - SELECT users.id, users.username, users.password_hash, users.email 
+FROM users 
+WHERE users.username = %s
+2025-04-24 21:19:04,983 - INFO - [cached since 2744s ago] ('teste',)
+2025-04-24 21:19:04,985 - INFO - SELECT tickets.id, tickets.title, tickets.description, tickets.ticket_owner, tickets.ticket_class 
+FROM tickets INNER JOIN user_ticket ON user_ticket.ticket_id = tickets.id INNER JOIN users ON users.id = user_ticket.user_id 
+WHERE users.id = %s
+2025-04-24 21:19:04,986 - INFO - [cached since 1449s ago] (1,)
+2025-04-24 21:19:04,988 - INFO - ROLLBACK
+2025-04-24 21:19:04,995 - INFO - BEGIN (implicit)
+2025-04-24 21:19:04,996 - INFO - SELECT users.id, users.username, users.password_hash, users.email 
+FROM users 
+WHERE users.username = %s
+2025-04-24 21:19:04,996 - INFO - [cached since 2744s ago] ('teste',)
+2025-04-24 21:19:04,999 - INFO - SELECT tickets.id, tickets.title, tickets.description, tickets.ticket_owner, tickets.ticket_class 
+FROM tickets INNER JOIN user_ticket ON user_ticket.ticket_id = tickets.id INNER JOIN users ON users.id = user_ticket.user_id 
+WHERE users.id = %s
+2025-04-24 21:19:04,999 - INFO - [cached since 1449s ago] (1,)
+2025-04-24 21:19:05,001 - INFO - ROLLBACK
+2025-04-24 21:19:43,728 - INFO - BEGIN (implicit)
+2025-04-24 21:19:43,728 - INFO - SELECT users.id, users.username, users.password_hash, users.email 
+FROM users 
+WHERE users.username = %s
+2025-04-24 21:19:43,729 - INFO - [cached since 2782s ago] ('teste',)
+2025-04-24 21:19:43,731 - INFO - SELECT `groups`.id, `groups`.group_name 
+FROM `groups` INNER JOIN user_group ON user_group.group_id = `groups`.id 
+WHERE user_group.user_id = %s
+2025-04-24 21:19:43,732 - INFO - [cached since 2782s ago] (1,)
+2025-04-24 21:19:43,734 - INFO - ROLLBACK
+2025-04-24 21:19:43,739 - INFO - BEGIN (implicit)
+2025-04-24 21:19:43,740 - INFO - SELECT users.id, users.username, users.password_hash, users.email 
+FROM users 
+WHERE users.username = %s
+2025-04-24 21:19:43,740 - INFO - [cached since 2782s ago] ('teste',)
+2025-04-24 21:19:43,742 - INFO - SELECT `groups`.id, `groups`.group_name 
+FROM `groups` INNER JOIN user_group ON user_group.group_id = `groups`.id 
+WHERE user_group.user_id = %s
+2025-04-24 21:19:43,743 - INFO - [cached since 2782s ago] (1,)
+2025-04-24 21:19:43,746 - INFO - ROLLBACK
+2025-04-24 21:19:46,361 - INFO - BEGIN (implicit)
+2025-04-24 21:19:46,362 - INFO - SELECT group_tickets.id, group_tickets.title, group_tickets.description, group_tickets.ticket_owner, group_tickets.ticket_class, group_tickets.group_id, group_tickets.date_created 
+FROM group_tickets 
+WHERE group_tickets.group_id = %s
+2025-04-24 21:19:46,362 - INFO - [cached since 2783s ago] (1,)
+2025-04-24 21:19:46,364 - INFO - ROLLBACK
+2025-04-24 21:19:46,365 - INFO - BEGIN (implicit)
+2025-04-24 21:19:46,366 - INFO - SELECT users.id, users.username, users.password_hash, users.email 
+FROM users 
+WHERE users.username = %s
+2025-04-24 21:19:46,366 - INFO - [cached since 2785s ago] ('teste',)
+2025-04-24 21:19:46,368 - INFO - SELECT user_group.id, user_group.user_id, user_group.group_id, user_group.is_admin 
+FROM user_group 
+WHERE user_group.group_id = %s AND user_group.user_id = %s
+2025-04-24 21:19:46,369 - INFO - [cached since 2783s ago] (1, 1)
+2025-04-24 21:19:46,370 - INFO - ROLLBACK
+2025-04-24 21:20:10,898 - INFO - BEGIN (implicit)
+2025-04-24 21:20:10,899 - INFO - SELECT users.id, users.username, users.password_hash, users.email 
+FROM users 
+WHERE users.username = %s
+2025-04-24 21:20:10,900 - INFO - [cached since 2809s ago] ('teste',)
+2025-04-24 21:20:11,118 - INFO - ROLLBACK
+2025-04-24 21:20:12,886 - INFO - BEGIN (implicit)
+2025-04-24 21:20:12,887 - INFO - SELECT users.id, users.username, users.password_hash, users.email 
+FROM users 
+WHERE users.username = %s
+2025-04-24 21:20:12,887 - INFO - [cached since 2811s ago] ('teste',)
+2025-04-24 21:20:12,889 - INFO - SELECT `groups`.id, `groups`.group_name 
+FROM `groups` INNER JOIN user_group ON user_group.group_id = `groups`.id 
+WHERE user_group.user_id = %s
+2025-04-24 21:20:12,890 - INFO - [cached since 2811s ago] (1,)
+2025-04-24 21:20:12,892 - INFO - ROLLBACK
+2025-04-24 21:20:12,897 - INFO - BEGIN (implicit)
+2025-04-24 21:20:12,898 - INFO - SELECT users.id, users.username, users.password_hash, users.email 
+FROM users 
+WHERE users.username = %s
+2025-04-24 21:20:12,898 - INFO - [cached since 2811s ago] ('teste',)
+2025-04-24 21:20:12,900 - INFO - SELECT `groups`.id, `groups`.group_name 
+FROM `groups` INNER JOIN user_group ON user_group.group_id = `groups`.id 
+WHERE user_group.user_id = %s
+2025-04-24 21:20:12,901 - INFO - [cached since 2811s ago] (1,)
+2025-04-24 21:20:12,904 - INFO - ROLLBACK
+2025-04-24 21:20:30,639 - INFO - BEGIN (implicit)
+2025-04-24 21:20:30,640 - INFO - SELECT group_tickets.id, group_tickets.title, group_tickets.description, group_tickets.ticket_owner, group_tickets.ticket_class, group_tickets.group_id, group_tickets.date_created 
+FROM group_tickets 
+WHERE group_tickets.group_id = %s
+2025-04-24 21:20:30,641 - INFO - [cached since 2828s ago] (1,)
+2025-04-24 21:20:30,643 - INFO - ROLLBACK
+2025-04-24 21:20:30,645 - INFO - BEGIN (implicit)
+2025-04-24 21:20:30,646 - INFO - SELECT users.id, users.username, users.password_hash, users.email 
+FROM users 
+WHERE users.username = %s
+2025-04-24 21:20:30,646 - INFO - [cached since 2829s ago] ('teste',)
+2025-04-24 21:20:30,647 - INFO - SELECT user_group.id, user_group.user_id, user_group.group_id, user_group.is_admin 
+FROM user_group 
+WHERE user_group.group_id = %s AND user_group.user_id = %s
+2025-04-24 21:20:30,648 - INFO - [cached since 2828s ago] (1, 1)
+2025-04-24 21:20:30,650 - INFO - ROLLBACK
+2025-04-24 21:28:18,089 - INFO - BEGIN (implicit)
+2025-04-24 21:28:18,090 - INFO - SELECT users.id, users.username, users.password_hash, users.email 
+FROM users 
+WHERE users.username = %s
+2025-04-24 21:28:18,090 - INFO - [cached since 3297s ago] ('teste',)
+2025-04-24 21:28:18,092 - INFO - SELECT `groups`.id, `groups`.group_name 
+FROM `groups` INNER JOIN user_group ON user_group.group_id = `groups`.id 
+WHERE user_group.user_id = %s
+2025-04-24 21:28:18,093 - INFO - [cached since 3297s ago] (1,)
+2025-04-24 21:28:18,095 - INFO - ROLLBACK
+2025-04-24 21:28:18,100 - INFO - BEGIN (implicit)
+2025-04-24 21:28:18,101 - INFO - SELECT users.id, users.username, users.password_hash, users.email 
+FROM users 
+WHERE users.username = %s
+2025-04-24 21:28:18,101 - INFO - [cached since 3297s ago] ('teste',)
+2025-04-24 21:28:18,103 - INFO - SELECT `groups`.id, `groups`.group_name 
+FROM `groups` INNER JOIN user_group ON user_group.group_id = `groups`.id 
+WHERE user_group.user_id = %s
+2025-04-24 21:28:18,104 - INFO - [cached since 3297s ago] (1,)
+2025-04-24 21:28:18,105 - INFO - ROLLBACK
+2025-04-24 21:28:20,233 - INFO - BEGIN (implicit)
+2025-04-24 21:28:20,233 - INFO - SELECT users.id, users.username, users.password_hash, users.email 
+FROM users 
+WHERE users.username = %s
+2025-04-24 21:28:20,234 - INFO - [cached since 3299s ago] ('teste',)
+2025-04-24 21:28:20,235 - INFO - SELECT tickets.id, tickets.title, tickets.description, tickets.ticket_owner, tickets.ticket_class 
+FROM tickets INNER JOIN user_ticket ON user_ticket.ticket_id = tickets.id INNER JOIN users ON users.id = user_ticket.user_id 
+WHERE users.id = %s
+2025-04-24 21:28:20,236 - INFO - [cached since 2004s ago] (1,)
+2025-04-24 21:28:20,238 - INFO - ROLLBACK
+2025-04-24 21:28:20,243 - INFO - BEGIN (implicit)
+2025-04-24 21:28:20,243 - INFO - SELECT users.id, users.username, users.password_hash, users.email 
+FROM users 
+WHERE users.username = %s
+2025-04-24 21:28:20,244 - INFO - [cached since 3299s ago] ('teste',)
+2025-04-24 21:28:20,246 - INFO - SELECT tickets.id, tickets.title, tickets.description, tickets.ticket_owner, tickets.ticket_class 
+FROM tickets INNER JOIN user_ticket ON user_ticket.ticket_id = tickets.id INNER JOIN users ON users.id = user_ticket.user_id 
+WHERE users.id = %s
+2025-04-24 21:28:20,246 - INFO - [cached since 2004s ago] (1,)
+2025-04-24 21:28:20,249 - INFO - ROLLBACK
+2025-04-24 21:33:57,137 - INFO - BEGIN (implicit)
+2025-04-24 21:33:57,138 - INFO - SELECT users.id, users.username, users.password_hash, users.email 
+FROM users 
+WHERE users.username = %s
+2025-04-24 21:33:57,138 - INFO - [cached since 3636s ago] ('teste',)
+2025-04-24 21:33:57,140 - INFO - SELECT tickets.id, tickets.title, tickets.description, tickets.ticket_owner, tickets.ticket_class 
+FROM tickets INNER JOIN user_ticket ON user_ticket.ticket_id = tickets.id INNER JOIN users ON users.id = user_ticket.user_id 
+WHERE users.id = %s
+2025-04-24 21:33:57,141 - INFO - [cached since 2341s ago] (1,)
+2025-04-24 21:33:57,143 - INFO - ROLLBACK
+2025-04-24 21:33:57,147 - INFO - BEGIN (implicit)
+2025-04-24 21:33:57,147 - INFO - SELECT users.id, users.username, users.password_hash, users.email 
+FROM users 
+WHERE users.username = %s
+2025-04-24 21:33:57,148 - INFO - [cached since 3636s ago] ('teste',)
+2025-04-24 21:33:57,149 - INFO - SELECT tickets.id, tickets.title, tickets.description, tickets.ticket_owner, tickets.ticket_class 
+FROM tickets INNER JOIN user_ticket ON user_ticket.ticket_id = tickets.id INNER JOIN users ON users.id = user_ticket.user_id 
+WHERE users.id = %s
+2025-04-24 21:33:57,150 - INFO - [cached since 2341s ago] (1,)
+2025-04-24 21:33:57,152 - INFO - ROLLBACK
+2025-04-24 21:34:13,399 - INFO - BEGIN (implicit)
+2025-04-24 21:34:13,400 - INFO - SELECT users.id, users.username, users.password_hash, users.email 
+FROM users 
+WHERE users.username = %s
+2025-04-24 21:34:13,401 - INFO - [cached since 3652s ago] ('teste',)
+2025-04-24 21:34:13,403 - INFO - SELECT `groups`.id, `groups`.group_name 
+FROM `groups` INNER JOIN user_group ON user_group.group_id = `groups`.id 
+WHERE user_group.user_id = %s
+2025-04-24 21:34:13,403 - INFO - [cached since 3652s ago] (1,)
+2025-04-24 21:34:13,405 - INFO - ROLLBACK
+2025-04-24 21:34:13,410 - INFO - BEGIN (implicit)
+2025-04-24 21:34:13,410 - INFO - SELECT users.id, users.username, users.password_hash, users.email 
+FROM users 
+WHERE users.username = %s
+2025-04-24 21:34:13,411 - INFO - [cached since 3652s ago] ('teste',)
+2025-04-24 21:34:13,413 - INFO - SELECT `groups`.id, `groups`.group_name 
+FROM `groups` INNER JOIN user_group ON user_group.group_id = `groups`.id 
+WHERE user_group.user_id = %s
+2025-04-24 21:34:13,414 - INFO - [cached since 3652s ago] (1,)
+2025-04-24 21:34:13,416 - INFO - ROLLBACK
+2025-04-24 21:34:17,321 - INFO - BEGIN (implicit)
+2025-04-24 21:34:17,322 - INFO - SELECT group_tickets.id, group_tickets.title, group_tickets.description, group_tickets.ticket_owner, group_tickets.ticket_class, group_tickets.group_id, group_tickets.date_created 
+FROM group_tickets 
+WHERE group_tickets.group_id = %s
+2025-04-24 21:34:17,322 - INFO - [cached since 3654s ago] (1,)
+2025-04-24 21:34:17,325 - INFO - BEGIN (implicit)
+2025-04-24 21:34:17,325 - INFO - SELECT users.id, users.username, users.password_hash, users.email 
+FROM users 
+WHERE users.username = %s
+2025-04-24 21:34:17,325 - INFO - [cached since 3656s ago] ('teste',)
+2025-04-24 21:34:17,327 - INFO - ROLLBACK
+2025-04-24 21:34:17,328 - INFO - SELECT user_group.id, user_group.user_id, user_group.group_id, user_group.is_admin 
+FROM user_group 
+WHERE user_group.group_id = %s AND user_group.user_id = %s
+2025-04-24 21:34:17,328 - INFO - [cached since 3654s ago] (1, 1)
+2025-04-24 21:34:17,330 - INFO - ROLLBACK
+2025-04-24 21:34:29,785 - INFO - BEGIN (implicit)
+2025-04-24 21:34:29,786 - INFO - SELECT users.id, users.username, users.password_hash, users.email 
+FROM users 
+WHERE users.username = %s
+2025-04-24 21:34:29,786 - INFO - [cached since 3668s ago] ('teste',)
+2025-04-24 21:34:29,788 - INFO - SELECT group_tickets.id, group_tickets.title, group_tickets.description, group_tickets.ticket_owner, group_tickets.ticket_class, group_tickets.group_id, group_tickets.date_created 
+FROM group_tickets 
+WHERE group_tickets.id = %s
+2025-04-24 21:34:29,788 - INFO - [cached since 3538s ago] (12,)
+2025-04-24 21:34:29,790 - INFO - UPDATE group_tickets SET ticket_class=%s WHERE group_tickets.id = %s
+2025-04-24 21:34:29,791 - INFO - [cached since 3012s ago] ('in_progress', 12)
+2025-04-24 21:34:29,792 - INFO - COMMIT
+2025-04-24 21:34:29,809 - INFO - BEGIN (implicit)
+2025-04-24 21:34:29,809 - INFO - SELECT group_tickets.id, group_tickets.title, group_tickets.description, group_tickets.ticket_owner, group_tickets.ticket_class, group_tickets.group_id, group_tickets.date_created 
+FROM group_tickets 
+WHERE group_tickets.id = %s
+2025-04-24 21:34:29,810 - INFO - [cached since 3538s ago] (12,)
+2025-04-24 21:34:29,811 - INFO - ROLLBACK
+2025-04-24 21:34:33,919 - INFO - BEGIN (implicit)
+2025-04-24 21:34:33,919 - INFO - SELECT users.id, users.username, users.password_hash, users.email 
+FROM users 
+WHERE users.username = %s
+2025-04-24 21:34:33,920 - INFO - [cached since 3672s ago] ('teste',)
+2025-04-24 21:34:33,923 - INFO - INSERT INTO group_tickets (title, description, ticket_owner, ticket_class, group_id, date_created) VALUES (%s, %s, %s, %s, %s, %s)
+2025-04-24 21:34:33,924 - INFO - [generated in 0.00052s] ('New title', 'Insert new text', 1, 'backlog', 1, None)
+2025-04-24 21:34:33,936 - INFO - ROLLBACK
+2025-04-24 21:34:52,715 - INFO - BEGIN (implicit)
+2025-04-24 21:34:52,716 - INFO - SELECT users.id, users.username, users.password_hash, users.email 
+FROM users 
+WHERE users.username = %s
+2025-04-24 21:34:52,716 - INFO - [cached since 3691s ago] ('teste',)
+2025-04-24 21:34:52,929 - INFO - ROLLBACK
+2025-04-24 21:34:53,828 - INFO - BEGIN (implicit)
+2025-04-24 21:34:53,828 - INFO - SELECT users.id, users.username, users.password_hash, users.email 
+FROM users 
+WHERE users.username = %s
+2025-04-24 21:34:53,829 - INFO - [cached since 3692s ago] ('teste',)
+2025-04-24 21:34:53,831 - INFO - SELECT `groups`.id, `groups`.group_name 
+FROM `groups` INNER JOIN user_group ON user_group.group_id = `groups`.id 
+WHERE user_group.user_id = %s
+2025-04-24 21:34:53,832 - INFO - [cached since 3692s ago] (1,)
+2025-04-24 21:34:53,834 - INFO - ROLLBACK
+2025-04-24 21:34:53,839 - INFO - BEGIN (implicit)
+2025-04-24 21:34:53,840 - INFO - SELECT users.id, users.username, users.password_hash, users.email 
+FROM users 
+WHERE users.username = %s
+2025-04-24 21:34:53,841 - INFO - [cached since 3692s ago] ('teste',)
+2025-04-24 21:34:53,845 - INFO - SELECT `groups`.id, `groups`.group_name 
+FROM `groups` INNER JOIN user_group ON user_group.group_id = `groups`.id 
+WHERE user_group.user_id = %s
+2025-04-24 21:34:53,846 - INFO - [cached since 3692s ago] (1,)
+2025-04-24 21:34:53,850 - INFO - ROLLBACK
+2025-04-24 21:34:55,926 - INFO - BEGIN (implicit)
+2025-04-24 21:34:55,927 - INFO - SELECT group_tickets.id, group_tickets.title, group_tickets.description, group_tickets.ticket_owner, group_tickets.ticket_class, group_tickets.group_id, group_tickets.date_created 
+FROM group_tickets 
+WHERE group_tickets.group_id = %s
+2025-04-24 21:34:55,927 - INFO - [cached since 3693s ago] (1,)
+2025-04-24 21:34:55,929 - INFO - BEGIN (implicit)
+2025-04-24 21:34:55,930 - INFO - SELECT users.id, users.username, users.password_hash, users.email 
+FROM users 
+WHERE users.username = %s
+2025-04-24 21:34:55,931 - INFO - [cached since 3695s ago] ('teste',)
+2025-04-24 21:34:55,933 - INFO - ROLLBACK
+2025-04-24 21:34:55,934 - INFO - SELECT user_group.id, user_group.user_id, user_group.group_id, user_group.is_admin 
+FROM user_group 
+WHERE user_group.group_id = %s AND user_group.user_id = %s
+2025-04-24 21:34:55,935 - INFO - [cached since 3693s ago] (1, 1)
+2025-04-24 21:34:55,938 - INFO - ROLLBACK
+2025-04-24 21:34:58,744 - INFO - BEGIN (implicit)
+2025-04-24 21:34:58,744 - INFO - SELECT users.id, users.username, users.password_hash, users.email 
+FROM users 
+WHERE users.username = %s
+2025-04-24 21:34:58,745 - INFO - [cached since 3697s ago] ('teste',)
+2025-04-24 21:34:58,746 - INFO - INSERT INTO group_tickets (title, description, ticket_owner, ticket_class, group_id, date_created) VALUES (%s, %s, %s, %s, %s, %s)
+2025-04-24 21:34:58,746 - INFO - [cached since 24.82s ago] ('New title', 'Insert new text', 1, 'backlog', 1, None)
+2025-04-24 21:34:58,748 - INFO - ROLLBACK
+2025-04-24 21:38:24,201 - INFO - SELECT DATABASE()
+2025-04-24 21:38:24,202 - INFO - [raw sql] ()
+2025-04-24 21:38:24,203 - INFO - SELECT @@sql_mode
+2025-04-24 21:38:24,203 - INFO - [raw sql] ()
+2025-04-24 21:38:24,204 - INFO - SELECT @@lower_case_table_names
+2025-04-24 21:38:24,204 - INFO - [raw sql] ()
+2025-04-24 21:38:24,205 - INFO - BEGIN (implicit)
+2025-04-24 21:38:24,209 - INFO - SELECT users.id, users.username, users.password_hash, users.email 
+FROM users 
+WHERE users.username = %s
+2025-04-24 21:38:24,210 - INFO - [generated in 0.00116s] ('teste',)
+2025-04-24 21:38:24,212 - WARNING - (trapped) error reading bcrypt version
+Traceback (most recent call last):
+  File "C:\Users\diogo\AppData\Local\Programs\Python\Python313\Lib\site-packages\passlib\handlers\bcrypt.py", line 620, in _load_backend_mixin
+    version = _bcrypt.__about__.__version__
+              ^^^^^^^^^^^^^^^^^
+AttributeError: module 'bcrypt' has no attribute '__about__'
+2025-04-24 21:38:24,454 - INFO - ROLLBACK
+2025-04-24 21:38:25,428 - INFO - BEGIN (implicit)
+2025-04-24 21:38:25,429 - INFO - SELECT users.id, users.username, users.password_hash, users.email 
+FROM users 
+WHERE users.username = %s
+2025-04-24 21:38:25,430 - INFO - [cached since 1.221s ago] ('teste',)
+2025-04-24 21:38:25,434 - INFO - SELECT `groups`.id, `groups`.group_name 
+FROM `groups` INNER JOIN user_group ON user_group.group_id = `groups`.id 
+WHERE user_group.user_id = %s
+2025-04-24 21:38:25,434 - INFO - [generated in 0.00076s] (1,)
+2025-04-24 21:38:25,437 - INFO - ROLLBACK
+2025-04-24 21:38:25,442 - INFO - BEGIN (implicit)
+2025-04-24 21:38:25,443 - INFO - SELECT users.id, users.username, users.password_hash, users.email 
+FROM users 
+WHERE users.username = %s
+2025-04-24 21:38:25,443 - INFO - [cached since 1.234s ago] ('teste',)
+2025-04-24 21:38:25,446 - INFO - SELECT `groups`.id, `groups`.group_name 
+FROM `groups` INNER JOIN user_group ON user_group.group_id = `groups`.id 
+WHERE user_group.user_id = %s
+2025-04-24 21:38:25,447 - INFO - [cached since 0.01349s ago] (1,)
+2025-04-24 21:38:25,450 - INFO - ROLLBACK
+2025-04-24 21:38:27,186 - INFO - BEGIN (implicit)
+2025-04-24 21:38:27,188 - INFO - SELECT group_tickets.id, group_tickets.title, group_tickets.description, group_tickets.ticket_owner, group_tickets.ticket_class, group_tickets.group_id, group_tickets.date_created 
+FROM group_tickets 
+WHERE group_tickets.group_id = %s
+2025-04-24 21:38:27,189 - INFO - [generated in 0.00118s] (2,)
+2025-04-24 21:38:27,192 - INFO - ROLLBACK
+2025-04-24 21:38:27,196 - INFO - BEGIN (implicit)
+2025-04-24 21:38:27,197 - INFO - SELECT users.id, users.username, users.password_hash, users.email 
+FROM users 
+WHERE users.username = %s
+2025-04-24 21:38:27,198 - INFO - [cached since 2.989s ago] ('teste',)
+2025-04-24 21:38:27,201 - INFO - SELECT user_group.id, user_group.user_id, user_group.group_id, user_group.is_admin 
+FROM user_group 
+WHERE user_group.group_id = %s AND user_group.user_id = %s
+2025-04-24 21:38:27,202 - INFO - [generated in 0.00058s] (2, 1)
+2025-04-24 21:38:27,204 - INFO - ROLLBACK
+2025-04-24 21:38:28,765 - INFO - BEGIN (implicit)
+2025-04-24 21:38:28,766 - INFO - SELECT group_tickets.id, group_tickets.title, group_tickets.description, group_tickets.ticket_owner, group_tickets.ticket_class, group_tickets.group_id, group_tickets.date_created 
+FROM group_tickets 
+WHERE group_tickets.group_id = %s
+2025-04-24 21:38:28,766 - INFO - [cached since 1.578s ago] (1,)
+2025-04-24 21:38:28,768 - INFO - BEGIN (implicit)
+2025-04-24 21:38:28,768 - INFO - SELECT users.id, users.username, users.password_hash, users.email 
+FROM users 
+WHERE users.username = %s
+2025-04-24 21:38:28,769 - INFO - [cached since 4.56s ago] ('teste',)
+2025-04-24 21:38:28,770 - INFO - ROLLBACK
+2025-04-24 21:38:28,772 - INFO - SELECT user_group.id, user_group.user_id, user_group.group_id, user_group.is_admin 
+FROM user_group 
+WHERE user_group.group_id = %s AND user_group.user_id = %s
+2025-04-24 21:38:28,772 - INFO - [cached since 1.571s ago] (1, 1)
+2025-04-24 21:38:28,774 - INFO - ROLLBACK
+2025-04-24 21:38:33,164 - INFO - BEGIN (implicit)
+2025-04-24 21:38:33,165 - INFO - SELECT users.id, users.username, users.password_hash, users.email 
+FROM users 
+WHERE users.username = %s
+2025-04-24 21:38:33,165 - INFO - [cached since 8.956s ago] ('teste',)
+2025-04-24 21:38:33,168 - INFO - INSERT INTO group_tickets (title, description, ticket_owner, ticket_class, group_id, date_created) VALUES (%s, %s, %s, %s, %s, %s)
+2025-04-24 21:38:33,168 - INFO - [generated in 0.00062s] ('New title', 'Insert new text', 1, 'backlog', 1, None)
+2025-04-24 21:38:33,169 - INFO - ROLLBACK

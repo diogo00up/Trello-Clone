@@ -2,11 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './OwnBoardPage.css';
-import add_plus from './icons/add_plus.svg';
-import user_icon from './icons/user_icon.svg';
-import log_out from './icons/log_out.svg'
-import close from './icons/close.svg'
-import back from './icons/back.svg'
+import add_plus from './icons/plus-circle.svg';
+import settings from './icons/settings.svg';
+import log_out from './icons/log-out.svg'
+import close from './icons/x.svg'
+import back from './icons/back2.svg'
 import FooterCustom from './footer/footer';
 import HeaderCustom from './header/header';
 import { DndContext, useDraggable, useDroppable, DragOverlay } from '@dnd-kit/core';
@@ -275,7 +275,7 @@ function MainTable() {
         </div>
 
         <div className='user-icon'>
-          <img src={user_icon} className="add_plus" alt="add" />
+          <img src={settings} className="add_plus" alt="add" />
           <span className="add-text">Edit user settings</span>
         </div>
 
