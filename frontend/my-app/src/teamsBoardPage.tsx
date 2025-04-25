@@ -41,6 +41,18 @@ type ColumnProps = {
     loadGroupTickets: () => void;
 };
 
+type MembersInGroupProps = {
+    id : number;
+    username : string;
+    group_id : number;
+    is_admin : boolean;
+}
+
+type MembersNotInGroupProps = {
+  id : number;
+  username : string;
+}
+
 function Column({title, ticketClass, tickets, loadGroupTickets }: ColumnProps) {
   const { setNodeRef } = useDroppable({ id: ticketClass });
   return (
@@ -195,6 +207,11 @@ function GroupPage(){
     const [activeId, setActiveId] = useState<number| null>(null);
     const activeTicket = tickets.find((t) => t.id === activeId);
     const [isAdmin, setIsAdmin] = useState<number>(0);
+    const [showAdminSettings, setAdminSettings] = useState<boolean>(false);
+
+    const [GroupMembers, SetGroupMembers] = useState<MembersInGroupProps[]>([]);
+    const [NotGroupMember, SetNotGroupMembers] = useState<MembersNotInGroupProps[]>([]);
+    
     const navigate = useNavigate();
 
     const updateTicketAfterDrag = async (ticket_id: number, ticket_class: string) => {
@@ -325,12 +342,76 @@ function GroupPage(){
   
       setActiveId(null);
     };
-  
+    
+    const adminSettingsClick = async () => {
+      if(!isAdmin){
+        alert("Error! You are not an administrator.");
+        return;
+      }
+      else{
+        setAdminSettings(true);
+
+        try {
+          const response = await axios.get('http://127.0.0.1:8000/getAllUsers', {
+              headers: {
+                Authorization: `Bearer ${token}`,
+            },
+              params: { group_id: currentGroup?.id }
+          });
+
+          console.log('Response about all Users: ', response.data);
+          SetGroupMembers(response.data);
+     
+        } 
+
+        catch (error) {
+          console.error('Error fetching all users:', error);
+        }
+
+        
+
+      }
+    
+    }
+
+    const retrieveNotInGroupMembers = async () => {
+    
+      const memberIds = GroupMembers.map(member => member.id);
+    
+       try {
+          const response = await axios.post('http://127.0.0.1:8000/retriveUsersNotInGroup', memberIds ,{
+     
+          });
+
+          console.log('Response about not in group Users: ', response.data);
+          SetNotGroupMembers(response.data);
+          
+         
+     
+        } 
+
+        catch (error) {
+          console.error('Error fetching all users:', error);
+        }
+
+    }
+
+    const handleToggleAdmin = async (adminId: number, newStatus: boolean) => {
+      console.log("Toggle switch");
+    };
 
     useEffect(() => {
         getGroups();
         }, 
     []);
+
+
+    useEffect(() => {
+      retrieveNotInGroupMembers();
+      }, 
+    [GroupMembers]);
+
+   
 
     useEffect(() => {
       if (!sessionStorage.getItem('access_token')) {
@@ -381,10 +462,43 @@ function GroupPage(){
               </div>
             )}
 
+            {showAdminSettings && (
+                <div className='admin-box'>
+                    <div onClick={() => setAdminSettings(false)} id='close-admin' >
+                      <img src={close} id='close-admin-x' />
+                    </div>
+                    
+                    <h4>Group members:</h4>
+                    {GroupMembers.map(member => (
+                        <div key={member.id} className='admin_line-info' >
+                          <a>ID: {member.id}</a>
+                          <a>Username: {member.username}</a>
+                          <a>group_id: {member.group_id}</a>
+                          <a>IsAdmin ? 
+                            <input type="checkbox" checked={member.is_admin} onChange={() => handleToggleAdmin(member.id, !member.is_admin)}/>
+                          </a>
+                      </div>
+                      ))
+                    }
+                    <h4>Invite Members:</h4>
+
+                    {
+                      NotGroupMember.map(notMember =>(
+                        <div key={notMember.id} className='admin_line-info' >
+                          <a>ID: {notMember.id}</a>
+                          <a>Username: {notMember.username}</a>
+                          <a>Invite Member </a>
+                          <a>Give permissions </a>
+                        </div>
+                      ))
+                    }
+                </div>
+            )}
+
+
             <div className='admin-info'>
               <a> Current role: {isAdmin == 1? "Admin" : "Member"} </a>
-              <img src={tool} className="tool-box" alt="add" />
-
+              <img src={tool} onClick={adminSettingsClick} className="tool-box" alt="add" />
             </div>
         
             

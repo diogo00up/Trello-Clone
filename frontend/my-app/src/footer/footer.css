@@ -1,11 +1,12 @@
 .footer{
     background-color: #282c34;
+    border-top: 1px solid rgb(255, 255, 255); 
     color: rgb(255, 255, 255);
     font-size: 25px;
     display: flex;
-    flex-direction: column;   /* Stack elements vertically *
-    justify-content: center;  /* Centers content horizontally */
-    align-items: center;      /* Centers content vertically */
+    flex-direction: column;   
+    justify-content: center;  
+    align-items: center;      
     padding: 10px;  
     position: relative;
     margin-bottom: 0px;

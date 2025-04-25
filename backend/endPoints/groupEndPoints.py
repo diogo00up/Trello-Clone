@@ -8,6 +8,7 @@ from fastapi import  APIRouter, HTTPException, Depends
 from fastapi import status
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.future import select
+from sqlalchemy import select, not_
 from fastapi import APIRouter
 import logging
 from datetime import date
@@ -101,3 +102,52 @@ async def get_GroupTickets(group_id: int , db: AsyncSession = Depends(get_db), c
         )
 
     return line
+
+
+@router.get("/getAllUsers")
+async def get_all_users(group_id: int , db: AsyncSession = Depends(get_db), current_user: User = Depends(get_current_user)):
+
+    stmt = select(User,user_group).join(user_group, User.id==user_group.user_id).where(user_group.group_id==group_id)
+    result = await db.execute(stmt)
+    lines = result.all() 
+    
+    if not lines:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="No users found"
+        )
+
+    return [
+          {
+            "id": user.id,
+            "username": user.username,
+            "group_id": user_group.group_id if user_group else None,  
+            "is_admin": user_group.is_admin if user_group else None,  
+        }
+
+        for user, user_group in lines
+    ]
+
+
+@router.post("/retriveUsersNotInGroup")
+async def get_users_not_in_group(member_ids: List[int], db: AsyncSession = Depends(get_db)):
+
+    stmt = select(User).where(not_(User.id.in_(member_ids)))
+    result = await db.execute(stmt)
+    users = result.scalars().all()
+    
+    if not users:
+        raise HTTPException(
+        status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+        detail=f"Error retrieving users: {str(e)}"
+    )
+        
+    return [
+        {
+            "id": user.id,
+            "username": user.username
+        }
+        for user in users
+    ]
+    
+ 
