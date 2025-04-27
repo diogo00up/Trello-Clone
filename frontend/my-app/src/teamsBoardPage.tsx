@@ -10,7 +10,14 @@ import log_out from './icons/log-out.svg'
 import close from './icons/x.svg'
 import back from './icons/back2.svg'
 import tool from './icons/tool.svg'
+import calendar from './icons/calendar1.svg'
 import { DndContext, useDraggable, useDroppable, DragOverlay } from '@dnd-kit/core';
+
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import Calendar from 'react-datepicker/dist/calendar';
+
+
 
 type groupProps = {
     id: number;
@@ -53,6 +60,7 @@ type MembersNotInGroupProps = {
   username : string;
 }
 
+
 function Column({title, ticketClass, tickets, loadGroupTickets }: ColumnProps) {
   const { setNodeRef } = useDroppable({ id: ticketClass });
   return (
@@ -73,6 +81,10 @@ function GroupTicket({id, title, description,ticket_owner, ticket_class, group_i
     const [isEditing, setIsEditing] = useState(false); 
     const token = sessionStorage.getItem('access_token');
     const { attributes, listeners, setNodeRef, transform } = useDraggable({id, disabled: isEditing, });
+
+    const [openPicker, setOpenPicker] = useState<boolean>(false);
+    const [selectedDate, setSelectedDate] = useState<Date>(new Date(date_created));
+    
 
     const handleCancel = () => {
       setEditedTitle(title);
@@ -139,6 +151,41 @@ function GroupTicket({id, title, description,ticket_owner, ticket_class, group_i
       }
     
     };
+
+    const updateTicketDate = async (newDate: Date) => {
+      console.log(newDate);
+      console.log("CALLING API TO UPDATE DATE");
+      try {
+  
+        const response = await axios.put('http://127.0.0.1:8000/updateTicketDate', {
+          id: id,
+          date: newDate,
+        },
+        
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+    
+        console.log('Group Ticket date updated:', response.data);
+     
+        await loadGroupTickets();
+        
+      } 
+      catch (error) {
+        console.error('Error updating  Group ticket date:', error);
+      }
+
+    };
+
+    const handleDateChange = (date: Date | null) => {
+      if (date) {
+        setSelectedDate(date);
+        updateTicketDate(date);
+      }
+    };
    
 
     return (
@@ -167,10 +214,22 @@ function GroupTicket({id, title, description,ticket_owner, ticket_class, group_i
 
           <div className="ticket-date">
             <span>Deliver date: {new Date(date_created).toLocaleDateString()}</span>
+            <img src={calendar} className="calendar-button"  onPointerDown={(e) => e.stopPropagation()} onClick={() => setOpenPicker(true)} />
           </div>
           
+          {openPicker && (
+            <div className='date-picker-div' onPointerDown={(e) => e.stopPropagation()}>
+              <DatePicker 
+                selected={selectedDate} 
+                onChange={handleDateChange} 
+                dateFormat="dd/MM/yyyy"
+                inline
+                onClickOutside={() => setOpenPicker(false)}
+                onSelect={() => setOpenPicker(false)}
+              />
+            </div>
+          )}                    
         </div>
-
       );
 }
 

@@ -9,7 +9,9 @@
     "@radix-ui/react-switch": "^1.2.2",
     "@types/react": "^18.3.20",
     "@types/react-dom": "^18.3.6",
+    "date-fns": "^4.1.0",
     "react": "^18.3.1",
+    "react-datepicker": "^8.3.0",
     "react-dom": "^18.3.1",
     "react-router-dom": "^7.5.0"
   }

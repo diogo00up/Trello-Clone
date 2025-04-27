@@ -122,3 +122,15 @@
 #close-admin-x{
     height: 60px;
 }
+
+.calendar-button{
+    height: 20px;
+    position: relative;
+    top:4px;
+    left: 10px;
+    cursor: pointer;
+}
+
+.date-picker-div{
+    top: 2px;
+}

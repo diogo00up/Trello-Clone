@@ -108,3 +108,11 @@ class GroupTicketResponse(BaseModel):
     class Config:
         orm_mode = True
 
+class DateUpdate(BaseModel):
+    id : int
+    date: date
+
+    class Config:
+        orm_mode = True
+
+

@@ -1,4 +1,4 @@
-from schemas import GroupTicketCreate,TicketTextTitleUpdate,TicketDelete,GroupResponse,GroupTicketResponse,TicketUpdate,RoleResponse
+from schemas import GroupTicketCreate,TicketTextTitleUpdate,TicketDelete,GroupResponse,GroupTicketResponse,TicketUpdate,RoleResponse,DateUpdate
 from models import  User, Ticket, UserTicket, Group, groupTicket,user_group
 from database import get_db
 from auth import get_current_user, create_access_token
@@ -149,5 +149,19 @@ async def get_users_not_in_group(member_ids: List[int], db: AsyncSession = Depen
         }
         for user in users
     ]
+
+
+@router.put("/updateTicketDate")
+async def update_ticket_date(newdata: DateUpdate , db: AsyncSession = Depends(get_db), current_user: User = Depends(get_current_user)):
+    result = await db.execute(select(groupTicket).where(groupTicket.id == newdata.id))
+    ticket = result.scalar_one_or_none()
     
+    if not ticket:
+        raise HTTPException(status_code=404, detail="Ticket not found")
+    
+    ticket.date_created = newdata.date
+    db.add(ticket)
+    await db.commit()
+    await db.refresh(ticket)
+    return {"message": "Group Ticket date was updated", "ticket": ticket}
  
