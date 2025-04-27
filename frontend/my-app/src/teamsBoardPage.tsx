@@ -155,11 +155,12 @@ function GroupTicket({id, title, description,ticket_owner, ticket_class, group_i
     const updateTicketDate = async (newDate: Date) => {
       console.log(newDate);
       console.log("CALLING API TO UPDATE DATE");
+      const formattedDate = newDate.toISOString().split('T')[0]; 
       try {
   
         const response = await axios.put('http://127.0.0.1:8000/updateTicketDate', {
           id: id,
-          date: newDate,
+          date: formattedDate,
         },
         
         {
