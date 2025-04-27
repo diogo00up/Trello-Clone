@@ -84,6 +84,8 @@ function GroupTicket({id, title, description,ticket_owner, ticket_class, group_i
 
     const [openPicker, setOpenPicker] = useState<boolean>(false);
     const [selectedDate, setSelectedDate] = useState<Date>(new Date(date_created));
+
+    const [ticketDate, setTicketDate] = useState<Date>(new Date(date_created));
     
 
     const handleCancel = () => {
@@ -172,7 +174,8 @@ function GroupTicket({id, title, description,ticket_owner, ticket_class, group_i
     
         console.log('Group Ticket date updated:', response.data);
      
-        await loadGroupTickets();
+        //await loadGroupTickets();
+        setTicketDate(newDate);
         
       } 
       catch (error) {
@@ -214,7 +217,7 @@ function GroupTicket({id, title, description,ticket_owner, ticket_class, group_i
           </div>
 
           <div className="ticket-date">
-            <span>Deliver date: {new Date(date_created).toLocaleDateString()}</span>
+            <span>Deliver date: {new Date(ticketDate).toLocaleDateString()}</span>
             <img src={calendar} className="calendar-button"  onPointerDown={(e) => e.stopPropagation()} onClick={() => setOpenPicker(true)} />
           </div>
           
