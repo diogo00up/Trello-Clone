@@ -463,6 +463,30 @@ function GroupPage(){
       console.log("Toggle switch");
     };
 
+    const enviteMember = async (user_id: number, group_id : number) => {
+      console.log("ENVITE MEMBER");
+      console.log(user_id);
+      console.log(group_id);
+      try {
+  
+      const response = await axios.post('http://127.0.0.1:8000/createUserGroup', { user_id, group_id }, 
+
+        {
+          headers: {
+            Authorization: `Bearer ${token}`, 
+          },
+        }
+      );
+    
+        console.log('Added user to group:', response.data);
+        adminSettingsClick();
+        
+      } catch (error) {
+        console.error('Error adding user to group:', error);
+      }
+      
+    };
+
     useEffect(() => {
         getGroups();
         }, 
@@ -550,8 +574,11 @@ function GroupPage(){
                         <div key={notMember.id} className='admin_line-info' >
                           <a>ID: {notMember.id}</a>
                           <a>Username: {notMember.username}</a>
-                          <a>Invite Member </a>
-                          <a>Give permissions </a>
+                          {currentGroup?.id !== undefined && (
+                          <a className='envite-member' onClick={() => enviteMember(notMember.id, currentGroup.id)}>
+                            Invite Member
+                          </a>
+                        )}
                         </div>
                       ))
                     }

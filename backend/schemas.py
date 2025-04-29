@@ -115,4 +115,12 @@ class DateUpdate(BaseModel):
     class Config:
         orm_mode = True
 
+class UserGroupCreate(BaseModel):
+    user_id : int
+    group_id: int
+
+    class Config:
+        orm_mode = True
+
+
 

@@ -1,4 +1,4 @@
-from schemas import GroupTicketCreate,TicketTextTitleUpdate,TicketDelete,GroupResponse,GroupTicketResponse,TicketUpdate,RoleResponse,DateUpdate
+from schemas import GroupTicketCreate,TicketTextTitleUpdate,TicketDelete,GroupResponse,GroupTicketResponse,TicketUpdate,RoleResponse,DateUpdate,UserGroupCreate
 from models import  User, Ticket, UserTicket, Group, groupTicket,user_group
 from database import get_db
 from auth import get_current_user, create_access_token
@@ -165,3 +165,12 @@ async def update_ticket_date(newdata: DateUpdate , db: AsyncSession = Depends(ge
     await db.refresh(ticket)
     return {"message": "Group Ticket date was updated", "ticket": ticket}
  
+
+@router.post("/createUserGroup")
+async def create_user_group(usergroup:  UserGroupCreate, current_user: User = Depends(get_current_user), db: AsyncSession = Depends(get_db)):
+    new_user_group = user_group(user_id=usergroup.user_id, group_id=usergroup.group_id,is_admin = 0)
+    db.add(new_user_group)
+    await db.commit()
+    await db.refresh(new_user_group)
+    return new_user_group
+
