@@ -122,5 +122,13 @@ class UserGroupCreate(BaseModel):
     class Config:
         orm_mode = True
 
+class UserGroupUpdate(BaseModel):
+    user_id : int
+    group_id : int
+    is_admin: int
+    
+    class Config:
+        orm_mode = True
+
 
 

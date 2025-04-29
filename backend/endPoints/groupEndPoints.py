@@ -1,4 +1,4 @@
-from schemas import GroupTicketCreate,TicketTextTitleUpdate,TicketDelete,GroupResponse,GroupTicketResponse,TicketUpdate,RoleResponse,DateUpdate,UserGroupCreate
+from schemas import GroupTicketCreate,TicketTextTitleUpdate,TicketDelete,GroupResponse,GroupTicketResponse,TicketUpdate,RoleResponse,DateUpdate,UserGroupCreate,UserGroupUpdate
 from models import  User, Ticket, UserTicket, Group, groupTicket,user_group
 from database import get_db
 from auth import get_current_user, create_access_token
@@ -174,3 +174,20 @@ async def create_user_group(usergroup:  UserGroupCreate, current_user: User = De
     await db.refresh(new_user_group)
     return new_user_group
 
+
+
+@router.put("/updatedUserGroup")
+async def update_user_group(update_data: UserGroupUpdate, db: AsyncSession = Depends(get_db), current_user: User = Depends(get_current_user)):
+
+    result = await db.execute(select(user_group).where(user_group.user_id==update_data.user_id).where(user_group.group_id==update_data.group_id))
+    row = result.scalar_one_or_none()
+    
+    if not row:
+        raise HTTPException(status_code=404, detail="Row not found")
+    
+    row.is_admin = update_data.is_admin
+    db.add(row)
+    await db.commit()
+    await db.refresh(row)
+
+    return {"message": "UserGroup relation updated", "row: ": row}

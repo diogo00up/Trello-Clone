@@ -459,8 +459,31 @@ function GroupPage(){
 
     }
 
-    const handleToggleAdmin = async (adminId: number, newStatus: boolean) => {
+    const handleToggleAdmin = async (adminId: number,group_id:number, newStatus: boolean) => {
       console.log("Toggle switch");
+      console.log(adminId);
+      console.log(newStatus);
+      try {
+  
+        const response = await axios.put('http://127.0.0.1:8000/updatedUserGroup',   {
+          user_id: adminId,          
+          group_id: group_id,        
+          is_admin: newStatus ? 1 : 0 
+        }, 
+          {
+            headers: {
+              Authorization: `Bearer ${token}`, 
+            },
+          }
+        );
+    
+       
+        console.log('Admin role updated:', response.data);
+        adminSettingsClick();
+      } 
+      catch (error) {
+        console.error('Error updating admin role:', error);
+      }
     };
 
     const enviteMember = async (user_id: number, group_id : number) => {
@@ -562,8 +585,9 @@ function GroupPage(){
                           <a>Username: {member.username}</a>
                           <a>group_id: {member.group_id}</a>
                           <a>IsAdmin ? 
-                            <input type="checkbox" checked={member.is_admin} onChange={() => handleToggleAdmin(member.id, !member.is_admin)}/>
+                            <input type="checkbox" checked={member.is_admin} onChange={() => handleToggleAdmin(member.id, member.group_id, !member.is_admin)}/>
                           </a>
+                          <a>Kick member</a>
                       </div>
                       ))
                     }
