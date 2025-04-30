@@ -2,14 +2,14 @@ import { Routes, Route } from 'react-router-dom';
 import logo from './logo.svg';
 import { useState } from 'react';
 import axios from 'axios';
-import MainTable from '../OwnBoardPage'; 
-import GroupPage from '../teamsBoardPage';
+import MainTable from '../ownBoard/OwnBoardPage'; 
+import GroupPage from '../teamsBoard/teamsBoardPage';
 import { useNavigate } from 'react-router-dom';
 import './AuthPage.css';
 import FooterCustom from '../footer/footer'
 import HeaderCustom from '../header/header';
 import { forEachChild } from 'typescript';
-import Menu from '../menu'
+import Menu from '../menu/menu'
 
 
 function App() {

@@ -1,8 +1,7 @@
-from schemas import UserResponse,TicketResponse,TicketUser,UserCreate,TicketCreate,UserLogin,TicketUpdate,TicketTextTitleUpdate,TicketDelete,GroupResponse
-from models import  User, Ticket, UserTicket, Group
+from .schemas import UserResponse,UserCreate,UserLogin
+from models import  User
 from database import get_db
-from auth import get_current_user, create_access_token
-from typing import List
+from auth import  create_access_token
 from passlib.context import CryptContext
 from fastapi import  APIRouter, HTTPException, Depends
 from fastapi import status

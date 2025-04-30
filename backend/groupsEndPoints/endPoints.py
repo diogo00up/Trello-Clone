@@ -1,16 +1,14 @@
-from schemas import GroupTicketCreate,TicketTextTitleUpdate,TicketDelete,GroupResponse,GroupTicketResponse,TicketUpdate,RoleResponse,DateUpdate,UserGroupCreate,UserGroupUpdate
-from models import  User, Ticket, UserTicket, Group, groupTicket,user_group
+from .schemas import GroupTicketCreate,TicketTextTitleUpdate,TicketDelete,GroupResponse,GroupTicketResponse,TicketUpdate,RoleResponse,DateUpdate,UserGroupCreate,UserGroupUpdate
+from models import  User, Group, groupTicket,user_group
 from database import get_db
-from auth import get_current_user, create_access_token
+from auth import get_current_user
 from typing import List
-from passlib.context import CryptContext
 from fastapi import  APIRouter, HTTPException, Depends
 from fastapi import status
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.future import select
 from sqlalchemy import select, not_
 from fastapi import APIRouter
-import logging
 from datetime import date
 
 

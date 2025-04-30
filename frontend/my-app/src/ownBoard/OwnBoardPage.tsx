@@ -2,13 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './OwnBoardPage.css';
-import add_plus from './icons/plus-circle.svg';
-import settings from './icons/settings.svg';
-import log_out from './icons/log-out.svg'
-import close from './icons/x.svg'
-import back from './icons/back2.svg'
-import FooterCustom from './footer/footer';
-import HeaderCustom from './header/header';
+import add_plus from '../icons/plus-circle.svg';
+import settings from '../icons/settings.svg';
+import log_out from '../icons/log-out.svg'
+import close from '../icons/x.svg'
+import back from '../icons/back2.svg'
+import FooterCustom from '../footer/footer';
+import HeaderCustom from '../header/header';
 import { DndContext, useDraggable, useDroppable, DragOverlay } from '@dnd-kit/core';
 
 type TicketProps = {

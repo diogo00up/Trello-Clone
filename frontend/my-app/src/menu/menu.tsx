@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import FooterCustom from './footer/footer'
+import FooterCustom from '../footer/footer'
 import './menu.css';
-import user from './icons/user.svg'
-import users from './icons/users.svg'
-import back from './icons/back2.svg'
+import user from '../icons/user.svg'
+import users from '../icons/users.svg'
+import back from '../icons/back2.svg'
 import { useNavigate } from 'react-router-dom';
 
 function Menu(){

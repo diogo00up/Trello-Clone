@@ -1,15 +1,13 @@
-from schemas import UserResponse,TicketResponse,TicketUser,UserCreate,TicketCreate,UserLogin,TicketUpdate,TicketTextTitleUpdate,TicketDelete,GroupResponse
-from models import  User, Ticket, UserTicket, Group
+from .schemas import UserResponse,TicketResponse,TicketUser,TicketCreate,TicketUpdate,TicketTextTitleUpdate,TicketDelete
+from models import  User, Ticket, UserTicket
 from database import get_db
-from auth import get_current_user, create_access_token
+from auth import get_current_user
 from typing import List
-from passlib.context import CryptContext
 from fastapi import  APIRouter, HTTPException, Depends
 from fastapi import status
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.future import select
 from fastapi import APIRouter
-import logging
 
 router = APIRouter()
 

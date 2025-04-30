@@ -1,11 +1,9 @@
 import logging
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi import FastAPI
-from endPoints.userEndPoints import router as endpoints_router
-from endPoints.groupEndPoints import router as GroupEndpoints_router
-from endPoints.logInEndPpoints import router as logInEndPpoints_router
-
-
+from groupsEndPoints.endPoints import router as GroupEndpoints_router
+from privateEndPoints.endPoints import router as PrivateEndPoints_router
+from authEndPoints.endPoints import router as logInEndPpoints_router
 
 logging.basicConfig(
     level=logging.INFO,  # You can use DEBUG, INFO, WARNING, ERROR, CRITICAL depending on your needs
@@ -25,7 +23,7 @@ app.add_middleware(
 )
 
 
-app.include_router(endpoints_router)
+app.include_router(PrivateEndPoints_router)
 app.include_router(GroupEndpoints_router)
 app.include_router(logInEndPpoints_router)
 

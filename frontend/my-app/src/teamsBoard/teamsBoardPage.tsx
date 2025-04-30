@@ -2,22 +2,18 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './teamsBoardPage.css';
-import FooterCustom from './footer/footer';
-import HeaderCustom from './header/header';
-import add_plus from './icons/plus-circle.svg';
-import settings from './icons/settings.svg';
-import log_out from './icons/log-out.svg'
-import close from './icons/x.svg'
-import back from './icons/back2.svg'
-import tool from './icons/tool.svg'
-import calendar from './icons/calendar1.svg'
+import FooterCustom from '../footer/footer';
+import HeaderCustom from '../header/header';
+import add_plus from '../icons/plus-circle.svg';
+import settings from '../icons/settings.svg';
+import log_out from '../icons/log-out.svg'
+import close from '../icons/x.svg'
+import back from '../icons/back2.svg'
+import tool from '../icons/tool.svg'
+import calendar from '../icons/calendar1.svg'
 import { DndContext, useDraggable, useDroppable, DragOverlay } from '@dnd-kit/core';
-
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import Calendar from 'react-datepicker/dist/calendar';
-
-
 
 type groupProps = {
     id: number;
@@ -271,7 +267,6 @@ function GroupPage(){
     const activeTicket = tickets.find((t) => t.id === activeId);
     const [isAdmin, setIsAdmin] = useState<number>(0);
     const [showAdminSettings, setAdminSettings] = useState<boolean>(false);
-
     const [GroupMembers, SetGroupMembers] = useState<MembersInGroupProps[]>([]);
     const [NotGroupMember, SetNotGroupMembers] = useState<MembersNotInGroupProps[]>([]);
     
@@ -583,7 +578,7 @@ function GroupPage(){
                         <div key={member.id} className='admin_line-info' >
                           <a>ID: {member.id}</a>
                           <a>Username: {member.username}</a>
-                          <a>group_id: {member.group_id}</a>
+
                           <a>IsAdmin ? 
                             <input type="checkbox" checked={member.is_admin} onChange={() => handleToggleAdmin(member.id, member.group_id, !member.is_admin)}/>
                           </a>
