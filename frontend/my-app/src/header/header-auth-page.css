@@ -1,10 +1,10 @@
 .header{
     background-color: #282c34;
-    height: 340px;
+    height: 270px;
     display: flex;
     position: relative;
     color: white;
-    border-bottom: 1px solid rgb(255, 255, 255); 
+    border-bottom: 1px solid rgb(20, 202, 71); 
 }
 
 .header-title{
@@ -29,10 +29,16 @@
 }
 
 .header-icon{
-    margin-top: 30px;
-    width: 400px;
+    width: 200px;
+    height: 200px;
     position: absolute;
-    left: 1000px;
+    left: 1150px;
+
+
+}
+
+.header-icon-image{
+    height: 100%;
 }
 
 .HeaderLogoImage{

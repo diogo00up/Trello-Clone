@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect,useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import './teamsBoardPage.css';
+import './team-board.css';
 import FooterCustom from '../footer/footer';
-import HeaderCustom from '../header/header';
+import HeaderCustom from '../header/header-other';
 import add_plus from '../icons/plus-circle.svg';
 import settings from '../icons/settings.svg';
 import log_out from '../icons/log-out.svg'
@@ -75,13 +75,11 @@ function GroupTicket({id, title, description,ticket_owner, ticket_class, group_i
     const [editedTitle, setEditedTitle] = useState(title);
     const [editedText, setEditedText] = useState(description); 
     const [isEditing, setIsEditing] = useState(false); 
-    const token = sessionStorage.getItem('access_token');
     const { attributes, listeners, setNodeRef, transform } = useDraggable({id, disabled: isEditing, });
-
     const [openPicker, setOpenPicker] = useState<boolean>(false);
     const [selectedDate, setSelectedDate] = useState<Date>(new Date(date_created));
-
     const [ticketDate, setTicketDate] = useState<Date>(new Date(date_created));
+    const token = sessionStorage.getItem('access_token');
     
 
     const handleCancel = () => {
@@ -269,6 +267,7 @@ function GroupPage(){
     const [showAdminSettings, setAdminSettings] = useState<boolean>(false);
     const [GroupMembers, SetGroupMembers] = useState<MembersInGroupProps[]>([]);
     const [NotGroupMember, SetNotGroupMembers] = useState<MembersNotInGroupProps[]>([]);
+    const AdminSettingsRef = useRef<HTMLDivElement>(null);
     
     const navigate = useNavigate();
 
@@ -386,8 +385,7 @@ function GroupPage(){
 
     const handleDragEnd = (event: any) => {
       const { active, over } = event;
-      console.log("Coluna que vou dropar: ",over.id);
-      console.log("id do ticket que vou dropar: ", Number(active.id));
+      if (!over) return;
       updateTicketAfterDrag(active.id,over.id);
   
       if (active.id && over?.id) {
@@ -444,8 +442,6 @@ function GroupPage(){
           console.log('Response about not in group Users: ', response.data);
           SetNotGroupMembers(response.data);
           
-         
-     
         } 
 
         catch (error) {
@@ -528,6 +524,25 @@ function GroupPage(){
       }
     }, [currentGroup]);
 
+    useEffect(() => {
+          function handleClickOutside(event: MouseEvent) {
+            if (AdminSettingsRef.current && !AdminSettingsRef.current.contains(event.target as Node)) {
+              setAdminSettings(false);
+            }
+          }
+      
+          if (showAdminSettings) {
+            document.addEventListener('mousedown', handleClickOutside);
+          } else {
+            document.removeEventListener('mousedown', handleClickOutside);
+          }
+      
+          return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+          };
+        }, [showAdminSettings]);
+    
+
     return(
         <div className='teams-background'>
             <HeaderCustom/>
@@ -568,7 +583,7 @@ function GroupPage(){
             )}
 
             {showAdminSettings && (
-                <div className='admin-box'>
+                <div className='admin-box' ref={AdminSettingsRef}>
                     <div onClick={() => setAdminSettings(false)} id='close-admin' >
                       <img src={close} id='close-admin-x' />
                     </div>

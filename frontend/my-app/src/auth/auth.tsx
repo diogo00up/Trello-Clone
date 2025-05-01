@@ -1,14 +1,12 @@
-import { Routes, Route } from 'react-router-dom';
-import logo from './logo.svg';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import { useState } from 'react';
 import axios from 'axios';
-import MainTable from '../ownBoard/OwnBoardPage'; 
-import GroupPage from '../teamsBoard/teamsBoardPage';
+import MainTable from '../private-board/private-board'; 
+import GroupPage from '../team-board/team-board';
 import { useNavigate } from 'react-router-dom';
-import './AuthPage.css';
+import './auth.css';
 import FooterCustom from '../footer/footer'
-import HeaderCustom from '../header/header';
-import { forEachChild } from 'typescript';
+import HeaderCustom from '../header/header-auth-page';
 import Menu from '../menu/menu'
 
 
@@ -16,6 +14,7 @@ function App() {
   return (
     <>
       <Routes>
+        <Route path="/" element={<Navigate to="/welcome" />} />
         <Route path="/welcome" element={<LogIn />} />
         <Route path="/mainPage" element={<MainTable />} />
         <Route path="/menu" element={<Menu />} />
@@ -105,7 +104,6 @@ function LogIn(){
     setPassword1('');
     setPassword2('');
 
-    //CHANGE THIS NAVIGATE TO CHANGE PANGES FOR TESTING PURPOSES
     navigate('/menu');
 
     } catch (error) {

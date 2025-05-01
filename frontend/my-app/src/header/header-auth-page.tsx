@@ -1,7 +1,8 @@
-import './header.css';
+import './header-auth-page.css';
 import symbol from '../images/symbol.svg';
+import logo from '../images/logo.png';
 
-function HeaderCustom(){
+function Header_Auth_Page(){
     return (
 
       <div className='header'>
@@ -15,7 +16,7 @@ function HeaderCustom(){
         </div>
 
         <div className='header-icon'>
-
+           <img src={logo}  alt="logo" className='header-icon-image' />
         </div>
 
       
@@ -25,4 +26,4 @@ function HeaderCustom(){
     );
 }
 
-export default HeaderCustom;
+export default Header_Auth_Page;

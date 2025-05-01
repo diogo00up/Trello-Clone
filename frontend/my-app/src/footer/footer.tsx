@@ -1,5 +1,5 @@
 import './footer.css';
-import logo from '../images/logo.svg';
+import logo from '../images/logo.png';
 
 
 function FooterCustom(){
@@ -23,7 +23,7 @@ function FooterCustom(){
         </div>
   
         <div className='footerMainContent2'>
-          <a>Sky Group</a>
+          <a>TrelloGroup</a>
           <a>Language</a>
         </div>
   

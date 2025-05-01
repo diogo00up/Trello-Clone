@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import './OwnBoardPage.css';
+import './private-board.css';
 import add_plus from '../icons/plus-circle.svg';
 import settings from '../icons/settings.svg';
 import log_out from '../icons/log-out.svg'
 import close from '../icons/x.svg'
 import back from '../icons/back2.svg'
 import FooterCustom from '../footer/footer';
-import HeaderCustom from '../header/header';
+import HeaderCustom from '../header/header-other';
 import { DndContext, useDraggable, useDroppable, DragOverlay } from '@dnd-kit/core';
+import DropDown from '../shared-components/drop-dowm-menu/drop-down';
 
 type TicketProps = {
   id: string;   
@@ -224,8 +225,9 @@ function MainTable() {
 
   const handleDragEnd = (event: any) => {
     const { active, over } = event;
-    console.log("Coluna que vou dropar: ",over.id);
-    console.log("id do ticket que vou dropar: ", Number(active.id));
+
+    if (!over) return
+    
     updateTicketAfterDrag(active.id,over.id);
 
     if (active.id && over?.id) {
@@ -266,6 +268,7 @@ function MainTable() {
     
     <div className="background">
        <HeaderCustom />  
+       
 
       <div className='tool-bar'>
 
@@ -288,6 +291,10 @@ function MainTable() {
           <img src={back} className="add_plus" alt="add" />
           <span className="add-text">Go Back</span>
         </div>
+
+        <div>
+
+        </div>        
 
       </div>
 
