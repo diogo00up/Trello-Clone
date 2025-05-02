@@ -48,7 +48,7 @@ class GroupTicketResponse(BaseModel):
     ticket_owner: int
     ticket_class: str
     group_id: int
-    date_created: date
+    date_deliver: date
 
     class Config:
         orm_mode = True

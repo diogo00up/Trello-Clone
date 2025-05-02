@@ -65,7 +65,7 @@ async def update_group_ticket_class(newdata: TicketTextTitleUpdate, db: AsyncSes
 
 @router.post("/createGroupTicket")
 async def create_group_ticket(ticket: GroupTicketCreate, current_user: User = Depends(get_current_user), db: AsyncSession = Depends(get_db)):
-    new_ticket = groupTicket(title=ticket.title, description=ticket.description,ticket_owner = current_user.id, ticket_class="backlog",group_id=ticket.group_id, date_created=date.today())
+    new_ticket = groupTicket(title=ticket.title, description=ticket.description,ticket_owner = current_user.id, ticket_class="backlog",group_id=ticket.group_id, date_deliver=date.today())
     db.add(new_ticket)
     await db.commit()
     await db.refresh(new_ticket)
@@ -157,7 +157,7 @@ async def update_ticket_date(newdata: DateUpdate , db: AsyncSession = Depends(ge
     if not ticket:
         raise HTTPException(status_code=404, detail="Ticket not found")
     
-    ticket.date_created = newdata.date
+    ticket.date_deliver = newdata.date
     db.add(ticket)
     await db.commit()
     await db.refresh(ticket)

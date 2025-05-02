@@ -7,6 +7,7 @@ import HeaderCustom from '../header/header-other';
 import add_plus from '../icons/plus-circle.svg';
 import settings from '../icons/settings.svg';
 import log_out from '../icons/log-out.svg'
+import google from '../icons/google.svg'
 import close from '../icons/x.svg'
 import back from '../icons/back2.svg'
 import tool from '../icons/tool.svg'
@@ -33,7 +34,7 @@ type TicketProps = {
     ticket_owner : number;
     ticket_class: string;
     group_id : number;  
-    date_created: string; 
+    date_deliver: string; 
     loadGroupTickets: () => void;
 };
 
@@ -64,21 +65,21 @@ function Column({title, ticketClass, tickets, loadGroupTickets }: ColumnProps) {
       {tickets.filter((ticket) => ticket.ticket_class === ticketClass).map((ticket) => {
 
         return (
-          <GroupTicket key={ticket.id} id={ticket.id} title={ticket.title} description={ticket.description} ticket_owner={ticket.ticket_owner} ticket_class={ticket.ticket_class} group_id={ticket.group_id} date_created={ticket.date_created} loadGroupTickets={loadGroupTickets}/>
+          <GroupTicket key={ticket.id} id={ticket.id} title={ticket.title} description={ticket.description} ticket_owner={ticket.ticket_owner} ticket_class={ticket.ticket_class} group_id={ticket.group_id} date_deliver={ticket.date_deliver} loadGroupTickets={loadGroupTickets}/>
         );
         })}
     </div>
   );
 }
 
-function GroupTicket({id, title, description,ticket_owner, ticket_class, group_id, date_created, loadGroupTickets}: TicketProps){
+function GroupTicket({id, title, description,ticket_owner, ticket_class, group_id, date_deliver, loadGroupTickets}: TicketProps){
     const [editedTitle, setEditedTitle] = useState(title);
     const [editedText, setEditedText] = useState(description); 
     const [isEditing, setIsEditing] = useState(false); 
     const { attributes, listeners, setNodeRef, transform } = useDraggable({id, disabled: isEditing, });
     const [openPicker, setOpenPicker] = useState<boolean>(false);
-    const [selectedDate, setSelectedDate] = useState<Date>(new Date(date_created));
-    const [ticketDate, setTicketDate] = useState<Date>(new Date(date_created));
+    const [selectedDate, setSelectedDate] = useState<Date>(new Date(date_deliver));
+    const [ticketDate, setTicketDate] = useState<Date>(new Date(date_deliver));
     const token = sessionStorage.getItem('access_token');
     
 
@@ -184,6 +185,16 @@ function GroupTicket({id, title, description,ticket_owner, ticket_class, group_i
         updateTicketDate(date);
       }
     };
+
+    const GoogleAuth = async (date: Date | null) => {
+      console.log("Goodle Auth!");
+      console.log(date);
+      if(date==null){
+        return;
+      }
+
+      window.location.href = 'http://127.0.0.1:8000/auth/google';
+    }
    
 
     return (
@@ -213,6 +224,7 @@ function GroupTicket({id, title, description,ticket_owner, ticket_class, group_i
           <div className="ticket-date">
             <span>Deliver date: {new Date(ticketDate).toLocaleDateString()}</span>
             <img src={calendar} className="calendar-button"  onPointerDown={(e) => e.stopPropagation()} onClick={() => setOpenPicker(true)} />
+            <img src={google} className="google-button"  onPointerDown={(e) => e.stopPropagation()}  onClick={() => GoogleAuth(new Date(ticketDate))}/>
           </div>
           
           {openPicker && (
@@ -648,7 +660,7 @@ function GroupPage(){
 
                   <DragOverlay>
                     {activeId && activeTicket ? (
-                      <GroupTicket id={activeTicket.id} title={activeTicket.title} description={activeTicket.description} ticket_owner={activeTicket.ticket_owner} ticket_class={activeTicket.ticket_class} group_id={activeTicket.group_id} date_created={activeTicket.date_created}   loadGroupTickets={loadGroupTickets} />) : null}
+                      <GroupTicket id={activeTicket.id} title={activeTicket.title} description={activeTicket.description} ticket_owner={activeTicket.ticket_owner} ticket_class={activeTicket.ticket_class} group_id={activeTicket.group_id} date_deliver={activeTicket.date_deliver}   loadGroupTickets={loadGroupTickets} />) : null}
                   </DragOverlay>
 
                 </DndContext>

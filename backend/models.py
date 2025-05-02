@@ -44,7 +44,7 @@ class groupTicket(Base):
     ticket_owner = Column(Integer, ForeignKey("users.id"))
     ticket_class = Column(String(255))
     group_id = Column(Integer, ForeignKey("groups.id"))
-    date_created = Column(Date, nullable=False)
+    date_deliver = Column(Date, nullable=False)
 
 class user_group(Base):
     __tablename__ = "user_group"

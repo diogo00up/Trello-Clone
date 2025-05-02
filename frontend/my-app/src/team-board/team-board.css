@@ -131,6 +131,15 @@
     cursor: pointer;
 }
 
+.google-button{
+    height: 18px;
+    position: relative;
+    top:4px;
+    left: 13px;
+    cursor: pointer;
+
+}
+
 .date-picker-div{
     top: 2px;
 }
