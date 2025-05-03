@@ -4,6 +4,9 @@ import requests
 from fastapi import  HTTPException
 from fastapi.responses import RedirectResponse
 from dotenv import load_dotenv
+from urllib.parse import urlencode
+from .schemas import EventData
+from fastapi import Header
 
 router = APIRouter()
 
@@ -37,10 +40,23 @@ async def google_oauth_callback(code: str):
     response_data = response.json()
 
     if "access_token" in response_data:
-        access_token = response_data["access_token"]
-        # Save the access token to your database or session
 
-        return {"access_token": access_token}
+        google_token = response_data["access_token"]
+        params = urlencode({"google_token": google_token})
+        return RedirectResponse(url=f"http://localhost:3000/oauth-success?{params}")
+
+        #access_token = response_data["access_token"]
+        #return {"access_token": google_token}
     else:
         raise HTTPException(status_code=400, detail="OAuth token exchange failed")
 
+
+@router.post("/google/create_event")
+async def create_google_calendar_event(event_data: EventData, authorization: str = Header(...)):
+    headers = {"Authorization": authorization}
+    response = requests.post(CALENDAR_API_URL, headers=headers, json=event_data.dict())
+
+    if response.status_code == 200:
+        return {"message": "Event created successfully", "event": response.json()}
+    else:
+        raise HTTPException(status_code=400, detail="Failed to create event")

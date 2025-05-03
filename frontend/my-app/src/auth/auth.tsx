@@ -1,6 +1,7 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { useState } from 'react';
 import axios from 'axios';
+import OauthSuccess from '../google-components/auth-sucess';
 import MainTable from '../private-board/private-board'; 
 import GroupPage from '../team-board/team-board';
 import { useNavigate } from 'react-router-dom';
@@ -15,6 +16,7 @@ function App() {
     <>
       <Routes>
         <Route path="/" element={<Navigate to="/welcome" />} />
+        <Route path="/oauth-success" element={<OauthSuccess />} />
         <Route path="/welcome" element={<LogIn />} />
         <Route path="/mainPage" element={<MainTable />} />
         <Route path="/menu" element={<Menu />} />

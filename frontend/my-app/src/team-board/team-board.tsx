@@ -8,6 +8,7 @@ import add_plus from '../icons/plus-circle.svg';
 import settings from '../icons/settings.svg';
 import log_out from '../icons/log-out.svg'
 import google from '../icons/google.svg'
+import plus from '../icons/plus.svg'
 import close from '../icons/x.svg'
 import back from '../icons/back2.svg'
 import tool from '../icons/tool.svg'
@@ -186,13 +187,65 @@ function GroupTicket({id, title, description,ticket_owner, ticket_class, group_i
       }
     };
 
-    const GoogleAuth = async (date: Date | null) => {
+    const SetGoogleCalendarDate = async (date: Date | null) => {
       console.log("Goodle Auth!");
       console.log(date);
+      
       if(date==null){
         return;
       }
 
+      const google_token = sessionStorage.getItem('google_token');
+      console.log(google_token);
+      if (!google_token) {
+        console.error("No Google token found in session.");
+        return;
+      }
+
+
+      const startDateTime = new Date(date);
+      startDateTime.setHours(23, 0, 0, 0); // 23:00:00.000
+      const endDateTime = new Date(startDateTime.getTime() + 60 * 60 * 1000);
+
+      const eventData = {
+        summary: "Trello Ticket Delivery",
+        description: "This is a test event created via Google Calendar API",
+        start: {
+          dateTime: startDateTime.toISOString(),
+          timeZone: "America/New_York"
+        },
+        end: {
+          dateTime: endDateTime.toISOString(),
+          timeZone: "America/New_York"
+        }
+      };
+
+      console.log(eventData);
+
+    
+
+      try {
+        const response = await axios.post( 'http://127.0.0.1:8000/google/create_event',
+          eventData, 
+          {
+            headers: {
+              Authorization: `Bearer ${google_token}`
+            }
+          }
+        );
+        
+        console.log("Sent Resquest calendar API: ",response.data)
+      
+      }
+       catch (error) {
+        console.error('Error connectint to calendar API:', error);
+      }
+
+    }
+   
+    const GoogleAuth = async () => {
+      console.log("Goodle Auth!");
+   
       window.location.href = 'http://127.0.0.1:8000/auth/google';
     }
    
@@ -224,7 +277,15 @@ function GroupTicket({id, title, description,ticket_owner, ticket_class, group_i
           <div className="ticket-date">
             <span>Deliver date: {new Date(ticketDate).toLocaleDateString()}</span>
             <img src={calendar} className="calendar-button"  onPointerDown={(e) => e.stopPropagation()} onClick={() => setOpenPicker(true)} />
-            <img src={google} className="google-button"  onPointerDown={(e) => e.stopPropagation()}  onClick={() => GoogleAuth(new Date(ticketDate))}/>
+            <img src={google} className="google-button"  onPointerDown={(e) => e.stopPropagation()}  onClick={() => GoogleAuth()}/>
+            <img src={plus} className="google-button"  onPointerDown={(e) => e.stopPropagation()}  onClick={() =>  {
+                const token = sessionStorage.getItem('google_token');
+                if (token) {
+                  SetGoogleCalendarDate(new Date(ticketDate));
+                } else {
+                  alert("Please log in with Google first.");
+                }
+              }}/>
           </div>
           
           {openPicker && (
@@ -434,9 +495,7 @@ function GroupPage(){
 
         catch (error) {
           console.error('Error fetching all users:', error);
-        }
-
-        
+        } 
 
       }
     

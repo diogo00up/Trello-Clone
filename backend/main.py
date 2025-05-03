@@ -4,7 +4,7 @@ from fastapi import FastAPI
 from team_endpoints.endPoints import router as GroupEndpoints_router
 from private_endpoints.endPoints import router as PrivateEndPoints_router
 from auth_endpoints.endPoints import router as logInEndPpoints_router
-from google_auth.oAuth import router as GoogleAuth_router
+from google_endpoints.oAuth import router as GoogleAuth_router
 
 logging.basicConfig(
     level=logging.INFO,  # You can use DEBUG, INFO, WARNING, ERROR, CRITICAL depending on your needs
