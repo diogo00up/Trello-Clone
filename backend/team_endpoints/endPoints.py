@@ -134,11 +134,7 @@ async def get_users_not_in_group(member_ids: List[int], db: AsyncSession = Depen
     result = await db.execute(stmt)
     users = result.scalars().all()
     
-    if not users:
-        raise HTTPException(
-        status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-        detail=f"Error retrieving users: {str(e)}"
-    )
+  
         
     return [
         {

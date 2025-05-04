@@ -1,10 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import avatar1 from '../../icons/avatar1.svg';
+import {useNavigate } from 'react-router-dom';
 
 import './drop-down.css';
 
 function DropDown(){
     const token = sessionStorage.getItem('access_token');
+
+    const navigate = useNavigate();
+
+    const logOut = async () => {
+        console.log("logout");
+        sessionStorage.clear();
+        navigate('/welcome');
+        
+      }
 
     return(
         <div className='drop-down-menu'>
@@ -37,7 +47,7 @@ function DropDown(){
                 <a>Help</a>
             </div>
             <hr></hr>
-            <div className='lines' >
+            <div className='lines' onClick={logOut} >
                 <a>Log out</a>
             </div>
 

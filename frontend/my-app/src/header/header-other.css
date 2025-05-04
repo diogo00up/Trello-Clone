@@ -1,7 +1,9 @@
 .header-other{
     background-color: #282c34;
-    height: 100px;
+    height: 50px;
     display: flex;
+    justify-content: space-between; 
+    align-items: center;            
     position: relative;
     color: white;
     border-bottom: 1px solid rgb(255, 255, 255); 
@@ -11,9 +13,7 @@
 .header-menu-icon-div {
     height: 35px;
     width: 35px;
-    margin-left: auto; 
     overflow: hidden; 
-    margin-top: 10px;
     cursor: pointer;
 }
 
@@ -28,3 +28,32 @@
     display: block;
 }
 
+.go-back-icon-div{
+    height: 35px;
+    width: 35px;
+    overflow: hidden; 
+    cursor: pointer;
+}
+
+.go-back-icon-div:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); 
+}
+
+.back-icon{
+    height: 100%;
+    width: 100%;
+    object-fit: contain;
+    display: block;
+}
+
+.header-menu-container {
+    position: relative;
+    display: inline-block;
+  }
+  
+.dropdown-wrapper {
+    position: absolute;
+    top: 100%; 
+    right: 0; 
+    z-index: 1000;
+}

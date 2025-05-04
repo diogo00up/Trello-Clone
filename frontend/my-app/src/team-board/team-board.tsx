@@ -199,9 +199,10 @@ function GroupTicket({id, title, description,ticket_owner, ticket_class, group_i
       console.log(google_token);
       if (!google_token) {
         console.error("No Google token found in session.");
-        return;
+        await GoogleAuth();
       }
 
+    
 
       const startDateTime = new Date(date);
       startDateTime.setHours(23, 0, 0, 0); // 23:00:00.000
@@ -222,8 +223,6 @@ function GroupTicket({id, title, description,ticket_owner, ticket_class, group_i
 
       console.log(eventData);
 
-    
-
       try {
         const response = await axios.post( 'http://127.0.0.1:8000/google/create_event',
           eventData, 
@@ -237,15 +236,15 @@ function GroupTicket({id, title, description,ticket_owner, ticket_class, group_i
         console.log("Sent Resquest calendar API: ",response.data)
       
       }
-       catch (error) {
+      catch (error) {
         console.error('Error connectint to calendar API:', error);
       }
 
+        
     }
    
     const GoogleAuth = async () => {
       console.log("Goodle Auth!");
-   
       window.location.href = 'http://127.0.0.1:8000/auth/google';
     }
    
@@ -277,15 +276,7 @@ function GroupTicket({id, title, description,ticket_owner, ticket_class, group_i
           <div className="ticket-date">
             <span>Deliver date: {new Date(ticketDate).toLocaleDateString()}</span>
             <img src={calendar} className="calendar-button"  onPointerDown={(e) => e.stopPropagation()} onClick={() => setOpenPicker(true)} />
-            <img src={google} className="google-button"  onPointerDown={(e) => e.stopPropagation()}  onClick={() => GoogleAuth()}/>
-            <img src={plus} className="google-button"  onPointerDown={(e) => e.stopPropagation()}  onClick={() =>  {
-                const token = sessionStorage.getItem('google_token');
-                if (token) {
-                  SetGoogleCalendarDate(new Date(ticketDate));
-                } else {
-                  alert("Please log in with Google first.");
-                }
-              }}/>
+            <img src={google} className="google-button"  onPointerDown={(e) => e.stopPropagation()}  onClick={() => SetGoogleCalendarDate(new Date(ticketDate))}/>  
           </div>
           
           {openPicker && (
@@ -439,19 +430,6 @@ function GroupPage(){
         }
     };
 
-    const logOut = async () => {
-      console.log("logout");
-      sessionStorage.clear();
-      navigate('/welcome');
-      
-    }
-  
-    const goBack = async () => {
-      console.log("goback");
-      navigate('/menu');
-      
-    }
-
     const handleDragStart = (event: any) => {
       setActiveId(event.active.id); 
     };
@@ -505,6 +483,7 @@ function GroupPage(){
     
       const memberIds = GroupMembers.map(member => member.id);
     
+      console.log("IDSSSSSSSSSSSSSSS",memberIds);
        try {
           const response = await axios.post('http://127.0.0.1:8000/retriveUsersNotInGroup', memberIds ,{
      
@@ -625,20 +604,6 @@ function GroupPage(){
                 <span className="add-text">Create new ticket</span>
               </div>
 
-              <div className='user-icon'>
-                <img src={settings} className="add_plus" alt="add" />
-                <span className="add-text">Edit user settings</span>
-              </div>
-
-              <div className='user-icon' onClick={logOut}>
-                <img src={log_out} className="add_plus" alt="add" />
-                <span className="add-text">Exit</span>
-              </div>
-
-              <div className='user-icon' onClick={goBack}>
-                <img src={back} className="add_plus" alt="add" />
-                <span className="add-text">Go Back</span>
-              </div>
 
             </div>
 
