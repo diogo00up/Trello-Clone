@@ -551,6 +551,39 @@ function GroupPage(){
       
     };
 
+
+    const kickMember = async (user_id: number, group_id : number) => {
+      
+      console.log("KICK MEMBER");
+      console.log(user_id);
+      console.log(group_id);
+
+      if (!window.confirm("Are you sure you want to kick this member?")) return;
+
+      try {
+
+        const response = await axios.delete('http://127.0.0.1:8000/deleteUserGroupRelation', {
+  
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+  
+          data: { user_id, group_id  }  
+
+        });
+
+        
+        console.log(response.data);
+        adminSettingsClick();
+  
+        
+      } 
+      catch (error) {
+        console.error('Error deleting usergroup relation', error);
+      }
+      
+    };
+
     useEffect(() => {
         getGroups();
         }, 
@@ -633,7 +666,11 @@ function GroupPage(){
                           <a>IsAdmin ? 
                             <input type="checkbox" checked={member.is_admin} onChange={() => handleToggleAdmin(member.id, member.group_id, !member.is_admin)}/>
                           </a>
-                          <a>Kick member</a>
+
+                          {currentGroup?.id !== undefined && (
+                          <a className='kick-member' onClick={() => kickMember(member.id, currentGroup.id)}>Kick member</a>
+                          )}
+
                       </div>
                       ))
                     }

@@ -185,3 +185,16 @@ async def update_user_group(update_data: UserGroupUpdate, db: AsyncSession = Dep
     await db.refresh(row)
 
     return {"message": "UserGroup relation updated", "row: ": row}
+
+@router.delete("/deleteUserGroupRelation")
+async def delete_user_group(usergroup:  UserGroupCreate,  db: AsyncSession = Depends(get_db), current_user: User = Depends(get_current_user)):
+    result = await db.execute(select(user_group).where(usergroup.group_id == user_group.group_id).where(usergroup.user_id==user_group.user_id))
+    db_ticket = result.scalars().first()
+    if db_ticket is None:
+        raise HTTPException(status_code=404, detail="Ticket not found")
+    await db.delete(db_ticket)
+    await db.commit()
+
+    return {
+     f"User with id: {usergroup.user_id} deleted from user_group table!",
+    }
