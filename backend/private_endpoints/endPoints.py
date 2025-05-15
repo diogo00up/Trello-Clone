@@ -151,4 +151,15 @@ async def dashboard(current_user: User = Depends(get_current_user), db: AsyncSes
     return {"message": f"Sending to user with id: {current_user.id}!", "tickets": db_tickets}
 
 
+@router.get("/retrieveUserInfo")
+async def retrieve_user_info(current_user: User = Depends(get_current_user), db: AsyncSession = Depends(get_db)):
+    return {
+            "id": current_user.id,
+            "username":current_user.username,
+            "email": current_user.email,
+    }
+
+    
+
+
 

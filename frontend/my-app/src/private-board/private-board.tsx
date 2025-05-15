@@ -10,7 +10,7 @@ import back from '../icons/back2.svg'
 import FooterCustom from '../footer/footer';
 import HeaderCustom from '../header/header-other';
 import { DndContext, useDraggable, useDroppable, DragOverlay } from '@dnd-kit/core';
-import DropDown from '../shared-components/drop-dowm-menu/drop-down';
+
 
 type TicketProps = {
   id: string;   
@@ -276,25 +276,6 @@ function MainTable() {
           <img src={add_plus} className="add_plus" alt="add" />
           <span className="add-text">Create new ticket</span>
         </div>
-
-        <div className='user-icon'>
-          <img src={settings} className="add_plus" alt="add" />
-          <span className="add-text">Edit user settings</span>
-        </div>
-
-        <div className='user-icon' onClick={logOut}>
-          <img src={log_out} className="add_plus" alt="add" />
-          <span className="add-text">Exit</span>
-        </div>
-
-        <div className='user-icon' onClick={goBack}>
-          <img src={back} className="add_plus" alt="add" />
-          <span className="add-text">Go Back</span>
-        </div>
-
-        <div>
-
-        </div>        
 
       </div>
 
