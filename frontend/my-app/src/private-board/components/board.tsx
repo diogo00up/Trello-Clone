@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import '../styles/board.css';
 import add_plus from '../../icons/plus-circle.svg';
 import FooterCustom from '../../footer/footer';
@@ -8,51 +7,28 @@ import HeaderCustom from '../../header/header-other';
 import Ticket from './tickets';
 import Column from './column';
 import { DndContext, DragOverlay } from '@dnd-kit/core';
-import {TicketProps} from '../props/props'
-import { createTicket, linkTicketToUser,updateTicket,ticketLoad } from '../services/axios-calls';
+import { useTickets } from '../hooks/useTickets';
+import { TicketFormPopOuT } from './ticket-form-popout';
 
 function MainTable() {
-  const token = sessionStorage.getItem('access_token');
-  const [title, setTitle] = useState<string>('New title');
-  const [description, setDescription] = useState<string>('Insert new text');
-  const [tickets, setTickets] = useState<TicketProps[]>([]);
-  const [showPopup, setShowPopup] = useState<boolean>(false);
+
+  const {
+    tickets,
+    setTickets,
+    title,
+    setTitle,
+    description,
+    setDescription,
+    showPopup,
+    setShowPopup,
+    handleTicketLoad,
+    updateTicketAfterDrag, 
+    handleCreateTicket,       
+  } = useTickets();
+
   const [activeId, setActiveId] = useState<string | null>(null);
   const activeTicket = tickets.find((t) => t.id === activeId);
   const navigate = useNavigate();
-
-  const handleButtonClick = async () => {
-    try {
-      const response = await createTicket(title,description);
-      await linkTicketToUser(response.owner_id, response.ticket_id);
-      await handleTicketLoad();
-    }
-    catch (error) {
-        console.error('Error creating new ticket or ticket-user relation:', error);
-    }
-    setShowPopup(false);
-  };
-
-  const updateTicketAfterDrag = async (ticket_id: number, ticket_class: string) => {
-    try {
-      const response = await updateTicket(ticket_id,ticket_class);
-      console.log('Ticket class updated:', response);
-    } 
-    catch (error) {
-      console.error('Error updating ticket class:', error);
-    }
-  };
-
-  const handleTicketLoad = async () => {
-    try {
-      const response = await ticketLoad();
-      setTickets(response);
-      console.log("Sucesfull ticket load",response)
-    } 
-    catch (error) {
-      console.error('Failed ticket load:', error);
-    }
-  };
 
   const handleDragStart = (event: any) => {
     setActiveId(event.active.id); 
@@ -99,16 +75,8 @@ function MainTable() {
 
       </div>
 
-      {showPopup && (
-        <div className="pop-put-new-ticket">
-          <label htmlFor="title">New ticket title:</label>
-          <input type="text" id="title" value={title} onChange={(e) => setTitle(e.target.value)} />
-          <label htmlFor="new-ticket-description">New ticket description:</label>
-          <input type="text" id="new-ticket-description" value={description} onChange={(e) => setDescription(e.target.value)}/>
-          <button onClick={handleButtonClick}>Submit Ticket</button>
-          <button onClick={() => setShowPopup(false)}>Cancel</button>
-        </div>
-      )}
+      {showPopup &&  <TicketFormPopOuT title={title} setTitle={setTitle} description={description} setDescription={setDescription}
+      setShowPopup={setShowPopup} handleCreateTicket={handleCreateTicket} />}
 
       <div className="board-wrapper">
 

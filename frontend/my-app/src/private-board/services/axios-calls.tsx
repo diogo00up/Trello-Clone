@@ -23,7 +23,7 @@ export const updateTicket = async (ticket_id: number, ticket_class: string) => {
 
 export const ticketLoad = async () => {
   const response = await axios.get(`${API}/loadTickets`, authHeader());
-   return response.data.tickets.map((ticket: any) => ({
+  return response.data.tickets.map((ticket: any) => ({
     id: ticket.id,
     title: ticket.title,
     text: ticket.description,

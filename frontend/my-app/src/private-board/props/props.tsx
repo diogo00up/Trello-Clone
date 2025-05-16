@@ -12,3 +12,12 @@ export type ColumnProps = {
   tickets: TicketProps[];
   handleTicketLoad: () => void;
 };
+
+export type TicketFormProps = {
+  title: string;
+  setTitle: (val: string) => void;
+  description: string;
+  setDescription: (val: string) => void;
+  setShowPopup: (val: boolean) => void;
+  handleCreateTicket: () => void;
+}
