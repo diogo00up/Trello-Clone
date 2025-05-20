@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { TicketProps } from '../props/props';
 
 const API = 'http://127.0.0.1:8000';
 

@@ -3,7 +3,7 @@ import { useState } from 'react';
 import axios from 'axios';
 import OauthSuccess from '../google-components/auth-sucess';
 import PrivatePage from '../private-board/components/board'; 
-import GroupPage from '../team-board/team-board';
+import GroupPage from '../team-board/components/board';
 import { useNavigate } from 'react-router-dom';
 import './auth.css';
 import FooterCustom from '../footer/footer'

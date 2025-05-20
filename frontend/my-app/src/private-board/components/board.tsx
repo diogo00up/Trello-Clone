@@ -11,7 +11,6 @@ import { useTickets } from '../hooks/useTickets';
 import { TicketFormPopOuT } from './ticket-form-popout';
 
 function MainTable() {
-
   const {
     tickets,
     setTickets,
@@ -48,7 +47,6 @@ function MainTable() {
 
       setTickets(updatedTickets);
     }
-
     setActiveId(null);
   };
 
