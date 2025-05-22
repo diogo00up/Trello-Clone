@@ -1,6 +1,5 @@
 import { useState, useEffect,useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import '../styles/board.css';
 import FooterCustom from '../../footer/footer';
 import HeaderCustom from '../../header/header-other';
@@ -9,14 +8,13 @@ import close from '../../icons/x.svg'
 import tool from '../../icons/tool.svg'
 import { DndContext, DragOverlay } from '@dnd-kit/core';
 import "react-datepicker/dist/react-datepicker.css";
-import { groupProps,GroupChoiceProps,TicketProps,MembersInGroupProps,MembersNotInGroupProps } from '../props/props';
+import { groupProps,TicketProps,MembersInGroupProps,MembersNotInGroupProps } from '../props/props';
 import Column from './column';
 import GroupTicket from './tickets';
 import GroupChoice from './group-choice';
-import { updateTicket } from '../services/axios-calls';
+import { updateTicket,createTicket,retrieveGroups,loadTickets,getUserRole,getAllUsers,getNotGroupMember,updatedUserGroupRelation,createUserGroupRelation,deleteUserGroupRelation } from '../services/axios-calls';
 
 function GroupPage(){
-    const token = sessionStorage.getItem('access_token');
     const [Groups, SetGroups] = useState<groupProps[]>([]);
     const [currentGroup, SetCurrentGroup] = useState<groupProps>();
     const [tickets, setTickets] = useState<TicketProps[]>([]);
@@ -52,16 +50,9 @@ function GroupPage(){
       }
   
       try {
-        const response = await axios.post('http://127.0.0.1:8000/createGroupTicket', ticket, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-  
+        const response = await createTicket(ticket);
         console.log("Created the new Group ticket: ",response.data)
-      
         await loadGroupTickets();
-
       }
        catch (error) {
         console.error('Error creating new ticket:', error);
@@ -71,15 +62,9 @@ function GroupPage(){
 
     const getGroups = async () => {
         try {
-          const response = await axios.get('http://127.0.0.1:8000/groups', 
-            { headers: {
-                Authorization: `Bearer ${token}`,
-            },
-          });
-
+          const response = await retrieveGroups();
           SetGroups(response.data);     
           console.log('Groups from API: ', response.data);
-        
           } 
           catch (error) {
             console.error('Error getting Groups from API:', error);
@@ -88,14 +73,11 @@ function GroupPage(){
 
     const loadGroupTickets = async () => {
         setTickets([]); 
-        try {
-            const response = await axios.get('http://127.0.0.1:8000/GroupTickets', {
-                params: { group_id: currentGroup?.id }
-            });
-    
-            console.log('Tickets from API: ', response.data);
-            setTickets(response.data);
-        
+        try { 
+          const group_id =  currentGroup?.id 
+          const response = await loadTickets(group_id);
+          console.log('Tickets from API: ', response.data);
+          setTickets(response.data);    
           } 
           catch (error) {
             console.error('Error getting Groups from API:', error);
@@ -105,13 +87,7 @@ function GroupPage(){
     const loadAdminSetting = async () => {
       setTickets([]); 
       try {
-          const response = await axios.get('http://127.0.0.1:8000/getUserRole', {
-              headers: {
-                Authorization: `Bearer ${token}`,
-            },
-              params: { group_id: currentGroup?.id }
-          });
-
+          const response = await getUserRole(currentGroup?.id);
           console.log('Response about current User Role: ', response.data[0].is_admin);
           setIsAdmin(response.data[0].is_admin);
         } 
@@ -133,7 +109,6 @@ function GroupPage(){
           const updatedTickets = tickets.map((ticket) =>
           ticket.id === active.id ? { ...ticket, ticket_class: over.id } : ticket 
         );
-  
         setTickets(updatedTickets);
       }
   
@@ -147,47 +122,27 @@ function GroupPage(){
       }
       else{
         setAdminSettings(true);
-
         try {
-          const response = await axios.get('http://127.0.0.1:8000/getAllUsers', {
-              headers: {
-                Authorization: `Bearer ${token}`,
-            },
-              params: { group_id: currentGroup?.id }
-          });
-
+          const response = await getAllUsers(currentGroup?.id);
           console.log('Response about all Users: ', response.data);
           SetGroupMembers(response.data);
-     
         } 
-
         catch (error) {
           console.error('Error fetching all users:', error);
         } 
-
       }
-    
     }
 
     const retrieveNotInGroupMembers = async () => {
-    
       const memberIds = GroupMembers.map(member => member.id);
-    
-      console.log("IDSSSSSSSSSSSSSSS",memberIds);
        try {
-          const response = await axios.post('http://127.0.0.1:8000/retriveUsersNotInGroup', memberIds ,{
-     
-          });
-
+          const response = await getNotGroupMember(memberIds);
           console.log('Response about not in group Users: ', response.data);
           SetNotGroupMembers(response.data);
-          
         } 
-
         catch (error) {
           console.error('Error fetching all users:', error);
         }
-
     }
 
     const handleToggleAdmin = async (adminId: number,group_id:number, newStatus: boolean) => {
@@ -195,20 +150,7 @@ function GroupPage(){
       console.log(adminId);
       console.log(newStatus);
       try {
-  
-        const response = await axios.put('http://127.0.0.1:8000/updatedUserGroup',   {
-          user_id: adminId,          
-          group_id: group_id,        
-          is_admin: newStatus ? 1 : 0 
-        }, 
-          {
-            headers: {
-              Authorization: `Bearer ${token}`, 
-            },
-          }
-        );
-    
-       
+        const response = await updatedUserGroupRelation(adminId,group_id,newStatus);
         console.log('Admin role updated:', response.data);
         adminSettingsClick();
       } 
@@ -223,15 +165,7 @@ function GroupPage(){
       console.log(group_id);
       try {
   
-      const response = await axios.post('http://127.0.0.1:8000/createUserGroup', { user_id, group_id }, 
-
-        {
-          headers: {
-            Authorization: `Bearer ${token}`, 
-          },
-        }
-      );
-    
+        const response = await createUserGroupRelation(user_id,group_id);
         console.log('Added user to group:', response.data);
         adminSettingsClick();
         
@@ -252,15 +186,7 @@ function GroupPage(){
 
       try {
 
-        const response = await axios.delete('http://127.0.0.1:8000/deleteUserGroupRelation', {
-  
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-  
-          data: { user_id, group_id  }  
-
-        });
+        const response = await deleteUserGroupRelation(user_id,group_id);
 
         
         console.log(response.data);
