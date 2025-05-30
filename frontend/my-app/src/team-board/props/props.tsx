@@ -38,3 +38,15 @@ export type MembersNotInGroupProps = {
   id : number;
   username : string;
 }
+
+export type AdminSettingsProps = {
+  AdminSettingsRef: React.RefObject<HTMLDivElement>;
+  setAdminSettings: (val: boolean) => void;
+  GroupMembers: MembersInGroupProps[];
+  NotGroupMember: MembersNotInGroupProps[];
+  currentGroup: groupProps | undefined;
+  handleToggleAdmin: (adminId: number,group_id:number, newStatus: boolean) => void;
+  kickMember: (user_id: number, group_id : number) => void;
+  enviteMember: (userId: number, groupId: number) => void;
+
+}
